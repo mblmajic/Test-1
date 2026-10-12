@@ -1,0 +1,9 @@
+{
+ "url": "https://www.marocimmo.com/fr/location/bureau/casablanca",
+ "url_finale": "https://www.marocimmo.com/fr/location/bureau/casablanca",
+ "statut_http": null,
+ "date_observation": "2026-10-12T14:36:36Z",
+ "sha256_16": "",
+ "diagnostic": "limitation_outil",
+ "erreur": "Tunnel connection failed: 403 Forbidden"
+}

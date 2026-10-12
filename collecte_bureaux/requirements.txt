@@ -1,0 +1,2 @@
+# Aucune dépendance externe : bibliothèque standard Python >= 3.10 uniquement.
+# (urllib, html.parser, json, re, csv, gzip, hashlib, unittest)

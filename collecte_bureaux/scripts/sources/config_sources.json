@@ -1,0 +1,755 @@
+{
+ "version": "1.0.0",
+ "genere_le": "2026-10-12",
+ "sources": [
+  {
+   "source_id": 1,
+   "id_source": "BJRXSKEH",
+   "nom": "Mubawab",
+   "domaine": "mubawab.ma",
+   "url_principale": "https://www.mubawab.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://www.mubawab.ma/fr/st/casablanca/bureaux-et-commerces-a-louer"
+    ],
+    "VENTE": [
+     "https://www.mubawab.ma/fr/st/casablanca/bureaux-et-commerces-a-vendre"
+    ]
+   },
+   "pagination": "{url}:p:{n}",
+   "regex_lien_annonce": "mubawab\\.ma/fr/(?:a|pa)/\\d+",
+   "regex_reference": "/(?:a|pa)/(\\d+)",
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": true,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "LOCATION : référentiel ; VENTE : déduite du schéma LOCATION, notes du 2026-10-12 (15 pages vente) — à valider",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 2,
+   "id_source": "PY313LII",
+   "nom": "Avito.ma",
+   "domaine": "avito.ma",
+   "url_principale": "https://www.avito.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://www.avito.ma/fr/casablanca/bureaux_et_plateaux-%C3%A0_louer"
+    ],
+    "VENTE": [
+     "https://www.avito.ma/fr/casablanca/bureaux_et_plateaux-%C3%A0_vendre"
+    ]
+   },
+   "pagination": "{url}{sep}o={n}",
+   "regex_lien_annonce": "avito\\.ma/fr/[^/]+/bureaux[^/]*/[^/]+_\\d+\\.htm",
+   "regex_reference": "_(\\d+)\\.htm",
+   "methode_referentiel": "Apify",
+   "javascript_requis": true,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "notes du 2026-10-12 : bureaux_et_plateaux-à_louer / à_vendre ; ancien /bureaux générique",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 3,
+   "id_source": "CQVIW1ZC",
+   "nom": "Capital Foncier",
+   "domaine": "capitalfoncier.com",
+   "url_principale": "https://capitalfoncier.com/",
+   "routes": {
+    "LOCATION": [
+     "https://capitalfoncier.com/properties/"
+    ],
+    "VENTE": [
+     "https://capitalfoncier.com/properties/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 4,
+   "id_source": "L9UFJZBG",
+   "nom": "Val Foncier",
+   "domaine": "valfoncier.ma",
+   "url_principale": "https://valfoncier.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://valfoncier.ma/bien-immobilier/"
+    ],
+    "VENTE": [
+     "https://valfoncier.ma/bien-immobilier/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 5,
+   "id_source": "V479L2I1",
+   "nom": "Sarout.ma",
+   "domaine": "sarout.ma",
+   "url_principale": "https://sarout.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://sarout.ma/fr/bureau-casablanca"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "LOCATION : référentiel ; VENTE : route non documentée — à identifier (notes : 3 pages vente filtrées)",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 6,
+   "id_source": "153SFALB",
+   "nom": "MarocImmo",
+   "domaine": "marocimmo.com",
+   "url_principale": "https://www.marocimmo.com/",
+   "routes": {
+    "LOCATION": [
+     "https://www.marocimmo.com/fr/location/bureau/casablanca"
+    ],
+    "VENTE": [
+     "https://www.marocimmo.com/fr/vente/bureau/casablanca"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "LOCATION : référentiel ; VENTE : symétrique de la route LOCATION (notes : page directe Vente/Bureau/Casablanca) — à valider",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 7,
+   "id_source": "3AKHGJR7",
+   "nom": "1immo.ma",
+   "domaine": "1immo.ma",
+   "url_principale": "https://1immo.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://1immo.ma/"
+    ],
+    "VENTE": [
+     "https://1immo.ma/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 8,
+   "id_source": "MYPLGRQH",
+   "nom": "IMVALORY",
+   "domaine": "imvalory.com",
+   "url_principale": "https://www.imvalory.com/",
+   "routes": {
+    "LOCATION": [
+     "https://www.imvalory.com/bien/"
+    ],
+    "VENTE": [
+     "https://www.imvalory.com/bien/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 9,
+   "id_source": "D1F1KEDX",
+   "nom": "Contractors Real Estate",
+   "domaine": "contractors-re.ma",
+   "url_principale": "https://contractors-re.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://contractors-re.ma/properties/"
+    ],
+    "VENTE": [
+     "https://contractors-re.ma/properties/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 10,
+   "id_source": "77F353O0",
+   "nom": "Yakeey",
+   "domaine": "yakeey.com",
+   "url_principale": "https://yakeey.com/",
+   "routes": {
+    "LOCATION": [
+     "https://yakeey.com/fr-ma/location/bureaux/casablanca"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": true,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "LOCATION : référentiel ; VENTE : non documentée — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 11,
+   "id_source": "WH8GBK6T",
+   "nom": "Cantarel Immobilier",
+   "domaine": "cantarelimmobilier.com",
+   "url_principale": "https://www.cantarelimmobilier.com/",
+   "routes": {
+    "LOCATION": [
+     "https://www.cantarelimmobilier.com/bien"
+    ],
+    "VENTE": [
+     "https://www.cantarelimmobilier.com/bien"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 12,
+   "id_source": "OOFK8Z4I",
+   "nom": "Sarouty.ma",
+   "domaine": "sarouty.ma",
+   "url_principale": "https://www.sarouty.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://www.sarouty.ma/plp/professionnel-louer/bureaux-a-louer-casablanca"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "Browser",
+   "javascript_requis": true,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 13,
+   "id_source": "ITQ0WAHA",
+   "nom": "MarocAnnonces",
+   "domaine": "marocannonces.com",
+   "url_principale": "https://www.marocannonces.com/",
+   "routes": {
+    "LOCATION": [
+     "https://www.marocannonces.com/categorie/337/Location-immobilier/Bureaux-Plateaux/465.html"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}pge={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "LOCATION : référentiel ; VENTE : catégorie vente non documentée — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 14,
+   "id_source": "HG82KT0Q",
+   "nom": "Properstar",
+   "domaine": "properstar.fr",
+   "url_principale": "https://www.properstar.fr/",
+   "routes": {
+    "LOCATION": [
+     "https://www.properstar.fr/maroc/casablanca/louer/bureau"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "Browser",
+   "javascript_requis": true,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 15,
+   "id_source": "4S33IO4R",
+   "nom": "Century 21 Ollier / Casablanca",
+   "domaine": "century21casablanca.com",
+   "url_principale": "https://century21casablanca.com/",
+   "routes": {
+    "LOCATION": [
+     "https://century21casablanca.com/property/"
+    ],
+    "VENTE": [
+     "https://century21casablanca.com/property/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 16,
+   "id_source": "01Q39A4F",
+   "nom": "Century 21 Casa",
+   "domaine": "century21casa.ma",
+   "url_principale": "https://century21casa.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://century21casa.ma/proprietes/"
+    ],
+    "VENTE": [
+     "https://century21casa.ma/proprietes/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 17,
+   "id_source": "Y6AM850V",
+   "nom": "ExperTeam",
+   "domaine": "experteam.ma",
+   "url_principale": "https://www.experteam.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://www.experteam.ma/"
+    ],
+    "VENTE": [
+     "https://www.experteam.ma/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 18,
+   "id_source": "R2FR0JP5",
+   "nom": "Home Finder",
+   "domaine": "homefinder.ma",
+   "url_principale": "https://homefinder.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://homefinder.ma/location/bureau/casablanca"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 19,
+   "id_source": "C38RZXAP",
+   "nom": "Agenz",
+   "domaine": "agenz.ma",
+   "url_principale": "https://agenz.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://agenz.ma/fr/louer/immo-casablanca/location-bureaux"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "Browser",
+   "javascript_requis": true,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "notes du 2026-10-12 : catalogues sous /fr/louer et /fr/acheter ; chemin VENTE exact non enregistré — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 20,
+   "id_source": "E2842JPD",
+   "nom": "SoukImmobilier",
+   "domaine": "soukimmobilier.com",
+   "url_principale": "https://www.soukimmobilier.com/",
+   "routes": {
+    "LOCATION": [
+     "https://www.soukimmobilier.com/fr/casablanca/bureau"
+    ],
+    "VENTE": [
+     "https://www.soukimmobilier.com/fr/casablanca/bureau"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 21,
+   "id_source": "35V3L1BM",
+   "nom": "Lazrak Brokerage",
+   "domaine": "alz.ma",
+   "url_principale": "https://www.alz.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://www.alz.ma/"
+    ],
+    "VENTE": [
+     "https://www.alz.ma/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 22,
+   "id_source": "BPCDZOJ1",
+   "nom": "Bureau Casablanca",
+   "domaine": "bureau-casablanca.com",
+   "url_principale": "https://bureau-casablanca.com/",
+   "routes": {
+    "LOCATION": [
+     "https://bureau-casablanca.com/"
+    ],
+    "VENTE": [
+     "https://bureau-casablanca.com/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 23,
+   "id_source": "3RIAA9OU",
+   "nom": "Horus Transactions",
+   "domaine": "bureaucasablanca.ma",
+   "url_principale": "https://bureaucasablanca.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://bureaucasablanca.ma/"
+    ],
+    "VENTE": [
+     "https://bureaucasablanca.ma/"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 24,
+   "id_source": "I61VTTFA",
+   "nom": "Daba Annonce",
+   "domaine": "dabaannonce.ma",
+   "url_principale": "https://dabaannonce.ma/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": [
+     "https://dabaannonce.ma/vente-immobiliere/casablanca"
+    ]
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": "HTTP direct",
+   "javascript_requis": false,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel ; route qualifiée « vente » réservée à VENTE, LOCATION à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 25,
+   "id_source": "ASJ766V4",
+   "nom": "Kaynly",
+   "domaine": "kaynly.com",
+   "url_principale": "https://kaynly.com/",
+   "routes": {
+    "LOCATION": [
+     "https://kaynly.com/location/casablanca/bureaux"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 26,
+   "id_source": "DCO9HMJV",
+   "nom": "Noura Immobilier",
+   "domaine": "nouraimmobilier.ma",
+   "url_principale": "https://nouraimmobilier.ma/",
+   "routes": {
+    "LOCATION": [
+     "https://nouraimmobilier.ma/location/casablanca/bureaux"
+    ],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "url_recherche_bureaux_casablanca du référentiel",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 28,
+   "id_source": "J33SOWAQ",
+   "nom": "Neximo",
+   "domaine": "neximo.ma",
+   "url_principale": "https://neximo.ma/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 29,
+   "id_source": "BU8LKOMS",
+   "nom": "Guy Hoquet Casablanca",
+   "domaine": "casablanca.guy-hoquet.com",
+   "url_principale": "https://casablanca.guy-hoquet.com/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 30,
+   "id_source": "PBS0GHX7",
+   "nom": "Milkiya",
+   "domaine": "milkiya.ma",
+   "url_principale": "https://www.milkiya.ma/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 31,
+   "id_source": "UKT0F08Q",
+   "nom": "Groupi",
+   "domaine": "groupi.ma",
+   "url_principale": "https://groupi.ma/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 32,
+   "id_source": "ITAP0IAS",
+   "nom": "Yesken",
+   "domaine": "yesken.com",
+   "url_principale": "https://yesken.com/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 33,
+   "id_source": "ZBY7292E",
+   "nom": "Ardocco",
+   "domaine": "ardocco.com",
+   "url_principale": "https://www.ardocco.com/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 34,
+   "id_source": "8OVB8TXM",
+   "nom": "Kettani Immobilier",
+   "domaine": "kettani-immobilier.com",
+   "url_principale": "https://www.kettani-immobilier.com/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 35,
+   "id_source": "VINBB4QK",
+   "nom": "Groupe Mfadel",
+   "domaine": "groupemfadel.com",
+   "url_principale": "https://www.groupemfadel.com/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  },
+  {
+   "source_id": 36,
+   "id_source": "A7CTF9KY",
+   "nom": "Next House Group",
+   "domaine": "nexthousegroup.ma",
+   "url_principale": "https://nexthousegroup.ma/",
+   "routes": {
+    "LOCATION": [],
+    "VENTE": []
+   },
+   "pagination": "{url}{sep}page={n}",
+   "regex_lien_annonce": null,
+   "regex_reference": null,
+   "methode_referentiel": null,
+   "javascript_requis": null,
+   "routes_validees_ce_passage": false,
+   "origine_routes": "aucune URL bureaux dans le référentiel — à identifier",
+   "adaptateur": "générique (JSON-LD / __NEXT_DATA__ / liens)"
+  }
+ ]
+}

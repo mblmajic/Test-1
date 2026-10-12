@@ -1,0 +1,164 @@
+===== 1 Mubawab mubawab.ma Portail immobilier Moyen JS True Pages
+  url_principale : https://www.mubawab.ma/
+  url_recherche_immobilier : https://www.mubawab.ma/fr/
+  notes_techniques_scraping : Compteur natif visible. Préférer pagination autorisée et navigateur si le rendu dynamique l'exige. / [2026-10-12T11:35:40.882Z] HTTPdirect200 et JSON-LD disponibles. Pagination native :p:N. Les paramètres GETminSurface/maxSurface sont ignorés : ne pas prétendre à un filtre actif. Catalogueparcouruintegralement(67pageslocation,15vente), promotionsdedoublonnées parURL. Surfaceinterieure doit être relue dans la description ; plusieurs incohérences prix/zone/surfaceobservées.
+  resume_expert_bureaux_ia : LOCATION: 67 pages natives et 46 fiches candidates contrôlées ; 2147 cartes uniques incluant promotions (2117 résultats annoncés). 31 annonces avec surface compatible ; 7 dossiers surface/lot à vérifier enregistrés séparément, plus4contradictionsprix/quartier. 8 candidats exclus pour surface globale/terrasse, coworking ou absence de lot individualisé. 38 créations dont7nonconfirmées. Doublon potentiel MI529/8209256 nonfusionné. Aucun blocage HTTPobservé. / VENTE: 15 pages natives et6 fiches candidates contrôlées ;475cartesuniquesincluantpromotions(460annoncées). Aucune annonce individuelle avec surface intérieure200–209confirmée.4dossiersàvérifier : lot200dansgammes(2),205terrasseincluse(1),localcommercial204usagebureauàconfirmer(1).2candidatsexclushorspérimètre.4créationsprovisoires, aucun blocageHTTP.
+===== 2 Avito.ma avito.ma Marketplace Fort JS True Mixte
+  url_principale : https://www.avito.ma/
+  url_recherche_immobilier : https://www.avito.ma/fr/maroc/immobilier
+  notes_techniques_scraping : Site dynamique et protection anti-bot probable; privilégier navigateur/Apify conforme et cadence faible. / [2026-10-12T12:00:33.614Z] Accès HTTPdirect200 sans blocage du collecteur. URL correcte bureaux_et_plateaux-à_louer/à_vendre ; ancien /bureaux vise une recherche générique toutescatégories. Filtre natif size=200- confirmé(228locations,56ventes). JSON __NEXT_DATA__ fournit adInfo.ad,adId,listId,description,paramètres etcontacts publics. Surface totale exigelecture. listTime peut correspondre à une remise en liste, ne pas l’appeler premièrepublication.
+  resume_expert_bureaux_ia : LOCATION: Catalogue natif bureaux location, filtreminimum200m² :228cartes uniques sur7pages ;28fiches candidates individuelles toutes accessibles.18annonces de surface compatible,6dossiers surface/lot/cession à clarifier et4exclusions(coworking,140m²réels,187m²réels,immeuble3374m²).20créations et4rapprochements confirmés avec identifiants importés Sarout. Une date de remise en liste n’est pas assimilée à la première publication. / VENTE: 56résultats annoncés ;70cartesuniques visibles avecpromotions,2pageslues et3fichescandidatescontrôlées.1bureau203m² proposé à3millionsMAD selon description, prix affiché20000ambigu à confirmer. Immeuble3374m² et droitau bail180m² exclus.1création ; aucune suppression d’annonces.
+===== 3 Capital Foncier capitalfoncier.com Agence immobilière Faible JS False Pages
+  url_principale : https://capitalfoncier.com/
+  url_recherche_immobilier : https://capitalfoncier.com/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 4 Val Foncier valfoncier.ma Agence immobilière Faible JS False Pages
+  url_principale : https://valfoncier.ma/
+  url_recherche_immobilier : https://valfoncier.ma/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 5 Sarout.ma sarout.ma Portail immobilier Faible JS False Pages
+  url_principale : https://sarout.ma/
+  url_recherche_immobilier : https://sarout.ma/fr/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès. / [2026-10-12T11:41:07.558Z] HTTPdirect et JSON-LD accessibles ; filtre natif surface=200 impose bien un minimum200m² ;7pageslocation et3vente. Plusieurs fiches sont des reprises avec identifiant importé ; relire la source d’origine quand une terrasse ou un usage commercial est ambigu.
+  resume_expert_bureaux_ia : LOCATION: 126 annonces dans le filtre natif à partir de200m²,7pages lues,13fiches candidates contrôlées.8annonces de surface compatible (dont2déjà enregistrées surMubawab et rattachées à la même ligne),4dossiers surface/usage à vérifier.1exclusion : Sarout8464 reprend Mubawab7831558 dont205m²incluent40m²terrasse.10créations et2enrichissements.1zone contradictoireMoulayYoussef/Gauthier à clarifier. / VENTE: 56annonces de vente dans le filtre natif à partir de200m² ;3pages toutes lues. Aucune carte n’indique un bureau individuel de200à209m². Recherche complète sur ce catalogue filtré ; pas de résultat éligible observé.
+===== 6 MarocImmo marocimmo.com Agrégateur Faible JS False Pages
+  url_principale : https://www.marocimmo.com/
+  url_recherche_immobilier : https://www.marocimmo.com/fr
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès. / [2026-10-12T11:22:36.703Z] HTTP direct 200 ; catalogue courant SSR et JSON-LD accessibles. Location22annonces et vente0, différents des anciennes pages indexées. Aucun blocage observé ; exclure les surfaces globales incluant terrasse.
+  resume_expert_bureaux_ia : LOCATION: Catalogue direct actuel : 22 annonces, 22 liens uniques sans pagination. 1 retenue MI-529 à Racine 200 m², 30000 MAD/mois. MI-530 exclue : 204 m² au total dont terrasse39, donc intérieur165. Les anciens résultats indexés ne prouvent pas le catalogue courant. / VENTE: Page directe Vente/Bureau/Casablanca : aucune annonce ne correspond à la recherche. Zéro offre éligible dans le catalogue courant, sans extrapolation aux anciens contenus indexés.
+===== 7 1immo.ma 1immo.ma Portail immobilier Faible JS False Pages
+  url_principale : https://1immo.ma/
+  url_recherche_immobilier : https://1immo.ma/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 8 IMVALORY imvalory.com Agence immobilière Faible JS False Pages
+  url_principale : https://www.imvalory.com/
+  url_recherche_immobilier : https://www.imvalory.com/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 9 Contractors Real Estate contractors-re.ma Agence immobilière Faible JS False Pages
+  url_principale : https://contractors-re.ma/
+  url_recherche_immobilier : https://contractors-re.ma/properties/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 10 Yakeey yakeey.com Portail immobilier Moyen JS True Mixte
+  url_principale : https://yakeey.com/
+  url_recherche_immobilier : https://yakeey.com/fr-ma
+  notes_techniques_scraping : VÉRIFIÉ 2026-09-29: même accès (GET headers navigateur + cookie jar), 167 cartes uniques sur 7 pages, page 8 vide (0 carte); 156 Casa + 10 Bouskoura + 1 Dar Bouazza (hors périmètre, exclues); 1 nouvelle CI215021, 155 mises à jour (6e détection), 1 prix actualisé CI200140 (32000->28500), 1 fibre corrigée CI201596 (Non->Oui); CI169922 non retrouvée conservée sans modification. VÉRIFIÉ 2026-10-02: même accès, 168 cartes uniques sur 7 pages, page 8 vide; CHANGEMENT SITE: les URLs détail (cb..) ne redirigent PLUS vers le slug canonique ci.. (308 supprimé) — page servie directement; la référence canonique est lisible dans la page (class propertyid, ex. CI215953) ou dans les URLs photos CDN; 3 nouvelles (CI215953/CI216139/CI216138, quartier Facultes); 6 annonces quartier Racine (cb171466/cb171467/cb171468/cb171471/cb020713/cb020712) renvoient une page erreur Next.js (id=__next_error__, pas de m
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 11 Cantarel Immobilier cantarelimmobilier.com Agence immobilière Faible JS False Pages
+  url_principale : https://www.cantarelimmobilier.com/
+  url_recherche_immobilier : https://www.cantarelimmobilier.com/bien
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 12 Sarouty.ma sarouty.ma Portail immobilier Moyen JS True Mixte
+  url_principale : https://www.sarouty.ma/
+  url_recherche_immobilier : https://www.sarouty.ma/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 13 MarocAnnonces marocannonces.com Portail généraliste Faible JS False Pages
+  url_principale : https://www.marocannonces.com/
+  url_recherche_immobilier : https://www.marocannonces.com/categorie/337/Location-immobilier/Bureaux-Plateaux/465.html
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 14 Properstar properstar.fr Agrégateur Moyen JS True Pages
+  url_principale : https://www.properstar.fr/
+  url_recherche_immobilier : https://www.properstar.fr/maroc
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 15 Century 21 Ollier / Casablanca century21casablanca.com Agence immobilière Faible JS False Pages
+  url_principale : https://century21casablanca.com/
+  url_recherche_immobilier : https://century21casablanca.com/property/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 16 Century 21 Casa century21casa.ma Agence immobilière Faible JS False Pages
+  url_principale : https://century21casa.ma/
+  url_recherche_immobilier : https://century21casa.ma/proprietes/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 17 ExperTeam experteam.ma Agence immobilière Faible JS False Indéterminé
+  url_principale : https://www.experteam.ma/
+  url_recherche_immobilier : https://www.experteam.ma/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 18 Home Finder homefinder.ma Agence immobilière Faible JS False Pages
+  url_principale : https://homefinder.ma/
+  url_recherche_immobilier : https://homefinder.ma/
+  notes_techniques_scraping : Valider robots.txt, conditions d'utilisation et cadence avant chaque run. Ne contourner aucun contrôle d'accès.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 19 Agenz agenz.ma Portail immobilier Moyen JS True Pages
+  url_principale : https://agenz.ma/
+  url_recherche_immobilier : https://agenz.ma/fr/annonces
+  notes_techniques_scraping : Vérifier robots.txt et conditions d'utilisation avant automatisation; cadence respectueuse. / [2026-10-12T11:47:10.108Z] Site actualisé : anciens chemins du référentiel404, catalogues corrects sous /fr/louer et /fr/acheter. HTTPdirect200 et paginationvia /fr/list.htm?page=... . Location311cartes cohérentes ; vente189cartes pour190compteur, à réconcilier. Les résultats indexés anciens ne doivent pas être importés comme disponibilité courante.
+  resume_expert_bureaux_ia : LOCATION: Ancienne URL du référentiel en404 ; nouvelle URL identifiée.9pages natives parcourues,311cartes uniques,4fiches contrôlées.3bureaux de200–201m² retenus. Villa1200m² exclue(faux positif du séparateur de milliers).1quartiercontradictoire et1surfacetotaleàconfirmer ; doublonpossible Cantarel/Mubawab nonfusionné. / VENTE: Nouvelle URL vente accessible après404de l’ancienne.6pages natives lues ;189cartes uniques pour190annoncées. Aucune carte200–209observée. Couverture partielle par écart de réconciliation ; zéro résultat observé ne constitue pas un zéro exhaustif.
+===== 20 SoukImmobilier soukimmobilier.com Portail immobilier Faible JS False Pages
+  url_principale : https://www.soukimmobilier.com/
+  url_recherche_immobilier : https://www.soukimmobilier.com/fr/
+  notes_techniques_scraping : Vérifier robots.txt et conditions d'utilisation avant automatisation; cadence respectueuse.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 21 Lazrak Brokerage alz.ma Agence immobilière Faible JS False Indéterminé
+  url_principale : https://www.alz.ma/
+  url_recherche_immobilier : https://www.alz.ma/
+  notes_techniques_scraping : Vérifier robots.txt et conditions d'utilisation avant automatisation; cadence respectueuse.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 22 Bureau Casablanca bureau-casablanca.com Agence immobilière Aucun observé JS False Indéterminé
+  url_principale : https://bureau-casablanca.com/
+  url_recherche_immobilier : https://bureau-casablanca.com/
+  notes_techniques_scraping : Vérifier robots.txt et conditions d'utilisation avant automatisation; cadence respectueuse.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 23 Horus Transactions bureaucasablanca.ma Agence immobilière Aucun observé JS False Indéterminé
+  url_principale : https://bureaucasablanca.ma/
+  url_recherche_immobilier : https://bureaucasablanca.ma/
+  notes_techniques_scraping : Vérifier robots.txt et conditions d'utilisation avant automatisation; cadence respectueuse.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 24 Daba Annonce dabaannonce.ma Marketplace Faible JS False Pages
+  url_principale : https://dabaannonce.ma/
+  url_recherche_immobilier : https://dabaannonce.ma/immobilier
+  notes_techniques_scraping : Vérifier robots.txt et conditions d'utilisation avant automatisation; cadence respectueuse.
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 25 Kaynly kaynly.com Agrégateur None JS None None
+  url_principale : https://kaynly.com/
+  url_recherche_immobilier : https://kaynly.com/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 26 Noura Immobilier nouraimmobilier.ma Agence None JS None None
+  url_principale : https://nouraimmobilier.ma/
+  url_recherche_immobilier : https://nouraimmobilier.ma/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 28 Neximo neximo.ma Portail immobilier None JS None None
+  url_principale : https://neximo.ma/
+  url_recherche_immobilier : https://neximo.ma/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 29 Guy Hoquet Casablanca casablanca.guy-hoquet.com Agence immobilière None JS None None
+  url_principale : https://casablanca.guy-hoquet.com/
+  url_recherche_immobilier : https://casablanca.guy-hoquet.com/biens
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 30 Milkiya milkiya.ma Réseau d'agences None JS None None
+  url_principale : https://www.milkiya.ma/
+  url_recherche_immobilier : https://www.milkiya.ma/fr_fr/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 31 Groupi groupi.ma Marketplace None JS None None
+  url_principale : https://groupi.ma/
+  url_recherche_immobilier : https://groupi.ma/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 32 Yesken yesken.com Agrégateur None JS None None
+  url_principale : https://yesken.com/
+  url_recherche_immobilier : https://yesken.com/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 33 Ardocco ardocco.com Autre None JS None None
+  url_principale : https://www.ardocco.com/
+  url_recherche_immobilier : https://www.ardocco.com/promoteurs
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 34 Kettani Immobilier kettani-immobilier.com Autre None JS None None
+  url_principale : https://www.kettani-immobilier.com/
+  url_recherche_immobilier : https://www.kettani-immobilier.com/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 35 Groupe Mfadel groupemfadel.com Autre None JS None None
+  url_principale : https://www.groupemfadel.com/
+  url_recherche_immobilier : https://www.groupemfadel.com/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.
+===== 36 Next House Group nexthousegroup.ma Autre None JS None None
+  url_principale : https://nexthousegroup.ma/
+  url_recherche_immobilier : https://nexthousegroup.ma/
+  resume_expert_bureaux_ia : 2 missions Expert bureaux préparées pour le bloc 200 à 209 m² : LOCATION et VENTE. Lancement manuel en attente. Aucun passage dans ce dispositif ; taux non évalués. Diagnostics et historiques existants conservés. Recalculer les compteurs depuis les exécutions liées aux missions expert bureaux, sans double comptage lors des reprises.

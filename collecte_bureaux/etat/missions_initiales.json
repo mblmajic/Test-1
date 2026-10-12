@@ -1,0 +1,3322 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "nom_mission": "200 à 209 m² — MarocImmo — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "1",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.marocimmo.com/fr/location/bureau/casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-6|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 6,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "3",
+      "annonces_examinees": "22",
+      "annonces_retenues": "1",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 6,
+        "nom_source": "MarocImmo",
+        "Nom Source": "MarocImmo"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 2,
+          "execution_id": "J0V2CR47",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 1,
+          "Identifiant de l’exécution": "J0V2CR47"
+        }
+      ],
+      "total biens 200 299m2": [
+        {
+          "id": 1,
+          "titre": "Bureau de 200 m² à louer à Racine",
+          "Titre": "Bureau de 200 m² à louer à Racine"
+        }
+      ],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 2,
+      "nom_mission": "200 à 209 m² — MarocImmo — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "2",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.marocimmo.com/fr/location/bureau/casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-6|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 6,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "1",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 6,
+        "nom_source": "MarocImmo",
+        "Nom Source": "MarocImmo"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 3,
+          "execution_id": "5FADAASK",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 2,
+          "Identifiant de l’exécution": "5FADAASK"
+        }
+      ],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 3,
+      "nom_mission": "200 à 209 m² — Mubawab — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "3",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.mubawab.ma/fr/st/casablanca/bureaux-et-commerces-a-louer",
+      "methode_prevue": "Mixte",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-1|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 1,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "113",
+      "annonces_examinees": "2147",
+      "annonces_retenues": "31",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 1,
+        "nom_source": "Mubawab",
+        "Nom Source": "Mubawab"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 4,
+          "execution_id": "9QF00T0H",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 3,
+          "Identifiant de l’exécution": "9QF00T0H"
+        }
+      ],
+      "total biens 200 299m2": [
+        {
+          "id": 2,
+          "titre": "Beau bureau immeuble pro moderne location racine",
+          "Titre": "Beau bureau immeuble pro moderne location racine"
+        },
+        {
+          "id": 3,
+          "titre": "Bureau 245 m² Racine",
+          "Titre": "Bureau 245 m² Racine"
+        },
+        {
+          "id": 4,
+          "titre": "À louer spacieux bureau de 201m² gauthier",
+          "Titre": "À louer spacieux bureau de 201m² gauthier"
+        },
+        {
+          "id": 5,
+          "titre": "Plateau bureau 211 m² Quartier Maarif",
+          "Titre": "Plateau bureau 211 m² Quartier Maarif"
+        },
+        {
+          "id": 6,
+          "titre": "Villa Bureau 230 m²",
+          "Titre": "Villa Bureau 230 m²"
+        },
+        {
+          "id": 7,
+          "titre": "Bureau à louer sur Gauthier 200 m²",
+          "Titre": "Bureau à louer sur Gauthier 200 m²"
+        },
+        {
+          "id": 8,
+          "titre": "Bureau à Louer de 203.0 m² à,",
+          "Titre": "Bureau à Louer de 203.0 m² à,"
+        },
+        {
+          "id": 9,
+          "titre": "Bureau à Louer de 203.0 m² à Casablanca, Sidi Maarouf",
+          "Titre": "Bureau à Louer de 203.0 m² à Casablanca, Sidi Maarouf"
+        },
+        {
+          "id": 10,
+          "titre": "Plateau de bureau entre 200 à 1800m centre ville",
+          "Titre": "Plateau de bureau entre 200 à 1800m centre ville"
+        },
+        {
+          "id": 11,
+          "titre": "Bureau à Louer de 200.0 m² à Casablanca, Quartier Avenue Des Far",
+          "Titre": "Bureau à Louer de 200.0 m² à Casablanca, Quartier Avenue Des Far"
+        },
+        {
+          "id": 12,
+          "titre": "À louer – Bureau premium de 200 m² à Casablanca Finance City CFC",
+          "Titre": "À louer – Bureau premium de 200 m² à Casablanca Finance City CFC"
+        },
+        {
+          "id": 13,
+          "titre": "Plateau de bureau 200m boulevard ziraoui",
+          "Titre": "Plateau de bureau 200m boulevard ziraoui"
+        },
+        {
+          "id": 14,
+          "titre": "Bureaux de 200 à 4000 m²",
+          "Titre": "Bureaux de 200 à 4000 m²"
+        },
+        {
+          "id": 15,
+          "titre": "Plateau de bureau lpb427 de 200 m² a sidi maarouf",
+          "Titre": "Plateau de bureau lpb427 de 200 m² a sidi maarouf"
+        },
+        {
+          "id": 16,
+          "titre": "Location Bureau à sidi belyout",
+          "Titre": "Location Bureau à sidi belyout"
+        },
+        {
+          "id": 17,
+          "titre": "Bureau 200 m2",
+          "Titre": "Bureau 200 m2"
+        },
+        {
+          "id": 18,
+          "titre": "Plateau bureau haut standing LPB 660 a racine de 200m²",
+          "Titre": "Plateau bureau haut standing LPB 660 a racine de 200m²"
+        },
+        {
+          "id": 19,
+          "titre": "Bureau duplex à louer, Gauthier",
+          "Titre": "Bureau duplex à louer, Gauthier"
+        },
+        {
+          "id": 20,
+          "titre": "Bureau à louer 200m à Anfa à Casablanca",
+          "Titre": "Bureau à louer 200m à Anfa à Casablanca"
+        },
+        {
+          "id": 21,
+          "titre": "Bureau 200 M² Aménagé A Louer Anfa",
+          "Titre": "Bureau 200 M² Aménagé A Louer Anfa"
+        },
+        {
+          "id": 22,
+          "titre": "Location Bureau à sidi belyout",
+          "Titre": "Location Bureau à sidi belyout"
+        },
+        {
+          "id": 23,
+          "titre": "Bureau à louer de 209m² Florida Park, Sidi Maarouf",
+          "Titre": "Bureau à louer de 209m² Florida Park, Sidi Maarouf"
+        },
+        {
+          "id": 24,
+          "titre": "Plateau de bureau à louer sur GAUTHIER",
+          "Titre": "Plateau de bureau à louer sur GAUTHIER"
+        },
+        {
+          "id": 25,
+          "titre": "Plateau de bureau à louer sur Bd ZOULIKHA NACIRI",
+          "Titre": "Plateau de bureau à louer sur Bd ZOULIKHA NACIRI"
+        },
+        {
+          "id": 26,
+          "titre": "Spacieux Bureau de 200m² à Louer",
+          "Titre": "Spacieux Bureau de 200m² à Louer"
+        },
+        {
+          "id": 27,
+          "titre": "Plateau de bureau à louer Bd d'ANFA",
+          "Titre": "Plateau de bureau à louer Bd d'ANFA"
+        },
+        {
+          "id": 28,
+          "titre": "Plateau de bureau à louer à FONCIERE",
+          "Titre": "Plateau de bureau à louer à FONCIERE"
+        },
+        {
+          "id": 29,
+          "titre": "Superbe bureau à louer à Racine – Emplacement idéal",
+          "Titre": "Superbe bureau à louer à Racine – Emplacement idéal"
+        },
+        {
+          "id": 30,
+          "titre": "Plateau de bureau à louer à BD D'ANFA",
+          "Titre": "Plateau de bureau à louer à BD D'ANFA"
+        },
+        {
+          "id": 31,
+          "titre": "Plateau de bureau à louer sur Bd ZOULIKHA NACIRI",
+          "Titre": "Plateau de bureau à louer sur Bd ZOULIKHA NACIRI"
+        },
+        {
+          "id": 32,
+          "titre": "À louer – Plateau de bureaux de 200 m² – Centre ville, Casablanca",
+          "Titre": "À louer – Plateau de bureaux de 200 m² – Centre ville, Casablanca"
+        },
+        {
+          "id": 33,
+          "titre": "Plateau de bureau à louer sur Bd d'ANFA",
+          "Titre": "Plateau de bureau à louer sur Bd d'ANFA"
+        },
+        {
+          "id": 34,
+          "titre": "Plateau de bureau premium de 200 m avec vue panoramique a la location en plein quartier ANFA",
+          "Titre": "Plateau de bureau premium de 200 m avec vue panoramique a la location en plein quartier ANFA"
+        },
+        {
+          "id": 35,
+          "titre": "Plateau de bureau premium aménagé de 208 m a la location au sein de la marina",
+          "Titre": "Plateau de bureau premium aménagé de 208 m a la location au sein de la marina"
+        },
+        {
+          "id": 36,
+          "titre": "Beau bureau à louer sur bourgogne",
+          "Titre": "Beau bureau à louer sur bourgogne"
+        },
+        {
+          "id": 37,
+          "titre": "Plateau bureau neuf de 207m2 à la location Sidi Maarouf Florida",
+          "Titre": "Plateau bureau neuf de 207m2 à la location Sidi Maarouf Florida"
+        },
+        {
+          "id": 38,
+          "titre": "Plateau bureau 207m2 à la location Bd la corniche",
+          "Titre": "Plateau bureau 207m2 à la location Bd la corniche"
+        },
+        {
+          "id": 39,
+          "titre": "Location de bureaux à partir de 110 m2, Zerktouni, Casablanca",
+          "Titre": "Location de bureaux à partir de 110 m2, Zerktouni, Casablanca"
+        }
+      ],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 4,
+      "nom_mission": "200 à 209 m² — Mubawab — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "4",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.mubawab.ma/fr/st/casablanca/bureaux-et-commerces-a-louer",
+      "methode_prevue": "Mixte",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-1|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 1,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "21",
+      "annonces_examinees": "475",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 1,
+        "nom_source": "Mubawab",
+        "Nom Source": "Mubawab"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 5,
+          "execution_id": "YJEWYCAZ",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 4,
+          "Identifiant de l’exécution": "YJEWYCAZ"
+        }
+      ],
+      "total biens 200 299m2": [
+        {
+          "id": 40,
+          "titre": "Plateaux Bureaux Clé En Main à Vendre",
+          "Titre": "Plateaux Bureaux Clé En Main à Vendre"
+        },
+        {
+          "id": 41,
+          "titre": "Bureau 205 m² cloisonné avec terrasse",
+          "Titre": "Bureau 205 m² cloisonné avec terrasse"
+        },
+        {
+          "id": 42,
+          "titre": "Local commercial La Villette – Casablanca",
+          "Titre": "Local commercial La Villette – Casablanca"
+        },
+        {
+          "id": 43,
+          "titre": "Des plateaux bureaux à vendre à Belvedere",
+          "Titre": "Des plateaux bureaux à vendre à Belvedere"
+        }
+      ],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 5,
+      "nom_mission": "200 à 209 m² — Sarout.ma — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "5",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://sarout.ma/fr/bureau-casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-5|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 5,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "20",
+      "annonces_examinees": "126",
+      "annonces_retenues": "6",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 5,
+        "nom_source": "Sarout.ma",
+        "Nom Source": "Sarout.ma"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 6,
+          "execution_id": "H6A3WN4G",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 5,
+          "Identifiant de l’exécution": "H6A3WN4G"
+        }
+      ],
+      "total biens 200 299m2": [
+        {
+          "id": 44,
+          "titre": "Bureau 201 m² à louer à Casablanca Moulay Youssef",
+          "Titre": "Bureau 201 m² à louer à Casablanca Moulay Youssef"
+        },
+        {
+          "id": 45,
+          "titre": "Bureau 200 m² à louer à Casablanca – Abdelmoumen",
+          "Titre": "Bureau 200 m² à louer à Casablanca – Abdelmoumen"
+        },
+        {
+          "id": 46,
+          "titre": "Bureau 200 m² à louer à Casablanca",
+          "Titre": "Bureau 200 m² à louer à Casablanca"
+        },
+        {
+          "id": 47,
+          "titre": "Bureau 207 m² à louer à Casablanca",
+          "Titre": "Bureau 207 m² à louer à Casablanca"
+        },
+        {
+          "id": 48,
+          "titre": "Bureau 207 m² à louer à Casablanca",
+          "Titre": "Bureau 207 m² à louer à Casablanca"
+        },
+        {
+          "id": 49,
+          "titre": "Local commercial 200 m² à louer à Casablanca Maârif",
+          "Titre": "Local commercial 200 m² à louer à Casablanca Maârif"
+        },
+        {
+          "id": 50,
+          "titre": "Local commercial 202 m² à louer à Casablanca",
+          "Titre": "Local commercial 202 m² à louer à Casablanca"
+        },
+        {
+          "id": 51,
+          "titre": "Bureau 203 m² à louer à Casablanca",
+          "Titre": "Bureau 203 m² à louer à Casablanca"
+        },
+        {
+          "id": 52,
+          "titre": "Bureau 209 m² à louer à Casablanca – Avenue 02 Mars",
+          "Titre": "Bureau 209 m² à louer à Casablanca – Avenue 02 Mars"
+        },
+        {
+          "id": 53,
+          "titre": "Bureau 200 m² à louer à Casablanca",
+          "Titre": "Bureau 200 m² à louer à Casablanca"
+        },
+        {
+          "id": 20,
+          "titre": "Bureau à louer 200m à Anfa à Casablanca",
+          "Titre": "Bureau à louer 200m à Anfa à Casablanca"
+        },
+        {
+          "id": 24,
+          "titre": "Plateau de bureau à louer sur GAUTHIER",
+          "Titre": "Plateau de bureau à louer sur GAUTHIER"
+        }
+      ],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 6,
+      "nom_mission": "200 à 209 m² — Sarout.ma — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "6",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://sarout.ma/fr/bureau-casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-5|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 5,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "3",
+      "annonces_examinees": "56",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 5,
+        "nom_source": "Sarout.ma",
+        "Nom Source": "Sarout.ma"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 7,
+          "execution_id": "DH5U1SU9",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 6,
+          "Identifiant de l’exécution": "DH5U1SU9"
+        }
+      ],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 7,
+      "nom_mission": "200 à 209 m² — Agenz — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "7",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://agenz.ma/fr/annonces/immo-casablanca/location-bureaux",
+      "methode_prevue": "Browser",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-19|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 19,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "17",
+      "annonces_examinees": "311",
+      "annonces_retenues": "3",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 19,
+        "nom_source": "Agenz",
+        "Nom Source": "Agenz"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 8,
+          "execution_id": "JJFJ73ZR",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 7,
+          "Identifiant de l’exécution": "JJFJ73ZR"
+        }
+      ],
+      "total biens 200 299m2": [
+        {
+          "id": 54,
+          "titre": "Bureau de 201 m² à louer — Gauthier",
+          "Titre": "Bureau de 201 m² à louer — Gauthier"
+        },
+        {
+          "id": 55,
+          "titre": "Bureau de 200 m² à louer — Avenue Hassan Ier",
+          "Titre": "Bureau de 200 m² à louer — Avenue Hassan Ier"
+        },
+        {
+          "id": 56,
+          "titre": "Plateau de bureau de 200 m² à louer — CFC",
+          "Titre": "Plateau de bureau de 200 m² à louer — CFC"
+        }
+      ],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 8,
+      "nom_mission": "200 à 209 m² — Agenz — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "Partielle",
+      "ordre_passage": "8",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://agenz.ma/fr/annonces/immo-casablanca/location-bureaux",
+      "methode_prevue": "Browser",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Partielle",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-19|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 19,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "10",
+      "annonces_examinees": "189",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": "Nouvelle URL vente accessible après404de l’ancienne.6pages natives lues ;189cartes uniques pour190annoncées. Aucune carte200–209observée. Couverture partielle par écart de réconciliation ; zéro résultat observé ne constitue pas un zéro exhaustif.",
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 19,
+        "nom_source": "Agenz",
+        "Nom Source": "Agenz"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 9,
+          "execution_id": "7VIR0CLE",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 8,
+          "Identifiant de l’exécution": "7VIR0CLE"
+        }
+      ],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 9,
+      "nom_mission": "200 à 209 m² — Avito.ma — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "9",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.avito.ma/fr/casablanca/bureaux",
+      "methode_prevue": "Apify",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-2|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 2,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "39",
+      "annonces_examinees": "228",
+      "annonces_retenues": "18",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 2,
+        "nom_source": "Avito.ma",
+        "Nom Source": "Avito.ma"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 10,
+          "execution_id": "JIZGKLZ7",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 9,
+          "Identifiant de l’exécution": "JIZGKLZ7"
+        }
+      ],
+      "total biens 200 299m2": [
+        {
+          "id": 44,
+          "titre": "Bureau 201 m² à louer à Casablanca Moulay Youssef",
+          "Titre": "Bureau 201 m² à louer à Casablanca Moulay Youssef"
+        },
+        {
+          "id": 45,
+          "titre": "Bureau 200 m² à louer à Casablanca – Abdelmoumen",
+          "Titre": "Bureau 200 m² à louer à Casablanca – Abdelmoumen"
+        },
+        {
+          "id": 47,
+          "titre": "Bureau 207 m² à louer à Casablanca",
+          "Titre": "Bureau 207 m² à louer à Casablanca"
+        },
+        {
+          "id": 48,
+          "titre": "Bureau 207 m² à louer à Casablanca",
+          "Titre": "Bureau 207 m² à louer à Casablanca"
+        },
+        {
+          "id": 57,
+          "titre": "189456-Bureau à louer à 25000DH à Sidi Maarouf",
+          "Titre": "189456-Bureau à louer à 25000DH à Sidi Maarouf"
+        },
+        {
+          "id": 58,
+          "titre": "Bureau duplex 5000dh",
+          "Titre": "Bureau duplex 5000dh"
+        },
+        {
+          "id": 59,
+          "titre": "PLATEAUX BUREAUX à louer à CFC Casablanca",
+          "Titre": "PLATEAUX BUREAUX à louer à CFC Casablanca"
+        },
+        {
+          "id": 60,
+          "titre": "À louer bureau - Maârif - 200m2",
+          "Titre": "À louer bureau - Maârif - 200m2"
+        },
+        {
+          "id": 61,
+          "titre": "Appartement Bureau 200 m² à louer",
+          "Titre": "Appartement Bureau 200 m² à louer"
+        },
+        {
+          "id": 62,
+          "titre": "Bureau réception grand open space 4p 200m2 à louer",
+          "Titre": "Bureau réception grand open space 4p 200m2 à louer"
+        },
+        {
+          "id": 63,
+          "titre": "Bureau duplex à louer, Gauthier",
+          "Titre": "Bureau duplex à louer, Gauthier"
+        },
+        {
+          "id": 64,
+          "titre": "Spacieux Bureau de 200m² à Louer avec Ascenseur",
+          "Titre": "Spacieux Bureau de 200m² à Louer avec Ascenseur"
+        },
+        {
+          "id": 65,
+          "titre": "183675-Bureau à louer à 25000DH",
+          "Titre": "183675-Bureau à louer à 25000DH"
+        },
+        {
+          "id": 66,
+          "titre": "Plateau Bureau Centre d appel",
+          "Titre": "Plateau Bureau Centre d appel"
+        },
+        {
+          "id": 67,
+          "titre": "Bureau 209m² proche Casanearshore",
+          "Titre": "Bureau 209m² proche Casanearshore"
+        },
+        {
+          "id": 68,
+          "titre": "Bureau 200m Mousa bnou Nousir Gauthier",
+          "Titre": "Bureau 200m Mousa bnou Nousir Gauthier"
+        },
+        {
+          "id": 69,
+          "titre": "Bureau Open Space à louer 209 m² Casablanca",
+          "Titre": "Bureau Open Space à louer 209 m² Casablanca"
+        },
+        {
+          "id": 70,
+          "titre": "A louer bureaux",
+          "Titre": "A louer bureaux"
+        },
+        {
+          "id": 71,
+          "titre": "Cède bureau pour toute activités",
+          "Titre": "Cède bureau pour toute activités"
+        },
+        {
+          "id": 72,
+          "titre": "Bureau à louer Belvédère senseur",
+          "Titre": "Bureau à louer Belvédère senseur"
+        },
+        {
+          "id": 73,
+          "titre": "Maarif - Plateau bureau de 200 m² à louer",
+          "Titre": "Maarif - Plateau bureau de 200 m² à louer"
+        },
+        {
+          "id": 74,
+          "titre": "À céder cabinet médical.",
+          "Titre": "À céder cabinet médical."
+        },
+        {
+          "id": 75,
+          "titre": "91838-Bureau à louer à 22000DH à Quartier Avenue D",
+          "Titre": "91838-Bureau à louer à 22000DH à Quartier Avenue D"
+        },
+        {
+          "id": 76,
+          "titre": "Plateaux bureau meuble a  BV MOUSSA BEN NOUSAIR",
+          "Titre": "Plateaux bureau meuble a  BV MOUSSA BEN NOUSAIR"
+        }
+      ],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 10,
+      "nom_mission": "200 à 209 m² — Avito.ma — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "Terminée",
+      "ordre_passage": "10",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.avito.ma/fr/casablanca/bureaux",
+      "methode_prevue": "Apify",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Complète",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-2|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 2,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "8",
+      "annonces_examinees": "70",
+      "annonces_retenues": "1",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 2,
+        "nom_source": "Avito.ma",
+        "Nom Source": "Avito.ma"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 11,
+          "execution_id": "OSQW4W5A",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 10,
+          "Identifiant de l’exécution": "OSQW4W5A"
+        }
+      ],
+      "total biens 200 299m2": [
+        {
+          "id": 77,
+          "titre": "Plateau bureau à vendre ou à louer",
+          "Titre": "Plateau bureau à vendre ou à louer"
+        }
+      ],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 11,
+      "nom_mission": "200 à 209 m² — MarocAnnonces — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "Partielle",
+      "ordre_passage": "11",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.marocannonces.com/categorie/337/Location-immobilier/Bureaux-Plateaux/465.html",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Partielle — 2000 cartes uniques lues sur 2029 annoncées (plafond de pagination à 100 pages); toutes les cartes Casablanca lues en fiche (1050).",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-13|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 13,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "100",
+      "annonces_examinees": "2000",
+      "annonces_retenues": "24",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 13,
+        "nom_source": "MarocAnnonces",
+        "Nom Source": "MarocAnnonces"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 12,
+          "execution_id": "0XEGCULK",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 11,
+          "Identifiant de l’exécution": "0XEGCULK"
+        }
+      ],
+      "total biens 200 299m2": [
+        {
+          "id": 79,
+          "titre": "Plateau de Bureau en location à VAL FLEURI",
+          "Titre": "Plateau de Bureau en location à VAL FLEURI"
+        },
+        {
+          "id": 80,
+          "titre": "Local commercial en location à GAUTHIER (200 m²)",
+          "Titre": "Local commercial en location à GAUTHIER (200 m²)"
+        },
+        {
+          "id": 81,
+          "titre": "Bureau en location à Racine 200 m² (appartement usage bureau)",
+          "Titre": "Bureau en location à Racine 200 m² (appartement usage bureau)"
+        },
+        {
+          "id": 82,
+          "titre": "Plateau de bureau en location à Maarif Extension (200 m²)",
+          "Titre": "Plateau de bureau en location à Maarif Extension (200 m²)"
+        },
+        {
+          "id": 83,
+          "titre": "Plateau bureau de 200 m² à louer – Racine",
+          "Titre": "Plateau bureau de 200 m² à louer – Racine"
+        },
+        {
+          "id": 84,
+          "titre": "Bureau en plein Maarif 205 m²",
+          "Titre": "Bureau en plein Maarif 205 m²"
+        },
+        {
+          "id": 85,
+          "titre": "Bureau de 200 m² à Maarif",
+          "Titre": "Bureau de 200 m² à Maarif"
+        },
+        {
+          "id": 86,
+          "titre": "Bureau de 200 m² en plein Maarif",
+          "Titre": "Bureau de 200 m² en plein Maarif"
+        },
+        {
+          "id": 87,
+          "titre": "Bureau de 200 m² à Maarif",
+          "Titre": "Bureau de 200 m² à Maarif"
+        },
+        {
+          "id": 88,
+          "titre": "Location plateau bureaux 200 m² Sidi Maarouf",
+          "Titre": "Location plateau bureaux 200 m² Sidi Maarouf"
+        },
+        {
+          "id": 89,
+          "titre": "Bureau 200 m² à louer – Zerktouni, Casa",
+          "Titre": "Bureau 200 m² à louer – Zerktouni, Casa"
+        },
+        {
+          "id": 90,
+          "titre": "Bureau 200 m² à louer – Anfa-Sidi Belyout",
+          "Titre": "Bureau 200 m² à louer – Anfa-Sidi Belyout"
+        },
+        {
+          "id": 91,
+          "titre": "Beau plateau bureau 200 m² à louer – Gauthier",
+          "Titre": "Beau plateau bureau 200 m² à louer – Gauthier"
+        },
+        {
+          "id": 92,
+          "titre": "Bureau 200 m² à louer – Gauthier",
+          "Titre": "Bureau 200 m² à louer – Gauthier"
+        },
+        {
+          "id": 93,
+          "titre": "Bureau LPB 289 de 200 m à Maarif Extension",
+          "Titre": "Bureau LPB 289 de 200 m à Maarif Extension"
+        },
+        {
+          "id": 94,
+          "titre": "Bureau LPB 427 de 200 m à Sidi Maarouf",
+          "Titre": "Bureau LPB 427 de 200 m à Sidi Maarouf"
+        },
+        {
+          "id": 95,
+          "titre": "Bureau LPB 365 de 200 m à Burger",
+          "Titre": "Bureau LPB 365 de 200 m à Burger"
+        },
+        {
+          "id": 96,
+          "titre": "Bureau LPB 363 de 200 m² à Burger",
+          "Titre": "Bureau LPB 363 de 200 m² à Burger"
+        },
+        {
+          "id": 97,
+          "titre": "Bureau 200 m² à louer – Gauthier (Casablanca)",
+          "Titre": "Bureau 200 m² à louer – Gauthier (Casablanca)"
+        },
+        {
+          "id": 98,
+          "titre": "Plateau Moulay Youssef 200 m",
+          "Titre": "Plateau Moulay Youssef 200 m"
+        },
+        {
+          "id": 99,
+          "titre": "Bureau LPB 248 de 200 m² à Racine",
+          "Titre": "Bureau LPB 248 de 200 m² à Racine"
+        },
+        {
+          "id": 100,
+          "titre": "Bureau LPB 81 de 200 m² à La Liberté",
+          "Titre": "Bureau LPB 81 de 200 m² à La Liberté"
+        },
+        {
+          "id": 101,
+          "titre": "Bureau de 204 m² à Anfa",
+          "Titre": "Bureau de 204 m² à Anfa"
+        },
+        {
+          "id": 102,
+          "titre": "Plateau bureau cloisonné de 200 m² à Maarif",
+          "Titre": "Plateau bureau cloisonné de 200 m² à Maarif"
+        }
+      ],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 12,
+      "nom_mission": "200 à 209 m² — MarocAnnonces — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "En cours",
+      "ordre_passage": "12",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.marocannonces.com/categorie/337/Location-immobilier/Bureaux-Plateaux/465.html",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": "EXPERT200209-20261012-1791803934126",
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-13|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 13,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 13,
+        "nom_source": "MarocAnnonces",
+        "Nom Source": "MarocAnnonces"
+      },
+      "Historique des exécutions": [
+        {
+          "id": 13,
+          "execution_id": "GL29Z8LN",
+          "scrapeur_chercheur_par_priorit_de_mini_cat_de_superficies_id": 12,
+          "Identifiant de l’exécution": "GL29Z8LN"
+        }
+      ],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": [
+        "Casablanca"
+      ]
+    },
+    {
+      "id": 13,
+      "nom_mission": "200 à 209 m² — SoukImmobilier — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "13",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.soukimmobilier.com/fr/casablanca/bureau",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-20|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 20,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 20,
+        "nom_source": "SoukImmobilier",
+        "Nom Source": "SoukImmobilier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 14,
+      "nom_mission": "200 à 209 m² — SoukImmobilier — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "14",
+      "priorite_source": "P1 - Prioritaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.soukimmobilier.com/fr/casablanca/bureau",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-20|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 20,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 20,
+        "nom_source": "SoukImmobilier",
+        "Nom Source": "SoukImmobilier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 15,
+      "nom_mission": "200 à 209 m² — Yakeey — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "15",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://yakeey.com/fr-ma/location/bureaux/casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-10|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 10,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 10,
+        "nom_source": "Yakeey",
+        "Nom Source": "Yakeey"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 16,
+      "nom_mission": "200 à 209 m² — Yakeey — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "16",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://yakeey.com/fr-ma/location/bureaux/casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-10|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 10,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 10,
+        "nom_source": "Yakeey",
+        "Nom Source": "Yakeey"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 17,
+      "nom_mission": "200 à 209 m² — Bureau Casablanca — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "17",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://bureau-casablanca.com/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-22|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 22,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 22,
+        "nom_source": "Bureau Casablanca",
+        "Nom Source": "Bureau Casablanca"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 18,
+      "nom_mission": "200 à 209 m² — Bureau Casablanca — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "18",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://bureau-casablanca.com/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-22|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 22,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 22,
+        "nom_source": "Bureau Casablanca",
+        "Nom Source": "Bureau Casablanca"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 19,
+      "nom_mission": "200 à 209 m² — Lazrak Brokerage — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "19",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.alz.ma/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-21|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 21,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 21,
+        "nom_source": "Lazrak Brokerage",
+        "Nom Source": "Lazrak Brokerage"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 20,
+      "nom_mission": "200 à 209 m² — Lazrak Brokerage — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "20",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.alz.ma/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-21|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 21,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 21,
+        "nom_source": "Lazrak Brokerage",
+        "Nom Source": "Lazrak Brokerage"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 21,
+      "nom_mission": "200 à 209 m² — Sarouty.ma — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "21",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.sarouty.ma/plp/professionnel-louer/bureaux-a-louer-casablanca",
+      "methode_prevue": "Browser",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-12|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 12,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 12,
+        "nom_source": "Sarouty.ma",
+        "Nom Source": "Sarouty.ma"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 22,
+      "nom_mission": "200 à 209 m² — Sarouty.ma — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "22",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.sarouty.ma/plp/professionnel-louer/bureaux-a-louer-casablanca",
+      "methode_prevue": "Browser",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-12|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 12,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 12,
+        "nom_source": "Sarouty.ma",
+        "Nom Source": "Sarouty.ma"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 23,
+      "nom_mission": "200 à 209 m² — Kaynly — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "23",
+      "priorite_source": "P2 - Secondaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://kaynly.com/location/casablanca/bureaux",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-25|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 25,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 25,
+        "nom_source": "Kaynly",
+        "Nom Source": "Kaynly"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 24,
+      "nom_mission": "200 à 209 m² — Kaynly — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "24",
+      "priorite_source": "P2 - Secondaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://kaynly.com/location/casablanca/bureaux",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-25|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 25,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 25,
+        "nom_source": "Kaynly",
+        "Nom Source": "Kaynly"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 25,
+      "nom_mission": "200 à 209 m² — Capital Foncier — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "25",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://capitalfoncier.com/properties/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-3|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 3,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 3,
+        "nom_source": "Capital Foncier",
+        "Nom Source": "Capital Foncier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 26,
+      "nom_mission": "200 à 209 m² — Capital Foncier — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "26",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://capitalfoncier.com/properties/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-3|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 3,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 3,
+        "nom_source": "Capital Foncier",
+        "Nom Source": "Capital Foncier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 27,
+      "nom_mission": "200 à 209 m² — IMVALORY — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "27",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.imvalory.com/bien/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-8|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 8,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 8,
+        "nom_source": "IMVALORY",
+        "Nom Source": "IMVALORY"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 28,
+      "nom_mission": "200 à 209 m² — IMVALORY — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "28",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.imvalory.com/bien/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-8|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 8,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 8,
+        "nom_source": "IMVALORY",
+        "Nom Source": "IMVALORY"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 29,
+      "nom_mission": "200 à 209 m² — Val Foncier — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "29",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://valfoncier.ma/bien-immobilier/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-4|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 4,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 4,
+        "nom_source": "Val Foncier",
+        "Nom Source": "Val Foncier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 30,
+      "nom_mission": "200 à 209 m² — Val Foncier — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "30",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://valfoncier.ma/bien-immobilier/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-4|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 4,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 4,
+        "nom_source": "Val Foncier",
+        "Nom Source": "Val Foncier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 31,
+      "nom_mission": "200 à 209 m² — Noura Immobilier — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "31",
+      "priorite_source": "P2 - Secondaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://nouraimmobilier.ma/location/casablanca/bureaux",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-26|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 26,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 26,
+        "nom_source": "Noura Immobilier",
+        "Nom Source": "Noura Immobilier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 32,
+      "nom_mission": "200 à 209 m² — Noura Immobilier — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "32",
+      "priorite_source": "P2 - Secondaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://nouraimmobilier.ma/location/casablanca/bureaux",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-26|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 26,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 26,
+        "nom_source": "Noura Immobilier",
+        "Nom Source": "Noura Immobilier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 33,
+      "nom_mission": "200 à 209 m² — 1immo.ma — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "33",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://1immo.ma/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-7|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 7,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 7,
+        "nom_source": "1immo.ma",
+        "Nom Source": "1immo.ma"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 34,
+      "nom_mission": "200 à 209 m² — 1immo.ma — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "34",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://1immo.ma/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-7|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 7,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 7,
+        "nom_source": "1immo.ma",
+        "Nom Source": "1immo.ma"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 35,
+      "nom_mission": "200 à 209 m² — Properstar — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "35",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.properstar.fr/maroc/casablanca/louer/bureau",
+      "methode_prevue": "Browser",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-14|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 14,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 14,
+        "nom_source": "Properstar",
+        "Nom Source": "Properstar"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 36,
+      "nom_mission": "200 à 209 m² — Properstar — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "36",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.properstar.fr/maroc/casablanca/louer/bureau",
+      "methode_prevue": "Browser",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-14|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 14,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 14,
+        "nom_source": "Properstar",
+        "Nom Source": "Properstar"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 37,
+      "nom_mission": "200 à 209 m² — Guy Hoquet Casablanca — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "37",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://casablanca.guy-hoquet.com/biens",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-29|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 29,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 29,
+        "nom_source": "Guy Hoquet Casablanca",
+        "Nom Source": "Guy Hoquet Casablanca"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 38,
+      "nom_mission": "200 à 209 m² — Guy Hoquet Casablanca — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "38",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://casablanca.guy-hoquet.com/biens",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-29|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 29,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 29,
+        "nom_source": "Guy Hoquet Casablanca",
+        "Nom Source": "Guy Hoquet Casablanca"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 39,
+      "nom_mission": "200 à 209 m² — Milkiya — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "39",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.milkiya.ma/fr_fr/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-30|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 30,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 30,
+        "nom_source": "Milkiya",
+        "Nom Source": "Milkiya"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 40,
+      "nom_mission": "200 à 209 m² — Milkiya — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "40",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.milkiya.ma/fr_fr/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-30|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 30,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 30,
+        "nom_source": "Milkiya",
+        "Nom Source": "Milkiya"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 41,
+      "nom_mission": "200 à 209 m² — Neximo — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "41",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://neximo.ma/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-28|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 28,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 28,
+        "nom_source": "Neximo",
+        "Nom Source": "Neximo"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 42,
+      "nom_mission": "200 à 209 m² — Neximo — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "42",
+      "priorite_source": "P2 - Importante",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://neximo.ma/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-28|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 28,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 28,
+        "nom_source": "Neximo",
+        "Nom Source": "Neximo"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 43,
+      "nom_mission": "200 à 209 m² — Horus Transactions — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "43",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://bureaucasablanca.ma/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-23|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 23,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 23,
+        "nom_source": "Horus Transactions",
+        "Nom Source": "Horus Transactions"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 44,
+      "nom_mission": "200 à 209 m² — Horus Transactions — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "44",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://bureaucasablanca.ma/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-23|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 23,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 23,
+        "nom_source": "Horus Transactions",
+        "Nom Source": "Horus Transactions"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 45,
+      "nom_mission": "200 à 209 m² — Cantarel Immobilier — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "45",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.cantarelimmobilier.com/bien",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-11|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 11,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 11,
+        "nom_source": "Cantarel Immobilier",
+        "Nom Source": "Cantarel Immobilier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 46,
+      "nom_mission": "200 à 209 m² — Cantarel Immobilier — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "46",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.cantarelimmobilier.com/bien",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-11|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 11,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 11,
+        "nom_source": "Cantarel Immobilier",
+        "Nom Source": "Cantarel Immobilier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 47,
+      "nom_mission": "200 à 209 m² — Contractors Real Estate — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "47",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://contractors-re.ma/properties/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-9|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 9,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 9,
+        "nom_source": "Contractors Real Estate",
+        "Nom Source": "Contractors Real Estate"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 48,
+      "nom_mission": "200 à 209 m² — Contractors Real Estate — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "48",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://contractors-re.ma/properties/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-9|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 9,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 9,
+        "nom_source": "Contractors Real Estate",
+        "Nom Source": "Contractors Real Estate"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 49,
+      "nom_mission": "200 à 209 m² — Century 21 Ollier / Casablanca — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "49",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://century21casablanca.com/property/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-15|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 15,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 15,
+        "nom_source": "Century 21 Ollier / Casablanca",
+        "Nom Source": "Century 21 Ollier / Casablanca"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 50,
+      "nom_mission": "200 à 209 m² — Century 21 Ollier / Casablanca — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "50",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://century21casablanca.com/property/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-15|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 15,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 15,
+        "nom_source": "Century 21 Ollier / Casablanca",
+        "Nom Source": "Century 21 Ollier / Casablanca"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 51,
+      "nom_mission": "200 à 209 m² — Century 21 Casa — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "51",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://century21casa.ma/proprietes/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-16|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 16,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 16,
+        "nom_source": "Century 21 Casa",
+        "Nom Source": "Century 21 Casa"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 52,
+      "nom_mission": "200 à 209 m² — Century 21 Casa — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "52",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://century21casa.ma/proprietes/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-16|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 16,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 16,
+        "nom_source": "Century 21 Casa",
+        "Nom Source": "Century 21 Casa"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 53,
+      "nom_mission": "200 à 209 m² — Home Finder — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "53",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://homefinder.ma/location/bureau/casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-18|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 18,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 18,
+        "nom_source": "Home Finder",
+        "Nom Source": "Home Finder"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 54,
+      "nom_mission": "200 à 209 m² — Home Finder — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "54",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://homefinder.ma/location/bureau/casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-18|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 18,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 18,
+        "nom_source": "Home Finder",
+        "Nom Source": "Home Finder"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 55,
+      "nom_mission": "200 à 209 m² — ExperTeam — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "55",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.experteam.ma/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-17|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 17,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 17,
+        "nom_source": "ExperTeam",
+        "Nom Source": "ExperTeam"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 56,
+      "nom_mission": "200 à 209 m² — ExperTeam — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "56",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.experteam.ma/",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-17|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 17,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 17,
+        "nom_source": "ExperTeam",
+        "Nom Source": "ExperTeam"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 57,
+      "nom_mission": "200 à 209 m² — Daba Annonce — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "57",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://dabaannonce.ma/vente-immobiliere/casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-24|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 24,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 24,
+        "nom_source": "Daba Annonce",
+        "Nom Source": "Daba Annonce"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 58,
+      "nom_mission": "200 à 209 m² — Daba Annonce — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "58",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://dabaannonce.ma/vente-immobiliere/casablanca",
+      "methode_prevue": "HTTP direct",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-24|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 24,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 24,
+        "nom_source": "Daba Annonce",
+        "Nom Source": "Daba Annonce"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 59,
+      "nom_mission": "200 à 209 m² — Groupe Mfadel — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "59",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.groupemfadel.com/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-35|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 35,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 35,
+        "nom_source": "Groupe Mfadel",
+        "Nom Source": "Groupe Mfadel"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 60,
+      "nom_mission": "200 à 209 m² — Groupe Mfadel — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "60",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.groupemfadel.com/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-35|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 35,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 35,
+        "nom_source": "Groupe Mfadel",
+        "Nom Source": "Groupe Mfadel"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 61,
+      "nom_mission": "200 à 209 m² — Groupi — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "61",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://groupi.ma/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-31|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 31,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 31,
+        "nom_source": "Groupi",
+        "Nom Source": "Groupi"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 62,
+      "nom_mission": "200 à 209 m² — Groupi — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "62",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://groupi.ma/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-31|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 31,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 31,
+        "nom_source": "Groupi",
+        "Nom Source": "Groupi"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 63,
+      "nom_mission": "200 à 209 m² — Kettani Immobilier — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "63",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.kettani-immobilier.com/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-34|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 34,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 34,
+        "nom_source": "Kettani Immobilier",
+        "Nom Source": "Kettani Immobilier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 64,
+      "nom_mission": "200 à 209 m² — Kettani Immobilier — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "64",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.kettani-immobilier.com/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-34|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 34,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 34,
+        "nom_source": "Kettani Immobilier",
+        "Nom Source": "Kettani Immobilier"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 65,
+      "nom_mission": "200 à 209 m² — Next House Group — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "65",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://nexthousegroup.ma/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-36|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 36,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 36,
+        "nom_source": "Next House Group",
+        "Nom Source": "Next House Group"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 66,
+      "nom_mission": "200 à 209 m² — Next House Group — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "66",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://nexthousegroup.ma/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-36|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 36,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 36,
+        "nom_source": "Next House Group",
+        "Nom Source": "Next House Group"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 67,
+      "nom_mission": "200 à 209 m² — Yesken — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "67",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://yesken.com/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-32|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 32,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 32,
+        "nom_source": "Yesken",
+        "Nom Source": "Yesken"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 68,
+      "nom_mission": "200 à 209 m² — Yesken — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "68",
+      "priorite_source": "P3 - Complémentaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://yesken.com/",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-32|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 32,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 32,
+        "nom_source": "Yesken",
+        "Nom Source": "Yesken"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 69,
+      "nom_mission": "200 à 209 m² — Ardocco — LOCATION",
+      "type_transaction": "LOCATION",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "69",
+      "priorite_source": "P4 - Secondaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.ardocco.com/promoteurs",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-33|LOCATION",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 33,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 33,
+        "nom_source": "Ardocco",
+        "Nom Source": "Ardocco"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    },
+    {
+      "id": 70,
+      "nom_mission": "200 à 209 m² — Ardocco — VENTE",
+      "type_transaction": "VENTE",
+      "ville": "Casablanca",
+      "statut_mission": "À lancer",
+      "ordre_passage": "70",
+      "priorite_source": "P4 - Secondaire",
+      "mode_recherche": "Initialisation",
+      "mission_active": true,
+      "url_depart": "https://www.ardocco.com/promoteurs",
+      "methode_prevue": "À déterminer",
+      "identifiant_dernier_passage": null,
+      "couverture_dernier_passage": "Non commencée",
+      "cle_mission": "EXPERT-BUREAUX|MINI-1|SOURCE-33|VENTE",
+      "consignes_recherche": "Premier bloc seulement : bureaux à Casablanca, superficie intérieure dont la partie entière est de 200 à 209 m² (200 inclus, 210 exclu). Lire la mini-catégorie liée et le type de transaction. Parcourir la source et sa pagination accessible sans quota arbitraire ; conserver les inconnues et la preuve URL. L'URL de départ est indicative et peut être spécifique à la location : adapter au type de transaction. Source sans offre bureaux : documenter Hors périmètre, sans inventer de résultats. Ne pas commencer les autres blocs. Tenir un journal par passage dans Exécutions de scraping ; chaque exécution est liée à la mission et à la source.",
+      "sources_scraping_immobilier_id": 33,
+      "mini_cat_superficies_id": 1,
+      "pages_parcourues": "0",
+      "annonces_examinees": "0",
+      "annonces_retenues": "0",
+      "derniere_erreur_blocage": null,
+      "Created At": null,
+      "Updated At": null,
+      "Mini-catégorie superficie": {
+        "id": 1,
+        "type_superficie": "200 à 209 m²",
+        "Type Superficie": "200 à 209 m²"
+      },
+      "Source à parcourir": {
+        "id": 33,
+        "nom_source": "Ardocco",
+        "Nom Source": "Ardocco"
+      },
+      "Historique des exécutions": [],
+      "total biens 200 299m2": [],
+      "ex cutions de scraping - Ville": []
+    }
+  ],
+  "pageInfo": {
+    "totalRows": 70,
+    "page": 1,
+    "pageSize": 100,
+    "isFirstPage": true,
+    "isLastPage": true
+  }
+}

@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+preuves/**/*.html.gz
+etat/lot*.json
+etat/upd*.json
