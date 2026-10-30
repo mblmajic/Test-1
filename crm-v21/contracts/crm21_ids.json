@@ -1,0 +1,13 @@
+{
+  "GET /crm21/session": "f9e520db-8c1d-4b8d-9061-408ab3258557",
+  "GET /crm21/referentiels": "3adc338f-4f95-40ba-9976-ed60772ace44",
+  "GET /crm21/opportunites-clients": "2f777bfd-880f-440c-ad3a-73e55f9497a9",
+  "GET /crm21/opportunite-client": "de5113ec-d1ea-4e34-b716-09a94fa878f3",
+  "GET /crm21/propositions": "eb230b7f-2109-4490-abe0-cd3b0f7eb306",
+  "GET /crm21/historique": "58c3ad63-676c-4dd4-9eb9-9a1d30883a9a",
+  "GET /crm21/rapprochements": "ccb4c0f4-9455-4c5f-9752-7a1d7da87542",
+  "GET /crm21/biens": "09736918-6f90-467a-949a-e23e7ebfbf2c",
+  "GET /crm21/bien": "80209b05-5ef3-4f1c-b2c2-a7f3267da967",
+  "GET /crm21/creneaux": "b08bb832-00dd-47d7-9506-f7d94c9c3ee5",
+  "GET /crm21/activites": "498fedaf-5b14-4203-91f3-3443dfc685f4"
+}
