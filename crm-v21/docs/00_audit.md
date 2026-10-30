@@ -91,3 +91,9 @@ Estimation : ~22 GET/écritures, à figer à l'étape 2.
 - R4 La faille d'identité CRM1 reste active tant que CRM1 n'est pas corrigé (hors périmètre : invariant « ne pas modifier CRM1 ») → **à signaler au responsable**.
 - R5 Logo absent ; R6 PDF/ZIP absents ; R7 alertes Telegram en production : jamais alimentées en recette.
 - R8 Push GitHub refusé (403) : travail commité localement uniquement.
+
+## 11. Décisions GATE 1 (2026-10-30)
+- Rôles : **table CRM21 Membres** (email de session → rôle Broker/Admin, broker lié, actif).
+- Endpoints : **tout en /crm21/** ; CRM1 intact.
+- Améliorations : aucune préférence exprimée → toutes retenues (A1–A11), car A2–A6 et A9–A10 répondent aux exigences §8 du brief.
+- Comptes : **l'utilisateur crée les comptes Tybot des brokers** ; recette en profils simulés en attendant, écarts listés dans docs/02.
