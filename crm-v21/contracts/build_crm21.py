@@ -147,7 +147,7 @@ $jour := function($iso){ $loc($iso, '[Y0001]-[M01]-[D01]') };
 $heure := function($iso){ $loc($iso, '[H01]:[m01]') };
 $labelJour := function($iso){ ($d := $jour($iso); $d = '' ? '' : ($d = $today ? 'Aujourd’hui' : ($d = $tomorrow ? 'Demain' : $JOURS[$number($loc($iso, '[F1]')) - 1] & ' ' & $loc($iso, '[D1]') & ' ' & $MOIS[$number($loc($iso, '[M1]')) - 1]))) };
 $labelDate := function($iso){ ($d := $labelJour($iso); $d = '' ? '' : ($h := $heure($iso); $h = '00:00' ? $d : $d & ' · ' & $h)) };
-$dh := function($x){ $exists($x) and $x != null and $x > 0 ? $formatNumber($x, '#,##0', {'grouping-separator': ' '}) & ' DH' : '—' };
+$dh := function($x){ $exists($x) and $x != null and $x > 0 ? $replace($formatNumber($round($x), '#,##0'), ',', ' ') & ' DH' : '—' };
 $digits := function($t){ $replace($s($t), /[^0-9]/, '') };
 $intl := function($t){ ($d := $digits($t); $length($d) < 8 ? '' : ($substring($d, 0, 2) = '00' ? $substring($d, 2) : ($substring($d, 0, 1) = '0' ? '212' & $substring($d, 1) : ($length($d) = 9 ? '212' & $d : $d)))) };
 $recette := function($t){ $contains($s($t), '[RECETTE V21]') or $contains($s($t), 'RECETTE CRM1') };

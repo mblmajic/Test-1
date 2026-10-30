@@ -1,111 +1,57 @@
-# Résultats des tests GET CRM21 (brouillons API Studio) — 2026-10-30
+# Résultats des tests GET CRM21 — passe 2 (2026-10-30, ~19:00)
 
-Méthode : `save_endpoint` (brouillon, upsert méthode+chemin) avec name/description/definition copiés tels quels depuis `contracts/endpoints/crm21__GET_*.json`, puis `test_endpoint` (skipAuth, sans allowWrites). Aucune publication ni écriture.
-Appelants simulés : **admin** (Majid, rôle Admin), **Imane** (broker « Imane »), **Salma** (broker « Salma », sans roles), **non-membre** (absent de CRM21 Membres).
-Ids utilisés : dossier **23** (broker Imane, étape « Recherche active », sans contact lié), dossier **6** (broker Salma, contact lié) = dossier d'un autre broker pour Imane ; bien **9** (Actif).
-Les ids de dossier proviennent de la trace du step `rows` de opportunites-clients (vue=toutes), car le body admin est en erreur 422.
+Mêmes règles : brouillons uniquement (save_endpoint upsert), test_endpoint skipAuth sans allowWrites, aucune publication ni écriture.
+Appelants : admin (Majid), Imane (broker « Imane »), Salma (broker « Salma »), non-membre.
+Ids : dossier 23 (Imane), dossier 6 (Salma, contact lié), bien 9.
 
-## Cause commune (bloquante)
+## Passe arrêtée : nouvelle erreur bloquante commune
 
-Les 10 steps `out` sauf session (`referentiels`, puis tous ceux commençant par `$s := function…`) sont une suite d'instructions `;` **non entourée de parenthèses**. JSONata refuse : `save_endpoint.problems` = `Syntax error: ";" (at character 99)` (55 pour referentiels) et chaque test qui atteint `out` renvoie **422** :
-`out` → `EXPRESSION_ERROR` — `Invalid expression: Syntax error: ";"` (S0201, position 99 ; position 55 pour referentiels).
-Correctif attendu : envelopper toute l'expression dans `( … )` (comme `ident` et `session.out`).
+Les parenthèses et la garde `contact` sont bien corrigées (problems = [] à l'enregistrement). Mais **toutes** les expressions `out` qui appellent `$dh(x)` avec un montant > 0 échouent à l'exécution :
 
-Conséquence : aucun item mis en forme n'a pu être observé (clés/valeurs du 1er item indisponibles) hors session. Les gardes (401/403/400/404) et les filtres serveur sont en revanche vérifiables et sont reportés ci-dessous.
+- step `out`, 422, `EXPRESSION_ERROR` — « Expression failed: The sub-picture must not contain a passive character that is preceded by an active character and that is followed by another active character » (D3086, token `formatNumber`, position 4899 dans opportunites-clients, 4824 dans opportunite-client).
+- Cause : `$formatNumber($x, '#,##0', {'grouping-separator': ' '})`. Quand le séparateur de groupes devient l'espace, la virgule du motif n'est plus un séparateur et devient un caractère passif placé entre deux caractères actifs.
+- Correctif possible : `$formatNumber($x, '# ##0', {'grouping-separator': ' '})`, ou plus sûr `$replace($formatNumber($x, '#,##0'), ',', ' ')`.
+- `$dh` est défini dans le préambule commun des 13 expressions `out` (tous les GET sauf session et referentiels). Il est appelé via `$oc` (budgetLabel) et `$bien` (prixLabel). Il échoue dès qu'un dossier ou un bien a un montant positif.
+- Comme le préambule doit être corrigé dans les 13 fichiers puis ré-enregistré, la suite de la passe n'a pas été lancée (les 422 auraient été identiques).
 
-## GET /crm21/session — f9e520db-8c1d-4b8d-9061-408ab3258557 — problems : aucun
+## Enregistrements effectués (problems)
 
-| cas | attendu | obtenu | détail |
-|---|---|---|---|
-| admin | 200 | 200, 1 item | clés : email, nom, prenom, role, admin, broker, initiales, salutation ; role=Admin, admin=true, broker=Majid |
-| Imane | 200 | 200, 1 item | role=Broker, admin=false, broker=Imane (claims.roles dom-admin ignorés : OK) |
-| non-membre | 403 | 403 | répondu par `g403` : « Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur. » |
+| endpoint | id | problems |
+|---|---|---|
+| GET /crm21/session | f9e520db-8c1d-4b8d-9061-408ab3258557 | aucun |
+| GET /crm21/referentiels | 3adc338f-4f95-40ba-9976-ed60772ace44 | aucun |
+| GET /crm21/opportunites-clients | 2f777bfd-880f-440c-ad3a-73e55f9497a9 | aucun |
+| GET /crm21/opportunite-client | de5113ec-d1ea-4e34-b716-09a94fa878f3 | aucun |
+| propositions, historique, rapprochements, biens, bien, creneaux, activites | (ids inchangés, cf. crm21_ids.json) | non ré-enregistrés dans cette passe : la version de l'API Studio est encore celle de la passe 1 |
+| opportunites-biens, opportunite-bien, accueil, equipe | — | non enregistrés |
 
-## GET /crm21/referentiels — 3adc338f-4f95-40ba-9976-ed60772ace44 — problems : `out` Syntax error ";" (char 55)
+Note : le dossier contient 15 fichiers crm21__GET_*.json, et non 19.
 
-| cas | attendu | obtenu | détail |
-|---|---|---|---|
-| admin | 200 | **422** | `membres` OK (3 membres actifs) ; `out` : Invalid expression: Syntax error: ";" (pos 55) |
-| Imane | 200 | **422** | `membres` skipped (non admin, OK) ; `out` même erreur |
-
-## GET /crm21/opportunites-clients — 2f777bfd-880f-440c-ad3a-73e55f9497a9 — problems : `out` Syntax error ";" (char 99)
-
-| cas | attendu | obtenu | détail |
-|---|---|---|---|
-| admin, vue=toutes | 200 | **422** | `rows` = 28 dossiers (aucun filtre broker : OK) ; `out` : Syntax error ";" (pos 99) |
-| admin, vue=actions | 200 | **422** | idem, `rows` = 28 ; `out` même erreur |
-| Imane (sans vue) | 200 | **422** | `rows` = 12, SQL `where src_c2ljvedgo8rjnjz = 'Imane'` : filtre serveur OK ; `out` même erreur |
-| Salma (sans vue) | 200 | **422** | `rows` = 13, filtre `= 'Salma'` OK ; `out` même erreur |
-| non-membre | 403 | 403 | `g403` |
-
-Remarque données : 1 dossier sans broker (id 35) et 1 dossier broker « Omar » (non membre) ne sont visibles que de l'admin.
-
-## GET /crm21/opportunite-client — de5113ec-d1ea-4e34-b716-09a94fa878f3 — problems : `out` Syntax error ";" (char 99)
+## GET /crm21/referentiels
 
 | cas | attendu | obtenu | détail |
 |---|---|---|---|
-| admin, id=23 | 200 | **400** | step `contact` : INVALID_VALUE « A value does not match the type of its column » — cause « invalid input syntax for type bigint: "null" » |
-| Imane, id=23 (le sien) | 200 | **400** | même erreur au step `contact` |
-| Imane, id=6 (Salma) | 404 | 404 | `g404` « Dossier introuvable ou non autorisé. » |
-| Salma, id=6 (le sien) | 200 | **422** | `rows`=1, `contact` OK (1 ligne) ; `out` : Syntax error ";" (pos 99) |
+| admin | 200 | 200, 1 item | 13 étapes, 9 actions, 3 priorités ; brokers = 3 (Majid, Salma, Imane). Majid (rôle Admin) figure dans la liste car `role = 'Broker' or broker` retient tout membre dont le champ broker est rempli |
+| Imane | 200 | 200, 1 item | brokers = 1 (Imane) ; `membres` skipped |
 
-Bug 2 : le `runIf` de `contact` (`$exists(...contacts_id) and $string(...) != ''`) est vrai quand `contacts_id` vaut `null` ($exists(null)=true, $string(null)="null"), d'où le filtre `id = "null"`. 14 dossiers sur 28 n'ont pas de contact lié.
-
-## GET /crm21/propositions — eb230b7f-2109-4490-abe0-cd3b0f7eb306 — problems : `out` Syntax error ";" (char 99)
+## GET /crm21/opportunites-clients
 
 | cas | attendu | obtenu | détail |
 |---|---|---|---|
-| admin, clientId=6 | 200 | **422** | `rows`=1, `props`=0 (aucune proposition), `biens` skipped ; `out` Syntax error ";" (pos 99) |
-| Imane, clientId=23 | 200 | **422** | `props`=0 ; `out` même erreur |
-| Imane, clientId=6 | 404 | 404 | `g404` |
+| admin vue=toutes | 200 | **422** | rows=28 ; `out` : D3086 formatNumber (ci-dessus) |
+| admin vue=actions | 200 | **422** | rows=28 ; même erreur |
+| Imane | 200 | **422** | rows=12 (filtre serveur Imane OK) ; même erreur |
+| Salma | 200 | **422** | rows=13 ; même erreur |
+| non-membre | 403 | non relancé | 403 `g403` en passe 1 (étape inchangée) |
 
-## GET /crm21/historique — 58c3ad63-676c-4dd4-9eb9-9a1d30883a9a — problems : `out` Syntax error ";" (char 99)
-
-| cas | attendu | obtenu | détail |
-|---|---|---|---|
-| admin, clientId=23 | 200 | **422** | `events`=0, `acts`=0 ; `out` Syntax error ";" (pos 99) |
-| Imane, clientId=23 | 200 | **422** | idem |
-| Imane, clientId=6 | 404 | 404 | `g404` |
-
-## GET /crm21/rapprochements — ccb4c0f4-9455-4c5f-9752-7a1d7da87542 — problems : `out` Syntax error ";" (char 99)
+## GET /crm21/opportunite-client
 
 | cas | attendu | obtenu | détail |
 |---|---|---|---|
-| admin, clientId=23 | 200 | **422** | `rows`=1, `biens` actifs=22, `props`=0 ; `out` Syntax error ";" (pos 99) |
-| Imane, clientId=23 | 200 | **422** | idem |
-| Imane, clientId=6 | 404 | 404 | `g404` |
+| admin id=23 | 200 | **422** | `contact` désormais **skipped** (garde corrigée, OK) ; `out` : D3086 formatNumber (budget 4 000 000) |
+| Salma id=6 | 200 | **200**, 1 item | etape=Biens proposés, etapeTone=info, echeanceLabel=« mer. 4 nov. · 15:00 », enRetard=false, budgetLabel=« — » (budget null, d'où l'absence d'appel à formatNumber), aCompleter=« À compléter : budget », contactStatut=« Contact lié », surfaceLabel=« — », chambres=null, modifiable=true. L'échéance stockée 14:00Z s'affiche 15:00 (UTC+1) : cohérent |
+| Imane id=23 / Imane id=6 | 200 / 404 | non relancé | le 404 `g404` d'Imane sur le dossier 6 était validé en passe 1 |
 
-## GET /crm21/biens — 09736918-6f90-467a-949a-e23e7ebfbf2c — problems : `out` Syntax error ";" (char 99)
+## Endpoints non relancés dans cette passe
 
-| cas | attendu | obtenu | détail |
-|---|---|---|---|
-| admin | 200 | **422** | `rows`=43 biens ; `out` Syntax error ";" (pos 99) |
-| Imane | 200 | **422** | `rows`=43 (catalogue partagé, OK) ; `out` même erreur |
-
-## GET /crm21/bien — 80209b05-5ef3-4f1c-b2c2-a7f3267da967 — problems : `out` Syntax error ";" (char 99)
-
-| cas | attendu | obtenu | détail |
-|---|---|---|---|
-| admin, id=9 | 200 | **422** | `rows`=1 (bureau, Location, Actif, 5 photos avec url http), `props`=0 ; `out` Syntax error ";" (pos 99) |
-| Imane, id=9 | 200 | **422** | idem |
-
-## GET /crm21/creneaux — b08bb832-00dd-47d7-9506-f7d94c9c3ee5 — problems : `out` Syntax error ";" (char 99)
-
-| cas | attendu | obtenu | détail |
-|---|---|---|---|
-| admin (sans jour) | 200 | **422** | `rows`=2 RDV broker Majid ; `out` Syntax error ";" (pos 99) |
-| Imane (sans jour) | 200 | **422** | `rows`=0 ; `out` même erreur |
-
-## GET /crm21/activites — 498fedaf-5b14-4203-91f3-3443dfc685f4 — problems : `out` Syntax error ";" (char 99)
-
-| cas | attendu | obtenu | détail |
-|---|---|---|---|
-| admin | 200 | **422** | `mesoc` skipped, `rows`=55 activités ; `out` Syntax error ";" (pos 99) |
-| Imane | 200 | **422** | `mesoc`=12 dossiers, `rows`=55 ; `out` même erreur |
-| Salma | 200 | **422** | `mesoc`=12 dossiers, `rows`=55 ; `out` même erreur |
-
-Remarque : `rows` lit toute la table Activités sans filtre broker (le cloisonnement se fait seulement dans `out`). Les activités historiques ont `crm_broker` et `opportunit_s_clients_id` vides : un broker en verra probablement 0 une fois `out` corrigé.
-
-## Données de période horaire
-
-`per` renvoie 1 seule ligne (2027-02-07 → 2027-03-14, décalage 0) ; hors de cette plage le décalage par défaut est +60 min (UTC+1), cohérent avec Africa/Casablanca.
+propositions, historique, rapprochements, activites, biens, bien, creneaux, opportunites-biens, opportunite-bien, accueil, equipe : à relancer après la correction de `$dh`.
