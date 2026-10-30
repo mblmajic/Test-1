@@ -1,0 +1,181 @@
+{
+  "id": "12eff131-1e45-473b-aeec-d89a7bd4dbd0",
+  "name": "CRM1 — Déposer un fichier",
+  "description": "",
+  "definition": {
+    "method": "POST",
+    "path": "/crm1/fichiers",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "headers": [],
+      "body": [
+        {
+          "name": "file",
+          "type": "file",
+          "required": true,
+          "description": ""
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "client",
+        "key": "client",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "getRecord",
+          "params": {
+            "table": "m80adee8ba2348dfe",
+            "recordId": "{{ input.query.clientId }}",
+            "failIfNotFound": true
+          }
+        }
+      },
+      {
+        "id": "owner",
+        "key": "owner",
+        "name": "",
+        "runIf": "$not(steps.identity.admin or steps.client.src_c2ljvedgo8rjnjz=steps.identity.broker)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{\"error\":\"Accès refusé à ce dossier.\"}"
+        }
+      },
+      {
+        "id": "file",
+        "key": "file",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "storeFile",
+        "config": {
+          "field": "file",
+          "folder": "crm1",
+          "accept": "image/*,application/pdf,audio/*",
+          "maxSizeMb": 15
+        }
+      },
+      {
+        "id": "media",
+        "key": "media",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "med983146d1970914",
+            "values": "{'libelle':steps.file.name,'storage_key':steps.file.key,'url_fichier':steps.file.url,'nom_fichier':steps.file.name,'mime_type':steps.file.type,'taille_octets':steps.file.size,'categorie':$contains(steps.file.type,'audio') ? 'Audio' : $contains(steps.file.type,'image') ? 'Photo' : 'Document','opportunit_s_clients_id':$number(input.query.clientId),'email_auteur':steps.identity.email,'date_depot':$now(),'etat_traitement':'Déposé'}"
+          }
+        }
+      },
+      {
+        "id": "done",
+        "key": "done",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 201,
+          "headers": [],
+          "body": "steps.file"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "draft",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/fichiers",
+  "published": null,
+  "problems": [],
+  "createdAt": "2026-10-30T16:20:24.738Z",
+  "updatedAt": "2026-10-30T16:27:46.075Z"
+}

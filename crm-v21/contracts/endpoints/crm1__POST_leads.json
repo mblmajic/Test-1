@@ -1,0 +1,289 @@
+{
+  "id": "e25e445d-3823-4ce1-9798-dd113fafd061",
+  "name": "CRM1 — Créer un lead",
+  "description": "",
+  "definition": {
+    "method": "POST",
+    "path": "/crm1/leads",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [],
+      "headers": [],
+      "body": [
+        {
+          "name": "nom",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "telephone",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "transaction",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "budget",
+          "type": "number",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "quartier",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "broker",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "test",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "op",
+        "key": "op",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "{'id':$string($millis()) & '-' & $string(auth.claims.sub),'date':$now(),'broker':steps.identity.broker}"
+        }
+      },
+      {
+        "id": "name",
+        "key": "name",
+        "name": "",
+        "runIf": "$not(input.body.nom) or $length($trim(input.body.nom)) < 2 or $length(input.body.nom)>150",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Indiquez un nom de 2 à 150 caractères.\"}"
+        }
+      },
+      {
+        "id": "tx",
+        "key": "tx",
+        "name": "",
+        "runIf": "$not(input.body.transaction in ['Achat','Location'])",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Choisissez Achat ou Location.\"}"
+        }
+      },
+      {
+        "id": "budget",
+        "key": "budget",
+        "name": "",
+        "runIf": "$exists(input.body.budget) and (input.body.budget < 0 or input.body.budget > 10000000000)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Le budget doit être positif.\"}"
+        }
+      },
+      {
+        "id": "broker",
+        "key": "broker",
+        "name": "",
+        "runIf": "steps.identity.admin and input.body.broker and $not(input.body.broker in steps.team.rows.crm_broker_valeur)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Broker inconnu.\"}"
+        }
+      },
+      {
+        "id": "begin",
+        "key": "begin",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'libelle':\"Création lead\",'operation_id':steps.op.id,'date_evenement':$now(),'user_id':auth.claims.sub,'email_auteur':steps.identity.email,'broker':steps.identity.broker,'type_dossier':\"client\",'dossier_id':$string(input.body.clientId ? input.body.clientId : input.body.id),'type_evenement':\"Création lead\",'resultat':'À reprendre','source':'SuperAPP_easyspace_CRM1','test_crm1':input.body.test = true}"
+          }
+        }
+      },
+      {
+        "id": "contact",
+        "key": "contact",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m4bf4b323ba241e7d",
+            "values": "{'libelle':$trim(input.body.nom),'src_chepoppm9ctk3tm':$trim(input.body.nom),'src_c2j3fuou3o8taqa':input.body.telephone,'crm_telephone_normalise':input.body.telephone,'crm_cle_creation':steps.op.id}"
+          }
+        }
+      },
+      {
+        "id": "write",
+        "key": "write",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m80adee8ba2348dfe",
+            "values": "{'libelle':$trim(input.body.nom),'src_c8j7pxeprb45sel':$trim(input.body.nom),'src_c2ljvedgo8rjnjz':steps.identity.admin and input.body.broker ? input.body.broker : steps.identity.broker,'src_ch80mhxt9wmgffa':'Nouveau','src_cmt5f5y6apb9n76':input.body.telephone,'src_cc9t923zypqax4s':input.body.transaction,'src_c0qcaxijrq4e44n':input.body.transaction='Location' ? input.body.budget : null,'src_c8ty9timbln0feq':input.body.transaction='Achat' ? input.body.budget : null,'src_crid8q8n1p0n7qe':input.body.quartier,'pmv6m9j8dh2qj_contacts_id':steps.contact.id,'crm_cle_creation':steps.op.id}"
+          }
+        }
+      },
+      {
+        "id": "finish",
+        "key": "finish",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "updateRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'resultat':'Réussi','dossier_id':$string(input.body.clientId ? input.body.clientId : steps.write.id),'apres':$string(steps.write)}",
+            "recordId": "{{ steps.begin.id }}"
+          }
+        }
+      },
+      {
+        "id": "done",
+        "key": "done",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 201,
+          "headers": [],
+          "body": "{'id':steps.write.id,'operationId':steps.op.id,'message':'Enregistré'}"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "published",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/leads",
+  "published": {
+    "version": 1,
+    "at": "2026-10-30T16:33:23.192Z",
+    "method": "POST",
+    "path": "/crm1/leads",
+    "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/leads"
+  },
+  "problems": [],
+  "createdAt": "2026-10-30T16:19:30.351Z",
+  "updatedAt": "2026-10-30T16:27:37.913Z"
+}

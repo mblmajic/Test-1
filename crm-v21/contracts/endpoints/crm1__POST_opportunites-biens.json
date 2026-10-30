@@ -1,0 +1,258 @@
+{
+  "id": "8769d785-b44d-423f-9c60-7a693327da6c",
+  "name": "CRM1 — Créer une opportunité de bien",
+  "description": "",
+  "definition": {
+    "method": "POST",
+    "path": "/crm1/opportunites-biens",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [],
+      "headers": [],
+      "body": [
+        {
+          "name": "nom",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "quartier",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "typeBien",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "transaction",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "prix",
+          "type": "number",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "test",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "op",
+        "key": "op",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "{'id':$string($millis()) & '-' & $string(auth.claims.sub),'date':$now(),'broker':steps.identity.broker}"
+        }
+      },
+      {
+        "id": "name",
+        "key": "name",
+        "name": "",
+        "runIf": "$not(input.body.nom) or $length(input.body.nom)>200",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Indiquez le nom du bien (200 caractères maximum).\"}"
+        }
+      },
+      {
+        "id": "quarter",
+        "key": "quarter",
+        "name": "",
+        "runIf": "$not(input.body.quartier)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Indiquez le quartier.\"}"
+        }
+      },
+      {
+        "id": "price",
+        "key": "price",
+        "name": "",
+        "runIf": "$exists(input.body.prix) and input.body.prix < 0",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Le prix doit être positif.\"}"
+        }
+      },
+      {
+        "id": "begin",
+        "key": "begin",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'libelle':\"Création opportunité de bien\",'operation_id':steps.op.id,'date_evenement':$now(),'user_id':auth.claims.sub,'email_auteur':steps.identity.email,'broker':steps.identity.broker,'type_dossier':\"opportunite-bien\",'dossier_id':$string(input.body.clientId ? input.body.clientId : input.body.id),'type_evenement':\"Création opportunité de bien\",'resultat':'À reprendre','source':'SuperAPP_easyspace_CRM1','test_crm1':input.body.test = true}"
+          }
+        }
+      },
+      {
+        "id": "write",
+        "key": "write",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m13dd0abc30554ba9",
+            "values": "{'table_origine':input.body.test=true ? 'RECETTE_CRM1' : 'SuperAPP_easyspace_CRM1','libelle':input.body.nom,'src_c7a50877zqv8he2':input.body.nom,'src_cg613eoqivagf9q':input.body.quartier,'src_cd5vgyi78qkg52p':input.body.typeBien,'src_cjww4qd9gmywdmx':input.body.transaction,'src_cwqc3dj4cewpssd':input.body.prix,'crm_notes_suivi':input.body.notes,'src_cazse08x5syk1gn':steps.identity.broker,'src_cey267rja2wv3lq':'Vérification Broker en cours'}"
+          }
+        }
+      },
+      {
+        "id": "finish",
+        "key": "finish",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "updateRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'resultat':'Réussi','dossier_id':$string(input.body.clientId ? input.body.clientId : steps.write.id),'apres':$string(steps.write)}",
+            "recordId": "{{ steps.begin.id }}"
+          }
+        }
+      },
+      {
+        "id": "done",
+        "key": "done",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 201,
+          "headers": [],
+          "body": "{'id':steps.write.id,'operationId':steps.op.id,'message':'Enregistré'}"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "published",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/opportunites-biens",
+  "published": {
+    "version": 1,
+    "at": "2026-10-30T16:33:24.062Z",
+    "method": "POST",
+    "path": "/crm1/opportunites-biens",
+    "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/opportunites-biens"
+  },
+  "problems": [],
+  "createdAt": "2026-10-30T16:19:31.626Z",
+  "updatedAt": "2026-10-30T16:27:38.554Z"
+}

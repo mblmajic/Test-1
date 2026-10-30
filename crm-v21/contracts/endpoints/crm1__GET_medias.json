@@ -1,0 +1,179 @@
+{
+  "id": "85e4bcf0-c68f-4286-90c4-77283ecc8ed6",
+  "name": "CRM1 — Documents et médias",
+  "description": "",
+  "definition": {
+    "method": "GET",
+    "path": "/crm1/medias",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "headers": [],
+      "body": []
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "client",
+        "key": "client",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "getRecord",
+          "params": {
+            "table": "m80adee8ba2348dfe",
+            "recordId": "{{ input.query.clientId }}",
+            "failIfNotFound": true
+          }
+        }
+      },
+      {
+        "id": "own",
+        "key": "own",
+        "name": "",
+        "runIf": "$not(steps.identity.admin or steps.client.src_c2ljvedgo8rjnjz=steps.identity.broker)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Accès refusé à ce dossier.'}"
+        }
+      },
+      {
+        "id": "rows",
+        "key": "rows",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 500,
+            "table": "med983146d1970914",
+            "columns": [
+              "id",
+              "nom_fichier",
+              "url_fichier",
+              "categorie",
+              "date_depot",
+              "taille_octets",
+              "test_crm1"
+            ],
+            "filters": [
+              {
+                "value": "{{ input.query.clientId }}",
+                "column": "opportunit_s_clients_id",
+                "operator": "eq"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "shape",
+        "key": "shape",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "{'items':[steps.rows.rows[$not(test_crm1=true)].{'id':id,'name':nom_fichier,'url':url_fichier,'type':categorie,'date':date_depot,'size':taille_octets}]}"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "published",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/medias",
+  "published": {
+    "version": 2,
+    "at": "2026-10-30T16:36:47.989Z",
+    "method": "GET",
+    "path": "/crm1/medias",
+    "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/medias"
+  },
+  "problems": [],
+  "createdAt": "2026-10-30T16:22:21.986Z",
+  "updatedAt": "2026-10-30T16:36:46.973Z"
+}

@@ -1,0 +1,342 @@
+{
+  "id": "c14e412d-c0b4-43ab-934d-611cd7c1517c",
+  "name": "CRM1 — Créer un rendez-vous",
+  "description": "",
+  "definition": {
+    "method": "POST",
+    "path": "/crm1/activites",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [],
+      "headers": [],
+      "body": [
+        {
+          "name": "clientId",
+          "type": "any",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "bienId",
+          "type": "any",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "date",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "fin",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "nom",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "test",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "jour",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "heure",
+          "type": "string",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "valid_id_0",
+        "key": "valid_id_0",
+        "name": "",
+        "runIf": "$exists(input.body.clientId) and $string(input.body.clientId) != '' and $not($contains($string(input.body.clientId),/^[1-9][0-9]{0,14}$/))",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{'error':'Identifiant de dossier invalide.'}"
+        }
+      },
+      {
+        "id": "valid_id_1",
+        "key": "valid_id_1",
+        "name": "",
+        "runIf": "$exists(input.body.bienId) and $string(input.body.bienId) != '' and $not($contains($string(input.body.bienId),/^[1-9][0-9]{0,14}$/))",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{'error':'Identifiant de dossier invalide.'}"
+        }
+      },
+      {
+        "id": "op",
+        "key": "op",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "{'id':$string($millis()) & '-' & $string(auth.claims.sub),'date':$now(),'broker':steps.identity.broker}"
+        }
+      },
+      {
+        "id": "calendar",
+        "key": "calendar",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "{'date':input.body.date ? input.body.date : input.body.jour & 'T' & input.body.heure & ':00+01:00'}"
+        }
+      },
+      {
+        "id": "needClient",
+        "key": "needClient",
+        "name": "",
+        "runIf": "$not(input.body.clientId)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Choisissez une opportunité client.\"}"
+        }
+      },
+      {
+        "id": "client",
+        "key": "client",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "getRecord",
+          "params": {
+            "table": "m80adee8ba2348dfe",
+            "recordId": "{{ input.body.clientId }}",
+            "failIfNotFound": true
+          }
+        }
+      },
+      {
+        "id": "clientOwner",
+        "key": "clientOwner",
+        "name": "",
+        "runIf": "$not(steps.identity.admin or steps.client.src_c2ljvedgo8rjnjz = steps.identity.broker)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{\"error\":\"Accès refusé à cette opportunité client.\"}"
+        }
+      },
+      {
+        "id": "date",
+        "key": "date",
+        "name": "",
+        "runIf": "$not($contains(steps.calendar.date,/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}/))",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Indiquez une date et une heure.\"}"
+        }
+      },
+      {
+        "id": "type",
+        "key": "type",
+        "name": "",
+        "runIf": "$not(input.body.type in ['Visite','Appel','Estimation','Signature','Tâche'])",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Type d’activité non autorisé.\"}"
+        }
+      },
+      {
+        "id": "begin",
+        "key": "begin",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'libelle':\"Création rendez-vous\",'operation_id':steps.op.id,'date_evenement':$now(),'user_id':auth.claims.sub,'email_auteur':steps.identity.email,'broker':steps.identity.broker,'type_dossier':\"activite\",'dossier_id':$string(input.body.clientId ? input.body.clientId : input.body.id),'type_evenement':\"Création rendez-vous\",'resultat':'À reprendre','source':'SuperAPP_easyspace_CRM1','test_crm1':input.body.test = true}"
+          }
+        }
+      },
+      {
+        "id": "write",
+        "key": "write",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m3573c7a505385e65",
+            "values": "{'libelle':input.body.nom ? input.body.nom : input.body.type & ' — ' & steps.client.libelle,'src_cybzjmjoj4zlch0':steps.calendar.date,'crm_fin':input.body.fin,'src_c2xrwp99jzayeub':input.body.type,'src_cwtdcarxql2laii':'Programme','opportunit_s_clients_id':input.body.clientId,'biens_id':input.body.bienId,'crm_broker':steps.client.src_c2ljvedgo8rjnjz ? steps.client.src_c2ljvedgo8rjnjz : steps.identity.broker,'crm_est_test':input.body.test=true,'crm_cle_creation':steps.op.id}"
+          }
+        }
+      },
+      {
+        "id": "finish",
+        "key": "finish",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "updateRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'resultat':'Réussi','dossier_id':$string(input.body.clientId ? input.body.clientId : steps.write.id),'apres':$string(steps.write)}",
+            "recordId": "{{ steps.begin.id }}"
+          }
+        }
+      },
+      {
+        "id": "done",
+        "key": "done",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 201,
+          "headers": [],
+          "body": "{'id':steps.write.id,'operationId':steps.op.id,'message':'Enregistré'}"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "published",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/activites",
+  "published": {
+    "version": 1,
+    "at": "2026-10-30T16:33:24.744Z",
+    "method": "POST",
+    "path": "/crm1/activites",
+    "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/activites"
+  },
+  "problems": [],
+  "createdAt": "2026-10-30T16:19:32.449Z",
+  "updatedAt": "2026-10-30T16:27:39.524Z"
+}

@@ -1,0 +1,231 @@
+{
+  "id": "2819a752-4c76-49ac-8499-bd06f4188000",
+  "name": "CRM1 — Ajouter une note",
+  "description": "",
+  "definition": {
+    "method": "POST",
+    "path": "/crm1/notes",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [],
+      "headers": [],
+      "body": [
+        {
+          "name": "clientId",
+          "type": "any",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "texte",
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "test",
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "valid_id_0",
+        "key": "valid_id_0",
+        "name": "",
+        "runIf": "$exists(input.body.clientId) and $string(input.body.clientId) != '' and $not($contains($string(input.body.clientId),/^[1-9][0-9]{0,14}$/))",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{'error':'Identifiant de dossier invalide.'}"
+        }
+      },
+      {
+        "id": "op",
+        "key": "op",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "{'id':$string($millis()) & '-' & $string(auth.claims.sub),'date':$now(),'broker':steps.identity.broker}"
+        }
+      },
+      {
+        "id": "needClient",
+        "key": "needClient",
+        "name": "",
+        "runIf": "$not(input.body.clientId)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Choisissez une opportunité client.\"}"
+        }
+      },
+      {
+        "id": "client",
+        "key": "client",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "getRecord",
+          "params": {
+            "table": "m80adee8ba2348dfe",
+            "recordId": "{{ input.body.clientId }}",
+            "failIfNotFound": true
+          }
+        }
+      },
+      {
+        "id": "clientOwner",
+        "key": "clientOwner",
+        "name": "",
+        "runIf": "$not(steps.identity.admin or steps.client.src_c2ljvedgo8rjnjz = steps.identity.broker)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{\"error\":\"Accès refusé à cette opportunité client.\"}"
+        }
+      },
+      {
+        "id": "text",
+        "key": "text",
+        "name": "",
+        "runIf": "$not(input.body.texte) or $length(input.body.texte)>10000",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Saisissez une note de 10 000 caractères maximum.\"}"
+        }
+      },
+      {
+        "id": "write",
+        "key": "write",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'libelle':'Note client','operation_id':steps.op.id,'date_evenement':$now(),'user_id':auth.claims.sub,'email_auteur':steps.identity.email,'broker':steps.identity.broker,'type_dossier':'client','dossier_id':$string(input.body.clientId),'type_evenement':'Note','resume':input.body.texte,'resultat':'Réussi','source':'SuperAPP_easyspace_CRM1','test_crm1':input.body.test=true}"
+          }
+        }
+      },
+      {
+        "id": "done",
+        "key": "done",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 201,
+          "headers": [],
+          "body": "{'id':steps.write.id,'operationId':steps.op.id,'message':'Enregistré'}"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "published",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/notes",
+  "published": {
+    "version": 1,
+    "at": "2026-10-30T16:33:25.588Z",
+    "method": "POST",
+    "path": "/crm1/notes",
+    "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/notes"
+  },
+  "problems": [],
+  "createdAt": "2026-10-30T16:19:33.495Z",
+  "updatedAt": "2026-10-30T16:27:40.258Z"
+}

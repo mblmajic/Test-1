@@ -1,0 +1,131 @@
+{
+  "id": "0519a5a2-d694-4012-9d84-58513fc3e358",
+  "name": "CRM1 — Opportunités de biens",
+  "description": "",
+  "definition": {
+    "method": "GET",
+    "path": "/crm1/opportunites-biens",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [
+        {
+          "name": "id",
+          "type": "string",
+          "required": false,
+          "description": ""
+        }
+      ],
+      "headers": [],
+      "body": []
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "rows",
+        "key": "rows",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "query",
+          "params": {
+            "query": "{'table':'#m13dd0abc30554ba9','select':{\"id\":\"$#c668fa74f410b82b8\",\"nom\":\"$#c36ec192f798b521f\",\"broker\":\"$#ca69f4c7d76d07a76\",\"statut\":\"$#ca284c696410911e1\",\"typeBien\":\"$#c137163b887656de0\",\"prix\":\"$#cc170db71efed9209\",\"surface\":\"$#c13296be88dd3b25e\",\"quartier\":\"$#cc819033813a3dde1\",\"ville\":\"$#ca16b08ebefa74cd8\",\"adresse\":\"$#c7c5c38ce63f3852f\",\"transaction\":\"$#c0be492118c9d65de\",\"action\":\"$#ce8d457a6b022c5f4\",\"echeance\":\"$#c2916d32a0fdecfd4\",\"notes\":\"$#c0d32870185e8cd5f\"},'where':{'#c668fa74f410b82b8':input.query.id ? $number(input.query.id) : undefined},'page':1,'pageSize':500}",
+            "result": "response"
+          }
+        }
+      },
+      {
+        "id": "shape",
+        "key": "shape",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($s := function($v){($exists($v) and $type($v) != 'null') ? $string($v) : ''}; $n := function($v){$s($v) != '' ? $number($v) : null}; {'items':[steps.rows.data.{'id':id,'nom':$s(nom) != '' ? nom : 'Bien #' & $string(id),'broker':$s(broker),'statut':$s(statut),'typeBien':$s(typeBien),'prix':$n(prix),'surface':$n(surface),'quartier':$s(quartier),'ville':$s(ville),'adresse':$s(adresse),'transaction':$s(transaction),'photos':[photos[$not($contains(url,'content.avito.ma'))]],'photoSource':photos[0].url,'estMonBien':broker=$.steps.identity.broker,'action':$s(action),'echeance':$s(echeance),'notes':$s(notes)}]})"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "published",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/opportunites-biens",
+  "published": {
+    "version": 3,
+    "at": "2026-10-30T16:36:37.493Z",
+    "method": "GET",
+    "path": "/crm1/opportunites-biens",
+    "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/opportunites-biens"
+  },
+  "problems": [],
+  "createdAt": "2026-10-30T16:16:37.951Z",
+  "updatedAt": "2026-10-30T16:36:36.578Z"
+}

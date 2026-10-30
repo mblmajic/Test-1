@@ -1,0 +1,218 @@
+{
+  "id": "d2f570b1-fec8-4eed-a859-b4af8c61460c",
+  "name": "CRM1 — Historique du dossier",
+  "description": "",
+  "definition": {
+    "method": "GET",
+    "path": "/crm1/historique",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [
+        {
+          "name": "clientId",
+          "type": "string",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "headers": [],
+      "body": []
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "rows",
+        "key": "rows",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "query",
+          "params": {
+            "query": "{'table':'#m80adee8ba2348dfe','select':{\"id\":\"$#ce2f939b4ec24c8a3\",\"nom\":\"$#c8a2e95feacdc2b59\",\"broker\":\"$#ce89da508e27173dd\",\"statut\":\"$#c67a3e8be78da701a\",\"action\":\"$#c7c7e7ad6e4c241e4\",\"echeance\":\"$#c21acdbe696f9e985\",\"telephone\":\"$#c3ccfef98a00b1185\",\"quartier\":\"$#c38f5959717bb4c1e\",\"transaction\":\"$#ca5f0f1fdf2955072\",\"typeBien\":\"$#ceae58364f992bb0f\",\"budgetLoyer\":\"$#cc9c9b94b6b94b89c\",\"budgetAchat\":\"$#c73e91a2352036922\",\"notes\":\"$#c54a31de15b9535fb\",\"contactId\":\"$#c7b4347fb734c54f8\"},'where':{'#ce89da508e27173dd':steps.identity.admin ? undefined : steps.identity.broker,'#ce2f939b4ec24c8a3':input.query.clientId ? $number(input.query.clientId) : undefined,'#c67a3e8be78da701a':input.query.statut},'page':1,'pageSize':500}",
+            "result": "response"
+          }
+        }
+      },
+      {
+        "id": "own",
+        "key": "own",
+        "name": "",
+        "runIf": "$count(steps.rows.data)=0",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 404,
+          "headers": [],
+          "body": "{'error':'Dossier introuvable ou accès refusé.'}"
+        }
+      },
+      {
+        "id": "events",
+        "key": "events",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 500,
+            "table": "m638173347625af09",
+            "columns": [
+              "id",
+              "libelle",
+              "date_evenement",
+              "type_dossier",
+              "dossier_id",
+              "type_evenement",
+              "resume",
+              "resultat",
+              "broker",
+              "test_crm1"
+            ],
+            "filters": [
+              {
+                "value": "{{ input.query.clientId }}",
+                "column": "dossier_id",
+                "operator": "eq"
+              },
+              {
+                "value": "client",
+                "column": "type_dossier",
+                "operator": "eq"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "activities",
+        "key": "activities",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 500,
+            "table": "m3573c7a505385e65",
+            "columns": [
+              "id",
+              "libelle",
+              "src_cybzjmjoj4zlch0",
+              "src_cwtdcarxql2laii",
+              "crm_appreciation",
+              "crm_est_test"
+            ],
+            "filters": [
+              {
+                "value": "{{ input.query.clientId }}",
+                "column": "opportunit_s_clients_id",
+                "operator": "eq"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "shape",
+        "key": "shape",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "{'items':$append([steps.events.rows[$not(test_crm1=true)].{'id':id,'date':date_evenement,'titre':type_evenement,'texte':resume,'statut':resultat}],[steps.activities.rows[$not(crm_est_test=true)].{'id':'activite-'&$string(id),'date':src_cybzjmjoj4zlch0,'titre':libelle,'texte':crm_appreciation,'statut':src_cwtdcarxql2laii}])}"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "published",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/historique",
+  "published": {
+    "version": 2,
+    "at": "2026-10-30T16:31:59.192Z",
+    "method": "GET",
+    "path": "/crm1/historique",
+    "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/historique"
+  },
+  "problems": [],
+  "createdAt": "2026-10-30T16:17:31.369Z",
+  "updatedAt": "2026-10-30T16:31:57.341Z"
+}

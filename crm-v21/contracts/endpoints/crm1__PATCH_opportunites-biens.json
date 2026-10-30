@@ -1,0 +1,279 @@
+{
+  "id": "2a68b3d1-51bd-4907-a0b7-4b7094dfc73d",
+  "name": "CRM1 — Modifier une opportunité de bien",
+  "description": "",
+  "definition": {
+    "method": "PATCH",
+    "path": "/crm1/opportunites-biens",
+    "auth": {
+      "type": "jwt"
+    },
+    "input": {
+      "params": [],
+      "query": [],
+      "headers": [],
+      "body": [
+        {
+          "name": "id",
+          "type": "any",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "notes",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "echeance",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "action",
+          "type": "string",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "prix",
+          "type": "number",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    "steps": [
+      {
+        "id": "team",
+        "key": "team",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "listRecords",
+          "params": {
+            "limit": 20,
+            "table": "mf37113735cdd038b",
+            "columns": [
+              "id",
+              "broker",
+              "actif",
+              "email_production",
+              "crm_broker_valeur"
+            ]
+          }
+        }
+      },
+      {
+        "id": "identity",
+        "key": "identity",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "($email := $lowercase($string(auth.claims.email)); $admin := auth.claims.sub = '2ed8af88-0a8d-44dc-9b78-852f3c450cd5' or 'dom-admin' in auth.claims.roles or 'Admin Domaine' in auth.claims.roles; $rep := steps.team.rows[$lowercase($string(email_production)) = $email and (actif = true or actif = 'true')][0]; {'admin':$admin,'broker':$admin ? 'Majid' : $rep.crm_broker_valeur,'email':$email,'userId':auth.claims.sub,'allowed':$admin or $exists($rep.id)})"
+        }
+      },
+      {
+        "id": "access",
+        "key": "access",
+        "name": "",
+        "runIf": "$not(steps.identity.allowed)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{'error':'Votre compte n’est pas associé à un broker actif. Contactez M. Majid.'}"
+        }
+      },
+      {
+        "id": "valid_id_0",
+        "key": "valid_id_0",
+        "name": "",
+        "runIf": "$exists(input.body.id) and $string(input.body.id) != '' and $not($contains($string(input.body.id),/^[1-9][0-9]{0,14}$/))",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{'error':'Identifiant de dossier invalide.'}"
+        }
+      },
+      {
+        "id": "op",
+        "key": "op",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "transform",
+        "config": {
+          "expression": "{'id':$string($millis()) & '-' & $string(auth.claims.sub),'date':$now(),'broker':steps.identity.broker}"
+        }
+      },
+      {
+        "id": "needId",
+        "key": "needId",
+        "name": "",
+        "runIf": "$not(input.body.id)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Dossier manquant.\"}"
+        }
+      },
+      {
+        "id": "record",
+        "key": "record",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "getRecord",
+          "params": {
+            "table": "m13dd0abc30554ba9",
+            "recordId": "{{ input.body.id }}",
+            "failIfNotFound": true
+          }
+        }
+      },
+      {
+        "id": "owner",
+        "key": "owner",
+        "name": "",
+        "runIf": "$not(steps.identity.admin or steps.record.src_cazse08x5syk1gn = steps.identity.broker)",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 403,
+          "headers": [],
+          "body": "{\"error\":\"La modification hors responsable nécessite le raccordement des alertes.\"}"
+        }
+      },
+      {
+        "id": "price",
+        "key": "price",
+        "name": "",
+        "runIf": "$exists(input.body.prix) and input.body.prix < 0",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 400,
+          "headers": [],
+          "body": "{\"error\":\"Le prix doit être positif.\"}"
+        }
+      },
+      {
+        "id": "begin",
+        "key": "begin",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "createRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'libelle':\"Modification opportunite-bien\",'operation_id':steps.op.id,'date_evenement':$now(),'user_id':auth.claims.sub,'email_auteur':steps.identity.email,'broker':steps.identity.broker,'type_dossier':\"opportunite-bien\",'dossier_id':$string(input.body.id),'type_evenement':\"Modification opportunite-bien\",'resultat':'À reprendre','source':'SuperAPP_easyspace_CRM1','avant':$string(steps.record)}"
+          }
+        }
+      },
+      {
+        "id": "write",
+        "key": "write",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "updateRecord",
+          "params": {
+            "table": "m13dd0abc30554ba9",
+            "values": "{'crm_notes_suivi':input.body.notes,'crm_echeance':input.body.echeance,'crm_prochaine_action':input.body.action,'src_cwqc3dj4cewpssd':input.body.prix}",
+            "recordId": "{{ input.body.id }}"
+          }
+        }
+      },
+      {
+        "id": "finish",
+        "key": "finish",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "datasource",
+        "config": {
+          "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+          "operation": "updateRecord",
+          "params": {
+            "table": "m638173347625af09",
+            "values": "{'resultat':'Réussi','dossier_id':$string(input.body.clientId ? input.body.clientId : steps.write.id),'apres':$string(steps.write)}",
+            "recordId": "{{ steps.begin.id }}"
+          }
+        }
+      },
+      {
+        "id": "done",
+        "key": "done",
+        "name": "",
+        "runIf": "",
+        "onError": "stop",
+        "enabled": true,
+        "type": "respond",
+        "config": {
+          "status": 200,
+          "headers": [],
+          "body": "{'id':steps.write.id,'operationId':steps.op.id,'message':'Enregistré'}"
+        }
+      }
+    ],
+    "response": {
+      "status": 200,
+      "headers": [],
+      "body": ""
+    },
+    "docs": {
+      "description": "",
+      "tags": [],
+      "deprecated": false,
+      "hidden": false,
+      "responseDescription": "",
+      "responseExample": ""
+    }
+  },
+  "status": "published",
+  "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/opportunites-biens",
+  "published": {
+    "version": 2,
+    "at": "2026-10-30T16:36:43.788Z",
+    "method": "PATCH",
+    "path": "/crm1/opportunites-biens",
+    "url": "https://api-studio.tybotflow.com/run/easyspace_schema/crm1/opportunites-biens"
+  },
+  "problems": [],
+  "createdAt": "2026-10-30T16:20:10.723Z",
+  "updatedAt": "2026-10-30T16:36:43.048Z"
+}
