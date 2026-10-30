@@ -1,0 +1,257 @@
+{
+ "name": "CRM21 — Nouvelle opportunité de bien",
+ "description": "Créée avec le broker appelant comme responsable ; gestionnaire « À confirmer ».",
+ "definition": {
+  "method": "POST",
+  "path": "/crm21/opportunites-biens",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "nom",
+     "type": "string",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "transaction",
+     "type": "string",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "type",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "prix",
+     "type": "any",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "quartier",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "gestionnaire",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "gestionnaireTel",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "cle",
+     "type": "string",
+     "required": false,
+     "description": ""
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gnom",
+    "name": "gnom",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Nom du bien obligatoire (3 à 150 caractères).'}"
+    },
+    "runIf": "$length($trim($string(input.body.nom))) < 3 or $length($string(input.body.nom)) > 150"
+   },
+   {
+    "key": "gtx",
+    "name": "gtx",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Choisissez Vente ou Location.'}"
+    },
+    "runIf": "$not(input.body.transaction in ['Vente', 'Location'])"
+   },
+   {
+    "key": "gty",
+    "name": "gty",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Type de bien inconnu.'}"
+    },
+    "runIf": "$exists(input.body.type) and input.body.type != '' and $not(input.body.type in ['appartement', 'studio', 'villa', 'local commerciale', 'magasin', 'bureau', 'terrain', 'local'])"
+   },
+   {
+    "key": "gpx",
+    "name": "gpx",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Prix invalide.'}"
+    },
+    "runIf": "$exists(input.body.prix) and input.body.prix != '' and ($type($number($string(input.body.prix))) != 'number' or $number($string(input.body.prix)) < 0)"
+   },
+   {
+    "key": "deja",
+    "name": "Reprise",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m638173347625af09",
+      "columns": [
+       "id",
+       "dossier_id"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "operation_id",
+        "operator": "eq",
+        "value": "{{ steps.op.id }}"
+       },
+       {
+        "column": "type_evenement",
+        "operator": "eq",
+        "value": "Création opportunité de bien"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "dejafait",
+    "name": "dejafait",
+    "type": "respond",
+    "config": {
+     "status": 200,
+     "headers": [],
+     "body": "{'items':[{'id': $number(steps.deja.rows[0].dossier_id), 'lien': '/opportunite-bien?id=' & steps.deja.rows[0].dossier_id, 'message':'Opportunité déjà enregistrée.', 'reprise': true}]}"
+    },
+    "runIf": "$count(steps.deja.rows) > 0"
+   },
+   {
+    "key": "write",
+    "name": "Création",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m13dd0abc30554ba9",
+      "values": "{'libelle': $trim(input.body.nom), 'src_c7a50877zqv8he2': $trim(input.body.nom), 'src_cjww4qd9gmywdmx': input.body.transaction, 'src_cd5vgyi78qkg52p': input.body.type != '' ? input.body.type : null, 'src_cwqc3dj4cewpssd': $exists(input.body.prix) and input.body.prix != '' ? $number($string(input.body.prix)) : null, 'src_cg613eoqivagf9q': input.body.quartier, 'src_cw8g5cc2gv9f6dz': input.body.gestionnaire, 'src_c0utrhay1h28b7j': input.body.gestionnaireTel, 'src_cazse08x5syk1gn': steps.ident.broker, 'resultat_commercial': 'À qualifier', 'tat_de_migration_gestionnaire': 'À confirmer', 'crm_prochaine_action': 'Qualifier le bien avec le gestionnaire', 'table_origine': 'SuperAPP CRM V2.1'}"
+     }
+    }
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'Création opportunité de bien', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'opportunite-bien', 'dossier_id': $string(steps.write.id), 'type_evenement': 'Création opportunité de bien', 'resume': $substring($string(input.body.nom), 0, 2000), 'apres': $substring($string({'cle': steps.op.id}), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': $contains(input.body.nom, '[RECETTE V21]')}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 201,
+     "headers": [],
+     "body": "{'items':[{'id': steps.write.id, 'lien': '/opportunite-bien?id=' & $string(steps.write.id), 'message':'Opportunité de bien créée.'}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Créée avec le broker appelant comme responsable ; gestionnaire « À confirmer »."
+  }
+ }
+}

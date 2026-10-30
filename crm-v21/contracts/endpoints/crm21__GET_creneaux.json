@@ -1,0 +1,152 @@
+{
+ "name": "CRM21 — Créneaux libres",
+ "description": "Créneaux libres calculés depuis les RDV réels du broker.",
+ "definition": {
+  "method": "GET",
+  "path": "/crm21/creneaux",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [
+    {
+     "name": "jour",
+     "type": "string",
+     "required": false,
+     "description": ""
+    }
+   ],
+   "headers": [],
+   "body": []
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "per",
+    "name": "Périodes horaires",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m417041728cf6ca7e",
+      "columns": [
+       "debut_utc",
+       "fin_utc",
+       "decalage_min"
+      ],
+      "limit": 50
+     }
+    }
+   },
+   {
+    "key": "gjour",
+    "name": "gjour",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Date invalide (AAAA-MM-JJ).'}"
+    },
+    "runIf": "$exists(input.query.jour) and input.query.jour != '' and $not($contains(input.query.jour, /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/))"
+   },
+   {
+    "key": "rows",
+    "name": "Mes RDV",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3573c7a505385e65",
+      "columns": [
+       "id",
+       "src_cybzjmjoj4zlch0",
+       "crm_fin",
+       "crm_broker",
+       "src_cwtdcarxql2laii",
+       "crm_etat_visite"
+      ],
+      "limit": 1000,
+      "filters": [
+       {
+        "column": "crm_broker",
+        "operator": "eq",
+        "value": "{{ steps.ident.broker }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "out",
+    "name": "Calcul",
+    "type": "transform",
+    "config": {
+     "expression": "\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $replace($string($v), '\"', '') : '' };\n$n := function($v){ ($x := $s($v); $x != '' and $x != 'null' ? $number($x) : null) };\n$b := function($v){ $s($v) = 'true' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $n($p.decalage_min) : 60) };\n$tzp := function($t){ $off($t) = 0 ? '+0000' : '+0100' };\n$loc := function($iso, $pic){ ($t := $ms($iso); $exists($t) ? $fromMillis($t, $pic, $tzp($t)) : '') };\n$nowms := $millis();\n$today := $fromMillis($nowms, '[Y0001]-[M01]-[D01]', $tzp($nowms));\n$tomorrow := $fromMillis($nowms + 86400000, '[Y0001]-[M01]-[D01]', $tzp($nowms + 86400000));\n$in7 := $fromMillis($nowms + 7 * 86400000, '[Y0001]-[M01]-[D01]', $tzp($nowms));\n$JOURS := ['lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.'];\n$MOIS := ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];\n$jour := function($iso){ $loc($iso, '[Y0001]-[M01]-[D01]') };\n$heure := function($iso){ $loc($iso, '[H01]:[m01]') };\n$labelJour := function($iso){ ($d := $jour($iso); $d = '' ? '' : ($d = $today ? 'Aujourd’hui' : ($d = $tomorrow ? 'Demain' : $JOURS[$number($loc($iso, '[F1]')) - 1] & ' ' & $loc($iso, '[D1]') & ' ' & $MOIS[$number($loc($iso, '[M1]')) - 1]))) };\n$labelDate := function($iso){ ($d := $labelJour($iso); $d = '' ? '' : ($h := $heure($iso); $h = '00:00' ? $d : $d & ' · ' & $h)) };\n$dh := function($x){ $exists($x) and $x != null and $x > 0 ? $formatNumber($x, '#,##0', {'grouping-separator': ' '}) & ' DH' : '—' };\n$digits := function($t){ $replace($s($t), /[^0-9]/, '') };\n$intl := function($t){ ($d := $digits($t); $length($d) < 8 ? '' : ($substring($d, 0, 2) = '00' ? $substring($d, 2) : ($substring($d, 0, 1) = '0' ? '212' & $substring($d, 1) : ($length($d) = 9 ? '212' & $d : $d)))) };\n$recette := function($t){ $contains($s($t), '[RECETTE V21]') or $contains($s($t), 'RECETTE CRM1') };\n$voirRecette := $$.input.query.recette = '1';\n$moi := $$.steps.ident;\n\n$j := $s($$.input.query.jour) != '' ? $s($$.input.query.jour) : $today;\n$tz := $tzp($toMillis($j & 'T12:00:00+01:00'));\n$tzi := $substring($tz, 0, 3) & ':' & $substring($tz, 3);\n$occ := $$.steps.rows.rows[$s(src_cwtdcarxql2laii) != 'Annulé' and $s(crm_etat_visite) != 'Annulée' and $jour(src_cybzjmjoj4zlch0) = $j].{\n  'a': $ms(src_cybzjmjoj4zlch0), 'b': $s(crm_fin) != '' ? $ms(crm_fin) : $ms(src_cybzjmjoj4zlch0) + 3600000};\n$slots := [9..19].(\n  $h := $; $hh := $h < 10 ? '0' & $string($h) : $string($h);\n  [{'h': $hh & ':00'}, {'h': $hh & ':30'}]\n);\n$libres := $slots[(\n  $t := $toMillis($j & 'T' & h & ':00' & $tzi);\n  $t > $nowms and $count($occ[a < $t + 3600000 and b > $t]) = 0\n)];\n{'items': [$libres.{'label': h, 'value': $j & 'T' & h}], 'methode': 'Créneaux d’une heure entre 9 h et 20 h sans RDV existant du broker (hors annulés).'}\n"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Créneaux libres calculés depuis les RDV réels du broker."
+  }
+ }
+}

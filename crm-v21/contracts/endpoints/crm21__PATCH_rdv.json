@@ -1,0 +1,349 @@
+{
+ "name": "CRM21 — Suivi d'un rendez-vous",
+ "description": "Compte rendu, confirmation, annulation ou déplacement ; propriétaire contrôlé ; historique horodaté.",
+ "definition": {
+  "method": "PATCH",
+  "path": "/crm21/rdv",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "id",
+     "type": "any",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "action",
+     "type": "string",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "appreciation",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "objections",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "prochaineEtape",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "motif",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "debut",
+     "type": "string",
+     "required": false,
+     "description": ""
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "per",
+    "name": "Périodes horaires",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m417041728cf6ca7e",
+      "columns": [
+       "debut_utc",
+       "fin_utc",
+       "decalage_min"
+      ],
+      "limit": 50
+     }
+    }
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gid",
+    "name": "gid",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Rendez-vous manquant.'}"
+    },
+    "runIf": "$not($contains($string(input.body.id), /^[1-9][0-9]{0,9}$/))"
+   },
+   {
+    "key": "gact",
+    "name": "gact",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Action inconnue.'}"
+    },
+    "runIf": "$not(input.body.action in ['compte-rendu', 'confirmer', 'annuler', 'deplacer'])"
+   },
+   {
+    "key": "gcr",
+    "name": "gcr",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Le compte rendu doit contenir l’appréciation du client.'}"
+    },
+    "runIf": "input.body.action = 'compte-rendu' and $length($trim($string(input.body.appreciation))) < 2"
+   },
+   {
+    "key": "glen",
+    "name": "glen",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Texte trop long (4000 caractères max).'}"
+    },
+    "runIf": "$length($string(input.body.appreciation)) > 4000 or $length($string(input.body.objections)) > 4000 or $length($string(input.body.prochaineEtape)) > 4000"
+   },
+   {
+    "key": "gdeb",
+    "name": "gdeb",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Nouvelle date obligatoire (AAAA-MM-JJTHH:MM).'}"
+    },
+    "runIf": "input.body.action = 'deplacer' and $not($contains($string(input.body.debut), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"
+   },
+   {
+    "key": "rdv",
+    "name": "rdv",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3573c7a505385e65",
+      "columns": [
+       "id",
+       "libelle",
+       "crm_fin",
+       "crm_broker",
+       "crm_etat_visite",
+       "crm_appreciation",
+       "crm_objections",
+       "crm_prochaine_etape",
+       "crm_historique_cr",
+       "crm_est_test",
+       "crm_cle_creation",
+       "opportunit_s_clients_id",
+       "biens_id",
+       "biens_opportunit_id",
+       "contacts_id",
+       "src_cybzjmjoj4zlch0",
+       "src_c2xrwp99jzayeub",
+       "src_cwtdcarxql2laii"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(input.body.id) }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "g404",
+    "name": "g404",
+    "type": "respond",
+    "config": {
+     "status": 404,
+     "headers": [],
+     "body": "{'error':'Rendez-vous introuvable.'}"
+    },
+    "runIf": "$count(steps.rdv.rows) = 0"
+   },
+   {
+    "key": "oc",
+    "name": "oc",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "columns": [
+       "id",
+       "libelle",
+       "src_c2ljvedgo8rjnjz"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(steps.rdv.rows[0].opportunit_s_clients_id) }}"
+       }
+      ]
+     }
+    },
+    "runIf": "$exists(steps.rdv.rows[0].opportunit_s_clients_id) and $string(steps.rdv.rows[0].opportunit_s_clients_id) != 'null'"
+   },
+   {
+    "key": "gown",
+    "name": "gown",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Ce rendez-vous n’est pas dans votre agenda.'}"
+    },
+    "runIf": "$not(steps.ident.admin or $string(steps.rdv.rows[0].crm_broker) = steps.ident.broker or $string(steps.oc.rows[0].src_c2ljvedgo8rjnjz) = steps.ident.broker)"
+   },
+   {
+    "key": "t",
+    "name": "Valeurs",
+    "type": "transform",
+    "config": {
+     "expression": "\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$a := $$.input.body.action; $r := $$.steps.rdv.rows[0];\n$d := $a = 'deplacer' ? $iso($$.input.body.debut) : null;\n$dur := ($ms($r.crm_fin) and $ms($r.src_cybzjmjoj4zlch0)) ? $ms($r.crm_fin) - $ms($r.src_cybzjmjoj4zlch0) : 3600000;\n$finMs := $d ? $ms($d) + $dur : null;\n$stamp := $fromMillis($millis(), '[D01]/[M01]/[Y0001] [H01]:[m01]', $off($millis()) = 0 ? '+0000' : '+0100');\n$hist := $s($r.crm_historique_cr);\n$a = 'compte-rendu' ? {'crm_appreciation': $$.input.body.appreciation, 'crm_objections': $$.input.body.objections, 'crm_prochaine_etape': $$.input.body.prochaineEtape,\n   'crm_etat_visite': 'Effectuée', 'src_cwtdcarxql2laii': 'Terminé',\n   'crm_historique_cr': $trim($hist & '\\n[' & $stamp & ' — ' & $$.steps.ident.nom & '] ' & $$.input.body.appreciation)} :\n($a = 'confirmer' ? {'crm_etat_visite': 'Confirmée', 'crm_confirmation_client': true} :\n($a = 'annuler' ? {'crm_etat_visite': 'Annulée', 'src_cwtdcarxql2laii': 'Annulé',\n   'crm_historique_cr': $trim($hist & '\\n[' & $stamp & '] Annulé' & ($s($$.input.body.motif) != '' ? ' : ' & $$.input.body.motif : ''))} :\n{'src_cybzjmjoj4zlch0': $d, 'crm_fin': $fromMillis($finMs, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]', $off($finMs) = 0 ? '+0000' : '+0100') & ($off($finMs) = 0 ? '+00:00' : '+01:00'),\n   'crm_etat_visite': 'À confirmer', 'src_cwtdcarxql2laii': 'Programme'}))\n"
+    }
+   },
+   {
+    "key": "gpasse",
+    "name": "gpasse",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Impossible : ce rendez-vous est annulé.'}"
+    },
+    "runIf": "input.body.action in ['compte-rendu', 'confirmer', 'deplacer'] and $string(steps.rdv.rows[0].crm_etat_visite) = 'Annulée'"
+   },
+   {
+    "key": "write",
+    "name": "Mise à jour",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "updateRecord",
+     "params": {
+      "table": "m3573c7a505385e65",
+      "recordId": "{{ $string(input.body.id) }}",
+      "values": "steps.t",
+      "failIfNotFound": true
+     }
+    }
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'RDV — ' & input.body.action & '', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'client', 'dossier_id': $string(steps.rdv.rows[0].opportunit_s_clients_id), 'type_evenement': 'RDV — ' & input.body.action & '', 'resume': $substring($string(input.body.action), 0, 2000), 'apres': $substring($string($keys(steps.t)), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': steps.rdv.rows[0].crm_est_test = true}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 200,
+     "headers": [],
+     "body": "{'items':[{'id': $number($string(input.body.id)), 'action': input.body.action, 'message': input.body.action = 'compte-rendu' ? 'Compte rendu enregistré.' : (input.body.action = 'annuler' ? 'Rendez-vous annulé.' : (input.body.action = 'confirmer' ? 'Rendez-vous confirmé.' : 'Rendez-vous déplacé.'))}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Compte rendu, confirmation, annulation ou déplacement ; propriétaire contrôlé ; historique horodaté."
+  }
+ }
+}

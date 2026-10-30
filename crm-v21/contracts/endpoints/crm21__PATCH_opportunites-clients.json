@@ -1,0 +1,395 @@
+{
+ "name": "CRM21 — Modifier une opportunité client",
+ "description": "Liste fermée de champs ; réattribution réservée à l'admin ; journal limité aux champs modifiés.",
+ "definition": {
+  "method": "PATCH",
+  "path": "/crm21/opportunites-clients",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "id",
+     "type": "any",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "etape",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "prochaineAction",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "echeance",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "detailAction",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "priorite",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "budget",
+     "type": "any",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "quartier",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "typeBien",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "transaction",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "broker",
+     "type": "string",
+     "required": false,
+     "description": ""
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "per",
+    "name": "Périodes horaires",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m417041728cf6ca7e",
+      "columns": [
+       "debut_utc",
+       "fin_utc",
+       "decalage_min"
+      ],
+      "limit": 50
+     }
+    }
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gid",
+    "name": "gid",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Dossier manquant.'}"
+    },
+    "runIf": "$not($contains($string(input.body.id), /^[1-9][0-9]{0,9}$/))"
+   },
+   {
+    "key": "get",
+    "name": "get",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Étape inconnue.'}"
+    },
+    "runIf": "$exists(input.body.etape) and $not(input.body.etape in [\"Nouveau\", \"À qualifier\", \"Qualifié\", \"Recherche active\", \"Biens proposés\", \"Visite Proposée\", \"RDV Visite Validé\", \"Visite Effectuée\", \"Négociation\", \"Finalisation\", \"Gagné\", \"Perdu\", \"En Pause\"])"
+   },
+   {
+    "key": "gpr",
+    "name": "gpr",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Priorité inconnue.'}"
+    },
+    "runIf": "$exists(input.body.priorite) and $not(input.body.priorite in ['Urgente', 'Haute', 'Normale'])"
+   },
+   {
+    "key": "gtx",
+    "name": "gtx",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Transaction inconnue.'}"
+    },
+    "runIf": "$exists(input.body.transaction) and $not(input.body.transaction in ['Achat', 'Location'])"
+   },
+   {
+    "key": "gech",
+    "name": "gech",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Échéance invalide (AAAA-MM-JJTHH:MM).'}"
+    },
+    "runIf": "$exists(input.body.echeance) and input.body.echeance != '' and $not($contains($string(input.body.echeance), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"
+   },
+   {
+    "key": "gbud",
+    "name": "gbud",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Budget invalide.'}"
+    },
+    "runIf": "$exists(input.body.budget) and input.body.budget != '' and ($type($number($string(input.body.budget))) != 'number' or $number($string(input.body.budget)) < 0 or $number($string(input.body.budget)) > 1000000000)"
+   },
+   {
+    "key": "gbk",
+    "name": "gbk",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Seul l’administrateur peut réattribuer un dossier.'}"
+    },
+    "runIf": "$exists(input.body.broker) and $not(steps.ident.admin)"
+   },
+   {
+    "key": "gbk2",
+    "name": "gbk2",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Broker inconnu.'}"
+    },
+    "runIf": "$exists(input.body.broker) and $not(input.body.broker in ['Imane', 'Salma', 'Majid', 'Omar'])"
+   },
+   {
+    "key": "glen",
+    "name": "glen",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Texte trop long.'}"
+    },
+    "runIf": "$length($string(input.body.detailAction)) > 4000 or $length($string(input.body.quartier)) > 200"
+   },
+   {
+    "key": "oc",
+    "name": "oc",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "columns": [
+       "id",
+       "libelle",
+       "updated_at",
+       "crm_cle_creation",
+       "src_c2ljvedgo8rjnjz",
+       "src_c8j7pxeprb45sel",
+       "src_cu4m58kh70jsaas",
+       "src_ch80mhxt9wmgffa",
+       "src_cwm9erw27y2a5ax",
+       "src_csdkjyu1i3h2rpd",
+       "src_caw1n932cne75bt",
+       "src_cmt5f5y6apb9n76",
+       "src_cp1ak79dze4j7zb",
+       "src_crid8q8n1p0n7qe",
+       "src_cc9t923zypqax4s",
+       "src_cqx1ht4dg6mt0gl",
+       "src_cjuumr2e0utdov7",
+       "src_c0qcaxijrq4e44n",
+       "src_c8ty9timbln0feq",
+       "src_cali7clgn81g11x",
+       "src_cdivmzu7n1bn63g",
+       "src_cj59gxz110km911",
+       "src_c90ihchqcq0h8hz",
+       "src_csbs48a1es5ynk0",
+       "src_csluzp2qkfjfaw0",
+       "src_chjo5jv3sbsxelr",
+       "pmv6m9j8dh2qj_contacts_id"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(input.body.id) }}"
+       },
+       {
+        "column": "src_c2ljvedgo8rjnjz",
+        "operator": "eq",
+        "value": "{{ steps.ident.admin ? '' : steps.ident.broker }}",
+        "skipIfEmpty": true
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "g404",
+    "name": "g404",
+    "type": "respond",
+    "config": {
+     "status": 404,
+     "headers": [],
+     "body": "{'error':'Dossier introuvable ou non autorisé.'}"
+    },
+    "runIf": "$count(steps.oc.rows) = 0"
+   },
+   {
+    "key": "v",
+    "name": "Champs autorisés",
+    "type": "transform",
+    "config": {
+     "expression": "\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$B := $$.input.body; $r := $$.steps.oc.rows[0];\n$MAP := {\"etape\": \"src_ch80mhxt9wmgffa\", \"prochaineAction\": \"src_cwm9erw27y2a5ax\", \"detailAction\": \"src_caw1n932cne75bt\", \"priorite\": \"src_cp1ak79dze4j7zb\", \"quartier\": \"src_crid8q8n1p0n7qe\", \"typeBien\": \"src_cqx1ht4dg6mt0gl\", \"transaction\": \"src_cc9t923zypqax4s\"};\n$base := $merge([$keys($MAP)[$exists($lookup($B, $))].{$lookup($MAP, $): $lookup($B, $)}]);\n$tx := $exists($B.transaction) ? $B.transaction : $string($r.src_cc9t923zypqax4s);\n$bud := $exists($B.budget) ? ($B.budget = '' ? {} : ($tx = 'Location' ? {'src_c0qcaxijrq4e44n': $number($string($B.budget))} : {'src_c8ty9timbln0feq': $number($string($B.budget))})) : {};\n$ech := $exists($B.echeance) ? {'src_csdkjyu1i3h2rpd': $B.echeance = '' ? null : $iso($B.echeance)} : {};\n$bk := $exists($B.broker) ? {'src_c2ljvedgo8rjnjz': $B.broker} : {};\n$v := $merge([$base, $bud, $ech, $bk]);\n{'values': $v, 'avant': $merge([$keys($v).{$: $lookup($r, $)}]), 'n': $count($keys($v))}\n"
+    }
+   },
+   {
+    "key": "gvide",
+    "name": "gvide",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Aucune modification.'}"
+    },
+    "runIf": "steps.v.n = 0"
+   },
+   {
+    "key": "write",
+    "name": "write",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "updateRecord",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "recordId": "{{ $string(input.body.id) }}",
+      "values": "steps.v.values",
+      "failIfNotFound": true
+     }
+    }
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'Modification du dossier', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'client', 'dossier_id': $string(input.body.id), 'type_evenement': 'Modification du dossier', 'resume': $substring($string($join($keys(steps.v.values), ', ')), 0, 2000), 'apres': $substring($string({'avant': steps.v.avant, 'apres': steps.v.values}), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': $contains(($r := steps.oc.rows[0]; $l := $string($r.libelle); $l != '' and $l != 'null' ? $l : 'Dossier #' & $string($r.id)), '[RECETTE V21]')}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 200,
+     "headers": [],
+     "body": "{'items':[{'id': $number($string(input.body.id)), 'message':'Dossier mis à jour.'}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Liste fermée de champs ; réattribution réservée à l'admin ; journal limité aux champs modifiés."
+  }
+ }
+}

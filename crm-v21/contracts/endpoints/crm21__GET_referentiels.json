@@ -1,0 +1,115 @@
+{
+ "name": "CRM21 — Référentiels",
+ "description": "Listes de choix pour les formulaires.",
+ "definition": {
+  "method": "GET",
+  "path": "/crm21/referentiels",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": []
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "membres",
+    "name": "membres",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "columns": [
+       "nom",
+       "broker",
+       "role",
+       "actif"
+      ],
+      "limit": 50,
+      "filters": [
+       {
+        "column": "actif",
+        "operator": "eq",
+        "value": "true"
+       }
+      ]
+     }
+    },
+    "runIf": "steps.ident.admin"
+   },
+   {
+    "key": "out",
+    "name": "out",
+    "type": "transform",
+    "config": {
+     "expression": "\n$opt := function($a){ [$a.{'label': $, 'value': $}] };\n{'items': [{\n  'etapes': $opt([\"Nouveau\", \"À qualifier\", \"Qualifié\", \"Recherche active\", \"Biens proposés\", \"Visite Proposée\", \"RDV Visite Validé\", \"Visite Effectuée\", \"Négociation\", \"Finalisation\", \"Gagné\", \"Perdu\", \"En Pause\"]),\n  'actions': $opt(['Appeler', 'Demander des informations', 'Rechercher des biens', 'Proposer des biens', 'Planifier une visite', 'Confirmer le RDV de Visite', 'Faire le suivi après visite', 'Proposer une Autre Visite', 'Proposer Offre Finacière']),\n  'priorites': $opt(['Urgente', 'Haute', 'Normale']),\n  'transactions': $opt(['Achat', 'Location']),\n  'typesClient': $opt(['Appartement', 'Studio', 'Villa', 'Bureau', 'Local commercial', 'Terrain', 'Industriel', 'Autre']),\n  'typesBien': $opt(['appartement', 'studio', 'villa', 'bureau', 'local commerciale', 'magasin', 'terrain', 'local']),\n  'natures': $opt(['Visite', 'Appel', 'Rendez-vous agence', 'Signature']),\n  'statutsProposition': $opt(['Proposé', 'Intéressé', 'Refusé', 'Visite demandée']),\n  'brokers': steps.ident.admin ? [steps.membres.rows[role = 'Broker' or broker].{'label': nom, 'value': broker}] : [{'label': steps.ident.nom, 'value': steps.ident.broker}]\n}]}\n"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Listes de choix pour les formulaires."
+  }
+ }
+}

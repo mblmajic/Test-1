@@ -1,0 +1,460 @@
+{
+ "name": "CRM21 — Créer un rendez-vous",
+ "description": "RDV rattaché au dossier et à son broker ; heure locale convertie côté serveur ; refus si chevauchement ; idempotent par clé.",
+ "definition": {
+  "method": "POST",
+  "path": "/crm21/rdv",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "clientId",
+     "type": "any",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "debut",
+     "type": "string",
+     "required": true,
+     "description": "heure locale AAAA-MM-JJTHH:MM"
+    },
+    {
+     "name": "dureeMin",
+     "type": "any",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "nature",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "bienId",
+     "type": "any",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "note",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "cle",
+     "type": "string",
+     "required": false,
+     "description": "clé d'idempotence"
+    },
+    {
+     "name": "forcer",
+     "type": "any",
+     "required": false,
+     "description": ""
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "per",
+    "name": "Périodes horaires",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m417041728cf6ca7e",
+      "columns": [
+       "debut_utc",
+       "fin_utc",
+       "decalage_min"
+      ],
+      "limit": 50
+     }
+    }
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gdeb",
+    "name": "gdeb",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Date et heure obligatoires (AAAA-MM-JJTHH:MM).'}"
+    },
+    "runIf": "$not($contains($string(input.body.debut), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"
+   },
+   {
+    "key": "gdur",
+    "name": "gdur",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Durée entre 15 et 480 minutes.'}"
+    },
+    "runIf": "$exists(input.body.dureeMin) and $string(input.body.dureeMin) != '' and ($number($string(input.body.dureeMin)) < 15 or $number($string(input.body.dureeMin)) > 480)"
+   },
+   {
+    "key": "gnat",
+    "name": "gnat",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Type de rendez-vous inconnu.'}"
+    },
+    "runIf": "$exists(input.body.nature) and $string(input.body.nature) != '' and $not(input.body.nature in ['Visite', 'Appel', 'Rendez-vous agence', 'Signature'])"
+   },
+   {
+    "key": "gnote",
+    "name": "gnote",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Note trop longue (2000 caractères max).'}"
+    },
+    "runIf": "$length($string(input.body.note)) > 2000"
+   },
+   {
+    "key": "gid",
+    "name": "Id valide",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Dossier manquant ou invalide.'}"
+    },
+    "runIf": "$not($contains($string(input.body.clientId), /^[1-9][0-9]{0,9}$/))"
+   },
+   {
+    "key": "oc",
+    "name": "Dossier autorisé",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "columns": [
+       "id",
+       "libelle",
+       "updated_at",
+       "crm_cle_creation",
+       "src_c2ljvedgo8rjnjz",
+       "src_c8j7pxeprb45sel",
+       "src_cu4m58kh70jsaas",
+       "src_ch80mhxt9wmgffa",
+       "src_cwm9erw27y2a5ax",
+       "src_csdkjyu1i3h2rpd",
+       "src_caw1n932cne75bt",
+       "src_cmt5f5y6apb9n76",
+       "src_cp1ak79dze4j7zb",
+       "src_crid8q8n1p0n7qe",
+       "src_cc9t923zypqax4s",
+       "src_cqx1ht4dg6mt0gl",
+       "src_cjuumr2e0utdov7",
+       "src_c0qcaxijrq4e44n",
+       "src_c8ty9timbln0feq",
+       "src_cali7clgn81g11x",
+       "src_cdivmzu7n1bn63g",
+       "src_cj59gxz110km911",
+       "src_c90ihchqcq0h8hz",
+       "src_csbs48a1es5ynk0",
+       "src_csluzp2qkfjfaw0",
+       "src_chjo5jv3sbsxelr",
+       "pmv6m9j8dh2qj_contacts_id"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(input.body.clientId) }}"
+       },
+       {
+        "column": "src_c2ljvedgo8rjnjz",
+        "operator": "eq",
+        "value": "{{ steps.ident.admin ? '' : steps.ident.broker }}",
+        "skipIfEmpty": true
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "g404",
+    "name": "Propriétaire",
+    "type": "respond",
+    "config": {
+     "status": 404,
+     "headers": [],
+     "body": "{'error':'Dossier introuvable ou non autorisé.'}"
+    },
+    "runIf": "$count(steps.oc.rows) = 0"
+   },
+   {
+    "key": "bien",
+    "name": "Bien",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "ma9b9bb062ad8b271",
+      "columns": [
+       "id",
+       "src_c30sp73xdb9jdsx",
+       "libelle"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(input.body.bienId) }}"
+       }
+      ]
+     }
+    },
+    "runIf": "$exists(input.body.bienId) and $string(input.body.bienId) != ''"
+   },
+   {
+    "key": "gbien",
+    "name": "gbien",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Bien introuvable.'}"
+    },
+    "runIf": "$exists(input.body.bienId) and $string(input.body.bienId) != '' and $count(steps.bien.rows) = 0"
+   },
+   {
+    "key": "deja",
+    "name": "Reprise",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3573c7a505385e65",
+      "columns": [
+       "id",
+       "src_cybzjmjoj4zlch0"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "crm_cle_creation",
+        "operator": "eq",
+        "value": "{{ steps.op.id }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "dejafait",
+    "name": "Idempotence",
+    "type": "respond",
+    "config": {
+     "status": 200,
+     "headers": [],
+     "body": "{'items':[{'id': steps.deja.rows[0].id, 'message':'Rendez-vous déjà enregistré.', 'reprise': true}]}"
+    },
+    "runIf": "$count(steps.deja.rows) > 0"
+   },
+   {
+    "key": "t",
+    "name": "Fuseau Africa/Casablanca",
+    "type": "transform",
+    "config": {
+     "expression": "\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$d := $iso($$.input.body.debut); $dur := $s($$.input.body.dureeMin) != '' ? $number($string($$.input.body.dureeMin)) : 60;\n$finMs := $ms($d) + $dur * 60000; $fo := $off($finMs);\n{'debut': $d, 'debutMs': $ms($d), 'finMs': $finMs, 'fin': $fromMillis($finMs, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]', $fo = 0 ? '+0000' : '+0100') & ($fo = 0 ? '+00:00' : '+01:00')}\n"
+    }
+   },
+   {
+    "key": "gpasse",
+    "name": "gpasse",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Ce créneau est déjà passé.'}"
+    },
+    "runIf": "steps.t.debutMs < $millis() - 300000"
+   },
+   {
+    "key": "agenda",
+    "name": "Chevauchements",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3573c7a505385e65",
+      "columns": [
+       "id",
+       "src_cybzjmjoj4zlch0",
+       "crm_fin",
+       "src_cwtdcarxql2laii",
+       "crm_etat_visite",
+       "libelle"
+      ],
+      "limit": 50,
+      "filters": [
+       {
+        "column": "crm_broker",
+        "operator": "eq",
+        "value": "{{ $string(steps.oc.rows[0].src_c2ljvedgo8rjnjz) }}"
+       },
+       {
+        "column": "src_cybzjmjoj4zlch0",
+        "operator": "gte",
+        "value": "{{ $fromMillis(steps.t.debutMs - 8 * 3600000) }}"
+       },
+       {
+        "column": "src_cybzjmjoj4zlch0",
+        "operator": "lte",
+        "value": "{{ $fromMillis(steps.t.finMs) }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "chev",
+    "name": "Contrôle",
+    "type": "transform",
+    "config": {
+     "expression": "\n$ms := function($iso){ ($x := $replace($string($iso), /\\.[0-9]+/, ''); $x != '' and $x != 'null' ? $toMillis($x) : null) };\n$c := $$.steps.agenda.rows[$string(src_cwtdcarxql2laii) != 'Annulé' and $string(crm_etat_visite) != 'Annulée' and\n  $ms(src_cybzjmjoj4zlch0) < $$.steps.t.finMs and ($exists(crm_fin) and $string(crm_fin) != 'null' ? $ms(crm_fin) : $ms(src_cybzjmjoj4zlch0) + 3600000) > $$.steps.t.debutMs];\n{'conflit': $count($c) > 0, 'avec': $string($c[0].libelle)}\n"
+    }
+   },
+   {
+    "key": "g409",
+    "name": "g409",
+    "type": "respond",
+    "config": {
+     "status": 409,
+     "headers": [],
+     "body": "{'error':'Créneau déjà occupé dans l’agenda (' & steps.chev.avec & '). Choisissez un autre horaire.'}"
+    },
+    "runIf": "steps.chev.conflit and $not(input.body.forcer = true or input.body.forcer = 'true')"
+   },
+   {
+    "key": "write",
+    "name": "Création du RDV",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m3573c7a505385e65",
+      "values": "{'libelle': ($exists(input.body.nature) and input.body.nature != '' ? input.body.nature : 'Visite') & ' — ' & ($r := steps.oc.rows[0]; $l := $string($r.libelle); $l != '' and $l != 'null' ? $l : 'Dossier #' & $string($r.id)), 'src_cybzjmjoj4zlch0': steps.t.debut, 'crm_fin': steps.t.fin, 'src_c2xrwp99jzayeub': $exists(input.body.nature) and input.body.nature != '' ? input.body.nature : 'Visite', 'src_cwtdcarxql2laii': 'Programme', 'crm_etat_visite': 'À confirmer', 'crm_broker': $string(steps.oc.rows[0].src_c2ljvedgo8rjnjz), 'opportunit_s_clients_id': $number($string(input.body.clientId)), 'biens_id': $exists(input.body.bienId) and $string(input.body.bienId) != '' ? $number($string(input.body.bienId)) : null, 'crm_historique_cr': $exists(input.body.note) and input.body.note != '' ? 'Note à la création : ' & input.body.note : null, 'crm_cle_creation': steps.op.id, 'crm_est_test': $contains(($r := steps.oc.rows[0]; $l := $string($r.libelle); $l != '' and $l != 'null' ? $l : 'Dossier #' & $string($r.id)), '[RECETTE V21]')}"
+     }
+    }
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'RDV planifié', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'client', 'dossier_id': $string(input.body.clientId), 'type_evenement': 'RDV planifié', 'resume': $substring($string('RDV ' & steps.t.debut), 0, 2000), 'apres': $substring($string({'rdv': steps.write.id, 'debut': steps.t.debut, 'fin': steps.t.fin}), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': $contains(($r := steps.oc.rows[0]; $l := $string($r.libelle); $l != '' and $l != 'null' ? $l : 'Dossier #' & $string($r.id)), '[RECETTE V21]')}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 201,
+     "headers": [],
+     "body": "{'items':[{'id': steps.write.id, 'debut': steps.t.debut, 'fin': steps.t.fin, 'message':'Rendez-vous enregistré.'}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "RDV rattaché au dossier et à son broker ; heure locale convertie côté serveur ; refus si chevauchement ; idempotent par clé."
+  }
+ }
+}

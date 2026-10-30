@@ -1,0 +1,206 @@
+{
+ "name": "CRM21 — Attribuer (admin)",
+ "description": "Attribution d'un dossier client ou d'une opportunité de bien ; un seul écrivain (admin).",
+ "definition": {
+  "method": "PATCH",
+  "path": "/crm21/attribution",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "type",
+     "type": "string",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "id",
+     "type": "any",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "broker",
+     "type": "string",
+     "required": true,
+     "description": ""
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "gadmin",
+    "name": "Réservé admin",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Accès réservé à l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.admin)"
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gty",
+    "name": "gty",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Type inconnu.'}"
+    },
+    "runIf": "$not(input.body.type in ['client', 'bien'])"
+   },
+   {
+    "key": "gid",
+    "name": "gid",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Identifiant manquant.'}"
+    },
+    "runIf": "$not($contains($string(input.body.id), /^[1-9][0-9]{0,9}$/))"
+   },
+   {
+    "key": "gbk",
+    "name": "gbk",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Broker inconnu.'}"
+    },
+    "runIf": "$not(input.body.broker in ['Imane', 'Salma', 'Majid', 'Omar'])"
+   },
+   {
+    "key": "wc",
+    "name": "Dossier client",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "updateRecord",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "recordId": "{{ $string(input.body.id) }}",
+      "failIfNotFound": true,
+      "values": "{'src_c2ljvedgo8rjnjz': input.body.broker}"
+     }
+    },
+    "runIf": "input.body.type = 'client'"
+   },
+   {
+    "key": "wb",
+    "name": "Opportunité de bien",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "updateRecord",
+     "params": {
+      "table": "m13dd0abc30554ba9",
+      "recordId": "{{ $string(input.body.id) }}",
+      "failIfNotFound": true,
+      "values": "{'src_cazse08x5syk1gn': input.body.broker}"
+     }
+    },
+    "runIf": "input.body.type = 'bien'"
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'Attribution', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'attribution', 'dossier_id': $string(input.body.id), 'type_evenement': 'Attribution', 'resume': $substring($string(input.body.type & ' → ' & input.body.broker), 0, 2000), 'apres': $substring($string({'broker': input.body.broker}), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': $contains($string(steps.wc.libelle) & $string(steps.wb.libelle), '[RECETTE V21]')}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 200,
+     "headers": [],
+     "body": "{'items':[{'id': $number($string(input.body.id)), 'broker': input.body.broker, 'message':'Attribué à ' & input.body.broker & '.'}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Attribution d'un dossier client ou d'une opportunité de bien ; un seul écrivain (admin)."
+  }
+ }
+}

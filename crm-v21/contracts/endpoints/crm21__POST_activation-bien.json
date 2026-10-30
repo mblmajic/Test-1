@@ -1,0 +1,215 @@
+{
+ "name": "CRM21 — Activer le bien lié",
+ "description": "Active le bien lié si le dossier est gagné ; responsable ou admin.",
+ "definition": {
+  "method": "POST",
+  "path": "/crm21/activation-bien",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "id",
+     "type": "any",
+     "required": true,
+     "description": ""
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gid",
+    "name": "gid",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Opportunité manquante.'}"
+    },
+    "runIf": "$not($contains($string(input.body.id), /^[1-9][0-9]{0,9}$/))"
+   },
+   {
+    "key": "ob",
+    "name": "ob",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m13dd0abc30554ba9",
+      "columns": [
+       "id",
+       "libelle",
+       "src_cazse08x5syk1gn",
+       "resultat_commercial",
+       "pmv6m9j8dh2qj_biens_id"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(input.body.id) }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "g404",
+    "name": "g404",
+    "type": "respond",
+    "config": {
+     "status": 404,
+     "headers": [],
+     "body": "{'error':'Opportunité introuvable.'}"
+    },
+    "runIf": "$count(steps.ob.rows) = 0"
+   },
+   {
+    "key": "gown",
+    "name": "gown",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Activation réservée au responsable ou à l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.admin or $string(steps.ob.rows[0].src_cazse08x5syk1gn) = steps.ident.broker)"
+   },
+   {
+    "key": "glien",
+    "name": "glien",
+    "type": "respond",
+    "config": {
+     "status": 409,
+     "headers": [],
+     "body": "{'error':'Aucun bien lié : rattachez d’abord le bien.'}"
+    },
+    "runIf": "$not($exists(steps.ob.rows[0].pmv6m9j8dh2qj_biens_id)) or $string(steps.ob.rows[0].pmv6m9j8dh2qj_biens_id) = 'null'"
+   },
+   {
+    "key": "gres",
+    "name": "gres",
+    "type": "respond",
+    "config": {
+     "status": 409,
+     "headers": [],
+     "body": "{'error':'Activation possible seulement quand le résultat est « Gagnée — commercialisation autorisée ».'}"
+    },
+    "runIf": "$not($contains($string(steps.ob.rows[0].resultat_commercial), 'Gagnée'))"
+   },
+   {
+    "key": "write",
+    "name": "Bien actif",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "updateRecord",
+     "params": {
+      "table": "ma9b9bb062ad8b271",
+      "recordId": "{{ $string(steps.ob.rows[0].pmv6m9j8dh2qj_biens_id) }}",
+      "failIfNotFound": true,
+      "values": "{'src_ckik8lj9kqev9ho': 'Actif', 'date_confirmation_dispo': $substring($now(), 0, 10)}"
+     }
+    }
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'Activation du bien lié', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'opportunite-bien', 'dossier_id': $string(input.body.id), 'type_evenement': 'Activation du bien lié', 'resume': $substring($string('Bien ' & $string(steps.ob.rows[0].pmv6m9j8dh2qj_biens_id) & ' activé'), 0, 2000), 'apres': $substring($string({'bien': steps.ob.rows[0].pmv6m9j8dh2qj_biens_id, 'dispo': 'Actif'}), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': $contains($string(steps.ob.rows[0].libelle), '[RECETTE V21]')}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 200,
+     "headers": [],
+     "body": "{'items':[{'id': $number($string(input.body.id)), 'lienBien': '/bien?id=' & $string(steps.ob.rows[0].pmv6m9j8dh2qj_biens_id), 'message':'Bien activé dans le catalogue.'}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Active le bien lié si le dossier est gagné ; responsable ou admin."
+  }
+ }
+}

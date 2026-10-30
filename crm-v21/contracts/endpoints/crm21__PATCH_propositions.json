@@ -1,0 +1,257 @@
+{
+ "name": "CRM21 — Retour sur une proposition",
+ "description": "Statut et retour du client ; propriétaire du dossier contrôlé.",
+ "definition": {
+  "method": "PATCH",
+  "path": "/crm21/propositions",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "id",
+     "type": "any",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "statut",
+     "type": "string",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "retour",
+     "type": "string",
+     "required": false,
+     "description": ""
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gid",
+    "name": "gid",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Proposition manquante.'}"
+    },
+    "runIf": "$not($contains($string(input.body.id), /^[1-9][0-9]{0,9}$/))"
+   },
+   {
+    "key": "gst",
+    "name": "gst",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Statut inconnu.'}"
+    },
+    "runIf": "$not(input.body.statut in ['Proposé', 'Intéressé', 'Refusé', 'Visite demandée'])"
+   },
+   {
+    "key": "glen",
+    "name": "glen",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Retour trop long (2000 caractères max).'}"
+    },
+    "runIf": "$length($string(input.body.retour)) > 2000"
+   },
+   {
+    "key": "prop",
+    "name": "prop",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m5ba929066e4852f4",
+      "columns": [
+       "id",
+       "opportunit_s_clients_id",
+       "test_crm1",
+       "statut",
+       "retour_client"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(input.body.id) }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "g404",
+    "name": "g404",
+    "type": "respond",
+    "config": {
+     "status": 404,
+     "headers": [],
+     "body": "{'error':'Proposition introuvable.'}"
+    },
+    "runIf": "$count(steps.prop.rows) = 0"
+   },
+   {
+    "key": "oc",
+    "name": "oc",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "columns": [
+       "id",
+       "src_c2ljvedgo8rjnjz"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(steps.prop.rows[0].opportunit_s_clients_id) }}"
+       },
+       {
+        "column": "src_c2ljvedgo8rjnjz",
+        "operator": "eq",
+        "value": "{{ steps.ident.admin ? '' : steps.ident.broker }}",
+        "skipIfEmpty": true
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "gown",
+    "name": "gown",
+    "type": "respond",
+    "config": {
+     "status": 404,
+     "headers": [],
+     "body": "{'error':'Proposition introuvable ou non autorisée.'}"
+    },
+    "runIf": "$count(steps.oc.rows) = 0"
+   },
+   {
+    "key": "write",
+    "name": "write",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "updateRecord",
+     "params": {
+      "table": "m5ba929066e4852f4",
+      "recordId": "{{ $string(input.body.id) }}",
+      "failIfNotFound": true,
+      "values": "{'statut': input.body.statut, 'retour_client': $exists(input.body.retour) ? input.body.retour : steps.prop.rows[0].retour_client}"
+     }
+    }
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'Retour client', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'client', 'dossier_id': $string(steps.prop.rows[0].opportunit_s_clients_id), 'type_evenement': 'Retour client', 'resume': $substring($string(input.body.statut & ($exists(input.body.retour) and input.body.retour != '' ? ' : ' & input.body.retour : '')), 0, 2000), 'apres': $substring($string({'statut': [steps.prop.rows[0].statut, input.body.statut]}), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': steps.prop.rows[0].test_crm1 = true}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 200,
+     "headers": [],
+     "body": "{'items':[{'id': $number($string(input.body.id)), 'statut': input.body.statut, 'message':'Retour enregistré.'}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Statut et retour du client ; propriétaire du dossier contrôlé."
+  }
+ }
+}

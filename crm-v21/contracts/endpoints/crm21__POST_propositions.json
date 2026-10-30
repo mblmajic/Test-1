@@ -1,0 +1,371 @@
+{
+ "name": "CRM21 — Proposer un bien",
+ "description": "Une proposition par (client, bien) : contrôle préalable + relecture après insertion, la ligne la plus récente se retire en cas de doublon concurrent.",
+ "definition": {
+  "method": "POST",
+  "path": "/crm21/propositions",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "clientId",
+     "type": "any",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "bienId",
+     "type": "any",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "provenance",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "cle",
+     "type": "string",
+     "required": false,
+     "description": ""
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gid",
+    "name": "Id valide",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Dossier manquant ou invalide.'}"
+    },
+    "runIf": "$not($contains($string(input.body.clientId), /^[1-9][0-9]{0,9}$/))"
+   },
+   {
+    "key": "oc",
+    "name": "Dossier autorisé",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "columns": [
+       "id",
+       "libelle",
+       "updated_at",
+       "crm_cle_creation",
+       "src_c2ljvedgo8rjnjz",
+       "src_c8j7pxeprb45sel",
+       "src_cu4m58kh70jsaas",
+       "src_ch80mhxt9wmgffa",
+       "src_cwm9erw27y2a5ax",
+       "src_csdkjyu1i3h2rpd",
+       "src_caw1n932cne75bt",
+       "src_cmt5f5y6apb9n76",
+       "src_cp1ak79dze4j7zb",
+       "src_crid8q8n1p0n7qe",
+       "src_cc9t923zypqax4s",
+       "src_cqx1ht4dg6mt0gl",
+       "src_cjuumr2e0utdov7",
+       "src_c0qcaxijrq4e44n",
+       "src_c8ty9timbln0feq",
+       "src_cali7clgn81g11x",
+       "src_cdivmzu7n1bn63g",
+       "src_cj59gxz110km911",
+       "src_c90ihchqcq0h8hz",
+       "src_csbs48a1es5ynk0",
+       "src_csluzp2qkfjfaw0",
+       "src_chjo5jv3sbsxelr",
+       "pmv6m9j8dh2qj_contacts_id"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(input.body.clientId) }}"
+       },
+       {
+        "column": "src_c2ljvedgo8rjnjz",
+        "operator": "eq",
+        "value": "{{ steps.ident.admin ? '' : steps.ident.broker }}",
+        "skipIfEmpty": true
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "g404",
+    "name": "Propriétaire",
+    "type": "respond",
+    "config": {
+     "status": 404,
+     "headers": [],
+     "body": "{'error':'Dossier introuvable ou non autorisé.'}"
+    },
+    "runIf": "$count(steps.oc.rows) = 0"
+   },
+   {
+    "key": "gbid",
+    "name": "gbid",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Bien manquant.'}"
+    },
+    "runIf": "$not($contains($string(input.body.bienId), /^[1-9][0-9]{0,9}$/))"
+   },
+   {
+    "key": "bien",
+    "name": "bien",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "ma9b9bb062ad8b271",
+      "columns": [
+       "id",
+       "libelle",
+       "src_c30sp73xdb9jdsx",
+       "src_ckik8lj9kqev9ho"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "id",
+        "operator": "eq",
+        "value": "{{ $string(input.body.bienId) }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "gbien",
+    "name": "gbien",
+    "type": "respond",
+    "config": {
+     "status": 404,
+     "headers": [],
+     "body": "{'error':'Bien introuvable.'}"
+    },
+    "runIf": "$count(steps.bien.rows) = 0"
+   },
+   {
+    "key": "k",
+    "name": "Clé",
+    "type": "transform",
+    "config": {
+     "expression": "{'cle': $string(input.body.clientId) & '-' & $string(input.body.bienId)}"
+    }
+   },
+   {
+    "key": "deja",
+    "name": "Déjà proposé ?",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m5ba929066e4852f4",
+      "columns": [
+       "id"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "cle_proposition",
+        "operator": "eq",
+        "value": "{{ steps.k.cle }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "g409",
+    "name": "g409",
+    "type": "respond",
+    "config": {
+     "status": 409,
+     "headers": [],
+     "body": "{'error':'Ce bien est déjà proposé à ce client.'}"
+    },
+    "runIf": "$count(steps.deja.rows) > 0"
+   },
+   {
+    "key": "write",
+    "name": "Création",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m5ba929066e4852f4",
+      "values": "{'libelle': ($b := steps.bien.rows[0]; $n := $string($b.src_c30sp73xdb9jdsx); ($n != '' and $n != 'null' ? $n : 'Bien #' & $string($b.id))) & ' → ' & ($r := steps.oc.rows[0]; $l := $string($r.libelle); $l != '' and $l != 'null' ? $l : 'Dossier #' & $string($r.id)), 'cle_proposition': steps.k.cle, 'statut': 'Proposé', 'provenance': input.body.provenance = 'Suggestion automatique' ? 'Suggestion automatique' : 'Broker', 'broker': $string(steps.oc.rows[0].src_c2ljvedgo8rjnjz), 'email_auteur': steps.ident.email, 'date_proposition': $now(), 'operation_id': steps.op.id, 'test_crm1': $contains(($r := steps.oc.rows[0]; $l := $string($r.libelle); $l != '' and $l != 'null' ? $l : 'Dossier #' & $string($r.id)), '[RECETTE V21]'), 'opportunit_s_clients_id': $number($string(input.body.clientId)), 'pmv6m9j8dh2qj_biens_id': $number($string(input.body.bienId))}"
+     }
+    }
+   },
+   {
+    "key": "apres",
+    "name": "Relecture anti-doublon",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m5ba929066e4852f4",
+      "columns": [
+       "id"
+      ],
+      "limit": 10,
+      "filters": [
+       {
+        "column": "cle_proposition",
+        "operator": "eq",
+        "value": "{{ steps.k.cle }}"
+       }
+      ],
+      "sort": [
+       {
+        "column": "id",
+        "direction": "asc"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "annule",
+    "name": "Compensation (doublon concurrent)",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "deleteRecord",
+     "params": {
+      "table": "m5ba929066e4852f4",
+      "recordId": "{{ $string(steps.write.id) }}",
+      "failIfNotFound": false
+     }
+    },
+    "runIf": "$number($string(steps.apres.rows[0].id)) != $number($string(steps.write.id))"
+   },
+   {
+    "key": "g409b",
+    "name": "g409b",
+    "type": "respond",
+    "config": {
+     "status": 409,
+     "headers": [],
+     "body": "{'error':'Ce bien vient d’être proposé à ce client par une autre session.'}"
+    },
+    "runIf": "$number($string(steps.apres.rows[0].id)) != $number($string(steps.write.id))"
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'Bien proposé', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'client', 'dossier_id': $string(input.body.clientId), 'type_evenement': 'Bien proposé', 'resume': $substring($string(steps.k.cle), 0, 2000), 'apres': $substring($string({'proposition': steps.write.id, 'bien': input.body.bienId}), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': $contains(($r := steps.oc.rows[0]; $l := $string($r.libelle); $l != '' and $l != 'null' ? $l : 'Dossier #' & $string($r.id)), '[RECETTE V21]')}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 201,
+     "headers": [],
+     "body": "{'items':[{'id': steps.write.id, 'message':'Bien proposé au client.'}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Une proposition par (client, bien) : contrôle préalable + relecture après insertion, la ligne la plus récente se retire en cas de doublon concurrent."
+  }
+ }
+}

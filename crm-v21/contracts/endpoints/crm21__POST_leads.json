@@ -1,0 +1,352 @@
+{
+ "name": "CRM21 — Nouveau lead",
+ "description": "Ordre : reprise par clé → contact existant par téléphone normalisé → contact → opportunité → journal. Relance avec la même clé = aucun doublon.",
+ "definition": {
+  "method": "POST",
+  "path": "/crm21/leads",
+  "auth": {
+   "type": "jwt"
+  },
+  "input": {
+   "params": [],
+   "query": [],
+   "headers": [],
+   "body": [
+    {
+     "name": "nom",
+     "type": "string",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "telephone",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "transaction",
+     "type": "string",
+     "required": true,
+     "description": ""
+    },
+    {
+     "name": "budget",
+     "type": "any",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "quartier",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "typeBien",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "canal",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "broker",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "cle",
+     "type": "string",
+     "required": false,
+     "description": "clé d'idempotence fournie par le formulaire"
+    }
+   ]
+  },
+  "steps": [
+   {
+    "key": "g401",
+    "name": "Session requise",
+    "type": "respond",
+    "config": {
+     "status": 401,
+     "headers": [],
+     "body": "{'error':'Session expirée. Reconnectez-vous.'}"
+    },
+    "runIf": "$not($exists(auth.claims.email)) or $string(auth.claims.email) = ''"
+   },
+   {
+    "key": "moi",
+    "name": "Membre CRM21",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m3070c01f4ae9eb21",
+      "filters": [
+       {
+        "column": "email",
+        "operator": "eq",
+        "value": "{{ $lowercase($string(auth.claims.email)) }}"
+       }
+      ],
+      "columns": [
+       "id",
+       "email",
+       "nom",
+       "role",
+       "broker",
+       "actif"
+      ],
+      "limit": 1
+     }
+    }
+   },
+   {
+    "key": "ident",
+    "name": "Identité",
+    "type": "transform",
+    "config": {
+     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+    }
+   },
+   {
+    "key": "g403",
+    "name": "Membre actif requis",
+    "type": "respond",
+    "config": {
+     "status": 403,
+     "headers": [],
+     "body": "{'error':'Votre compte n’est pas encore activé dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$not(steps.ident.ok)"
+   },
+   {
+    "key": "op",
+    "name": "Identifiant d'opération",
+    "type": "transform",
+    "config": {
+     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+    }
+   },
+   {
+    "key": "gnom",
+    "name": "gnom",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Nom obligatoire (2 à 150 caractères).'}"
+    },
+    "runIf": "$length($trim($string(input.body.nom))) < 2 or $length($string(input.body.nom)) > 150"
+   },
+   {
+    "key": "gtel",
+    "name": "gtel",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Téléphone invalide.'}"
+    },
+    "runIf": "$exists(input.body.telephone) and input.body.telephone != '' and $length($replace($string(input.body.telephone), /[^0-9]/, '')) < 9"
+   },
+   {
+    "key": "gtx",
+    "name": "gtx",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Choisissez Achat ou Location.'}"
+    },
+    "runIf": "$not(input.body.transaction in ['Achat', 'Location'])"
+   },
+   {
+    "key": "gbud",
+    "name": "gbud",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Budget invalide.'}"
+    },
+    "runIf": "$exists(input.body.budget) and input.body.budget != '' and ($type($number($string(input.body.budget))) != 'number' or $number($string(input.body.budget)) < 0 or $number($string(input.body.budget)) > 1000000000)"
+   },
+   {
+    "key": "gbk",
+    "name": "gbk",
+    "type": "respond",
+    "config": {
+     "status": 400,
+     "headers": [],
+     "body": "{'error':'Broker inconnu.'}"
+    },
+    "runIf": "steps.ident.admin and $exists(input.body.broker) and input.body.broker != '' and $not(input.body.broker in ['Imane', 'Salma', 'Majid', 'Omar'])"
+   },
+   {
+    "key": "tel",
+    "name": "Téléphone normalisé",
+    "type": "transform",
+    "config": {
+     "expression": "($d := $replace($string(input.body.telephone), /[^0-9]/, ''); {'norm': $length($d) < 9 ? '' : ($substring($d, 0, 2) = '00' ? '+' & $substring($d, 2) : ($substring($d, 0, 1) = '0' ? '+212' & $substring($d, 1) : ($length($d) = 9 ? '+212' & $d : '+' & $d)))})"
+    }
+   },
+   {
+    "key": "deja",
+    "name": "Reprise (même clé)",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "columns": [
+       "id",
+       "src_c2ljvedgo8rjnjz"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "crm_cle_creation",
+        "operator": "eq",
+        "value": "{{ steps.op.id }}"
+       }
+      ]
+     }
+    }
+   },
+   {
+    "key": "dejafait",
+    "name": "dejafait",
+    "type": "respond",
+    "config": {
+     "status": 200,
+     "headers": [],
+     "body": "{'items':[{'id': steps.deja.rows[0].id, 'lien': '/opportunite-client?id=' & $string(steps.deja.rows[0].id), 'message':'Lead déjà enregistré.', 'reprise': true}]}"
+    },
+    "runIf": "$count(steps.deja.rows) > 0"
+   },
+   {
+    "key": "contact",
+    "name": "Contact existant",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m4bf4b323ba241e7d",
+      "columns": [
+       "id"
+      ],
+      "limit": 1,
+      "filters": [
+       {
+        "column": "crm_telephone_normalise",
+        "operator": "eq",
+        "value": "{{ steps.tel.norm }}"
+       }
+      ]
+     }
+    },
+    "runIf": "steps.tel.norm != ''"
+   },
+   {
+    "key": "doublon",
+    "name": "Dossier ouvert pour ce contact",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "listRecords",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "columns": [
+       "id",
+       "src_c2ljvedgo8rjnjz",
+       "src_ch80mhxt9wmgffa"
+      ],
+      "limit": 5,
+      "filters": [
+       {
+        "column": "pmv6m9j8dh2qj_contacts_id",
+        "operator": "eq",
+        "value": "{{ $string(steps.contact.rows[0].id) }}"
+       }
+      ]
+     }
+    },
+    "runIf": "$count(steps.contact.rows) > 0"
+   },
+   {
+    "key": "g409",
+    "name": "g409",
+    "type": "respond",
+    "config": {
+     "status": 409,
+     "headers": [],
+     "body": "steps.ident.admin or steps.doublon.rows[0].src_c2ljvedgo8rjnjz = steps.ident.broker ? {'error':'Un dossier existe déjà pour ce numéro.', 'lien': '/opportunite-client?id=' & $string(steps.doublon.rows[0].id)} : {'error':'Ce numéro est déjà suivi dans le CRM. Contactez l’administrateur.'}"
+    },
+    "runIf": "$count(steps.doublon.rows[$not($string(src_ch80mhxt9wmgffa) in ['Gagné', 'Perdu'])]) > 0"
+   },
+   {
+    "key": "newcontact",
+    "name": "Création du contact",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m4bf4b323ba241e7d",
+      "values": "{'libelle': $trim(input.body.nom), 'src_chepoppm9ctk3tm': $trim(input.body.nom), 'src_c2j3fuou3o8taqa': input.body.telephone, 'crm_telephone_normalise': steps.tel.norm, 'crm_cle_creation': steps.op.id}"
+     }
+    },
+    "runIf": "$count(steps.contact.rows) = 0"
+   },
+   {
+    "key": "write",
+    "name": "Création de l'opportunité",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m80adee8ba2348dfe",
+      "values": "($bud := $exists(input.body.budget) and input.body.budget != '' ? $number($string(input.body.budget)) : null; {'libelle': $trim(input.body.nom), 'src_c8j7pxeprb45sel': $trim(input.body.nom), 'src_c2ljvedgo8rjnjz': steps.ident.admin and $exists(input.body.broker) and input.body.broker != '' ? input.body.broker : steps.ident.broker, 'src_ch80mhxt9wmgffa': 'Nouveau', 'src_cwm9erw27y2a5ax': 'Appeler', 'src_cmt5f5y6apb9n76': steps.tel.norm != '' ? steps.tel.norm : null, 'src_cc9t923zypqax4s': input.body.transaction, 'src_c0qcaxijrq4e44n': input.body.transaction = 'Location' ? $bud : null, 'src_c8ty9timbln0feq': input.body.transaction = 'Achat' ? $bud : null, 'src_crid8q8n1p0n7qe': input.body.quartier, 'src_cqx1ht4dg6mt0gl': input.body.typeBien in ['Appartement', 'Villa', 'Bureau', 'Local commercial', 'Terrain', 'Industriel', 'Autre', 'Studio'] ? input.body.typeBien : null, 'src_c90ihchqcq0h8hz': input.body.canal in ['WhatsApp', 'Meta Ads', 'Agent / recommandation', 'Site web', 'Téléphone', 'Autre'] ? input.body.canal : null, 'pmv6m9j8dh2qj_contacts_id': $count(steps.contact.rows) > 0 ? steps.contact.rows[0].id : steps.newcontact.id, 'crm_cle_creation': steps.op.id})"
+     }
+    }
+   },
+   {
+    "key": "j",
+    "name": "Journal",
+    "type": "datasource",
+    "config": {
+     "dataSourceId": "de074ee7-7e90-4df1-bd97-6f53613204bc",
+     "operation": "createRecord",
+     "params": {
+      "table": "m638173347625af09",
+      "values": "{'libelle': 'Création lead', 'operation_id': steps.op.id, 'date_evenement': $now(), 'user_id': $string(auth.claims.sub), 'email_auteur': steps.ident.email, 'broker': steps.ident.broker, 'type_dossier': 'client', 'dossier_id': $string(steps.write.id), 'type_evenement': 'Création lead', 'resume': $substring($string('Lead ' & input.body.transaction), 0, 2000), 'apres': $substring($string({'contact': $count(steps.contact.rows) > 0 ? 'existant' : 'créé', 'cle': steps.op.id}), 0, 2000), 'resultat': 'Réussi', 'source': 'SuperAPP_CRM_V21', 'test_crm1': $contains(input.body.nom, '[RECETTE V21]')}"
+     }
+    }
+   },
+   {
+    "key": "done",
+    "name": "done",
+    "type": "respond",
+    "config": {
+     "status": 201,
+     "headers": [],
+     "body": "{'items':[{'id': steps.write.id, 'lien': '/opportunite-client?id=' & $string(steps.write.id), 'message':'Lead créé.'}]}"
+    }
+   }
+  ],
+  "docs": {
+   "description": "Ordre : reprise par clé → contact existant par téléphone normalisé → contact → opportunité → journal. Relance avec la même clé = aucun doublon."
+  }
+ }
+}
