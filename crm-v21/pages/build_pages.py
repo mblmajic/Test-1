@@ -171,9 +171,10 @@ def dock():
              paddingX="none", paddingY="none", visibility=vis("truthy", "screen.phone"))
 
 
-def page(title, path, body, subtitle="", back=False, actions=None):
+def page(title, path, body, subtitle="", back=False, actions=None, crumbs=None):
     hdr, title_block = header(title, subtitle, back, actions)
-    content = [hdr, stack([title_block] + body, padding="xl", gap="xl"), dock()]
+    top = [n("Breadcrumbs", items=crumbs)] if crumbs else []
+    content = [hdr, stack(top + [title_block] + body, padding="xl", gap="xl"), dock()]
     return {"title": title, "path": path, "page": {"root": {"props": THEME}, "content": content}}
 
 
@@ -250,8 +251,8 @@ PAGES["opportunites-clients"] = page("Opportunités clients", "/opportunites-cli
 CID = "{{query.id}}"
 PROP_CARD = surf([
     row([n("IconTile", icon="Building2", image="{{item.photo}}", tone="neutral", look="soft", size="md", shape="rounded"),
-         stack([text("{{item.nom}}", "h3"), text("{{item.prixLabel}} · {{item.localisation}}", "caption", tone="muted")], gap="2xs", grow=True),
-         badge("{{item.statut}}", "info")], align="start"),
+         stack([text("{{item.nom}}", "h3"), text("{{item.prixLabel}} · {{item.localisation}}", "caption", tone="muted")], gap="2xs"),
+         badge("{{item.statut}}", "info")], align="start", justify="between"),
     text("Retour : {{item.retour}}", "caption", tone="muted", visibility=vis("truthy", "item.retour")),
     row([btn("Intéressé", {"type": "callApi", "method": "PATCH", "url": R + "/propositions", "body": {"id": "{{item.id}}", "statut": "Intéressé"},
                            "onSuccess": {"type": "sequence", "actions": [{"type": "refreshData"}, {"type": "showToast", "message": "Retour enregistré", "variant": "success"}]}},
@@ -269,7 +270,7 @@ PROP_CARD = surf([
 
 MATCH_CARD = surf([
     row([n("IconTile", icon="Building2", image="{{item.photo}}", tone="neutral", look="soft", size="md", shape="rounded"),
-         stack([text("{{item.nom}}", "h3"), text("{{item.prixLabel}} · {{item.surfaceLabel}} · {{item.localisation}}", "caption", tone="muted")], gap="2xs", grow=True)],
+         stack([text("{{item.nom}}", "h3"), text("{{item.prixLabel}} · {{item.surfaceLabel}} · {{item.localisation}}", "caption", tone="muted")], gap="2xs")],
         align="start"),
     text("{{item.criteres}}", "caption", tone="success"),
     text("{{item.limites}}", "caption", tone="subtle", visibility=vis("truthy", "item.limites")),
@@ -353,7 +354,7 @@ PAGES["opportunite-client"] = page("Opportunité client", "/opportunite-client",
         modal("state.noteOuvert", "Ajouter une note", [NOTE_FORM]),
         modal("state.suiviOuvert", "Modifier le suivi", [SUIVI_FORM], "Seuls les champs changés sont enregistrés et tracés."),
     ], emptyText="Dossier introuvable ou non autorisé."),
-], back=True)
+], back=True, crumbs=[{"label": "Opportunités clients", "path": "/opportunites-clients"}, {"label": "Fiche", "path": ""}])
 
 # ------------------------------------------------------------------ Catalogue des biens
 BIEN_CARD = surf([
@@ -419,7 +420,7 @@ PAGES["bien"] = page("Fiche bien", "/bien", [
         n("Markdown", text="{{record.resume}}", visibility=vis("truthy", "record.resume")),
         modal("state.proposerOuvert", "Proposer ce bien", [PROPOSER_FORM], "Seules vos opportunités clients sont listées."),
     ], emptyText="Bien introuvable."),
-], back=True)
+], back=True, crumbs=[{"label": "Catalogue des biens", "path": "/biens"}, {"label": "Fiche", "path": ""}])
 
 # ------------------------------------------------------------------ Agenda
 AG_ROW = surf([
@@ -443,12 +444,157 @@ AG_ROW = surf([
 PAGES["agenda"] = page("Agenda", "/agenda", [
     n("Calendar", source="endpoint", endpointUrl=R + "/activites", itemsPath="items", dateKey="debut", titleKey="titre", statusKey="statut",
       badgeTones="À confirmer:warning, Confirmé:info, Effectué:success, Annulé:danger", views="month, week, day", defaultView="week",
-      hours="8-21", weekStart="monday", visibility=vis("truthy", "screen.desktop")),
+      hours="8-21", weekStart="monday", emptyText="Aucun rendez-vous sur cette période.", visibility=vis("truthy", "screen.desktop")),
     stack([text("À venir", "h2"),
            coll(R + "/activites?vue=a-venir", [AG_ROW], emptyText="Aucun rendez-vous à venir. Planifiez-en un depuis une opportunité client.")], gap="md"),
     stack([text("Comptes rendus à faire", "h2"),
            coll(R + "/activites?vue=cr&limite=10", [AG_ROW], emptyText="Tous les rendez-vous passés ont leur compte rendu.")], gap="md"),
 ], subtitle="Heures de Casablanca")
+
+# ------------------------------------------------------------------ Opportunités de biens
+OB_CARD = surf([
+    row([stack([text("{{item.nom}}", "h3"), text("{{item.prixLabel}} · {{item.localisation}}", "caption", tone="muted")], gap="2xs"),
+         badge("{{item.resultat}}", "info")], justify="between", align="start"),
+    row([badge("{{item.responsable}}", "neutral", icon="UserRound"),
+         badge("Sans responsable", "warning", visibility=vis("truthy", "item.sansResponsable")),
+         badge("Gestionnaire {{item.gestionnaireStatut}}", "success", visibility=vis("eq", "item.gestionnaireStatut", "Vérifié")),
+         badge("Gestionnaire à confirmer", "warning", visibility=vis("eq", "item.gestionnaireStatut", "À confirmer")),
+         text("{{item.echeanceLabel}}", "caption", tone="muted")], wrap=True),
+    row([btn("Ouvrir", nav("{{item.lien}}"), "primary", "FolderOpen", "sm"),
+         btn("Appeler le gestionnaire", nav("{{item.gestionnaireTelUrl}}"), "ghost", "Phone", "sm", visibility=vis("truthy", "item.gestionnaireTelUrl"))], wrap=True),
+], interactive=True, paddingX="md", paddingY="md", gap="sm")
+
+PAGES["opportunites-biens"] = page("Opportunités de biens", "/opportunites-biens", [
+    row([n("Segmented", options=":Toutes, a-suivre:À suivre, mes:Les miennes, sans-responsable:Sans responsable", statePath="state.vue", defaultValue="", size="sm"),
+         n("TextInput", type="search", placeholder="Nom, quartier, gestionnaire", statePath="state.q", width="md", icon="Search")], justify="between", wrap=True),
+    coll(R + "/opportunites-biens?vue={{state.vue}}&q={{state.q}}", [OB_CARD], layout="grid", columns=2, limit=20, loadMore=True,
+         emptyText="Aucune opportunité de bien dans cette vue."),
+], subtitle="Biens en cours de qualification, partagés entre brokers",
+    actions=[btn("Nouvelle opportunité de bien", nav("/ajout?onglet=3"), "primary", "Plus", "sm")])
+
+OB_SUIVI = form([
+    fld("prochaineAction", "Prochaine action", "text", False, defaultValue="{{record.prochaineAction}}"),
+    fld("echeanceDate", "Échéance", "date", False, width="half"),
+    fld("echeanceHeure", "Heure", "time", False, width="half"),
+    fld("priorite", "Priorité", "radio", False, options="Normale, Haute, Urgente"),
+    fld("resultat", "Résultat", "select", False, options="À qualifier, En cours, Disponible pour affectation, Gagnée — commercialisation autorisée, Perdue"),
+    fld("notes", "Note de suivi", "textarea", False),
+], "Enregistrer le suivi", call("PATCH", R + "/opportunites-biens", {"id": "{{query.id}}"}, "Suivi mis à jour", body_from="payload.values", close="state.suiviOuvert"))
+
+PAGES["opportunite-bien"] = page("Opportunité de bien", "/opportunite-bien", [
+    record(R + "/opportunite-bien?id={{query.id}}", [
+        surf([
+            row([stack([text("{{record.nom}}", "h2"), text("{{record.prixLabel}} · {{record.transaction}} · {{record.localisation}}", "body", tone="muted")], gap="2xs"),
+                 badge("{{record.resultat}}", "info")], justify="between", align="start", wrap=True),
+            text("{{record.responsableLabel}}", "body"),
+            row([btn("Appeler le gestionnaire", nav("{{record.gestionnaireTelUrl}}"), "primary", "Phone", "md", visibility=vis("truthy", "record.gestionnaireTelUrl")),
+                 btn("Modifier le suivi", {"type": "setVariable", "path": "state.suiviOuvert", "value": True}, "soft", "Pencil", "md", visibility=vis("truthy", "record.modifiable")),
+                 btn("Activer le bien", {"type": "confirm", "title": "Activer le bien dans le catalogue ?", "message": "Le bien lié passera « Actif » et sera visible de tous les brokers.",
+                                         "confirmLabel": "Activer", "onConfirm": call("POST", R + "/activation-bien", {"id": "{{query.id}}"}, "Bien activé")},
+                     "outline", "CircleCheck", "md", visibility=vis("truthy", "record.activable")),
+                 btn("Voir le bien lié", nav("{{record.lienBien}}"), "ghost", "Building2", "md", visibility=vis("truthy", "record.lienBien"))], wrap=True),
+            n("Alert", tone="info", icon="Lock", title="Lecture seule", text="Seul le responsable ou l’administrateur peut modifier ce suivi. L’attribution se fait depuis la vue Équipe.",
+              visibility=vis("falsy", "record.modifiable")),
+            text("{{record.activationLabel}}", "caption", tone="subtle"),
+        ], shadow="sm", paddingX="xl", paddingY="xl"),
+        n("Grid", [
+            n("Details", rows=[
+                {"label": "Gestionnaire", "value": "{{record.gestionnaire | default:—}}"},
+                {"label": "Interlocuteur", "value": "{{record.gestionnaireStatut}}", "tone": "info"},
+                {"label": "Responsable", "value": "{{record.responsable}}"}]),
+            n("Details", rows=[
+                {"label": "Prochaine action", "value": "{{record.prochaineAction | default:—}}"},
+                {"label": "Échéance", "value": "{{record.echeanceLabel}}"},
+                {"label": "Priorité", "value": "{{record.priorite | default:Normale}}"}]),
+        ], columns="2", gap="lg"),
+        n("Markdown", text="{{record.notes}}", visibility=vis("truthy", "record.notes")),
+        modal("state.suiviOuvert", "Suivi de l’opportunité de bien", [OB_SUIVI], "Toute modification est tracée dans le journal."),
+    ], emptyText="Opportunité de bien introuvable."),
+], back=True, crumbs=[{"label": "Opportunités de biens", "path": "/opportunites-biens"}, {"label": "Fiche", "path": ""}])
+
+# ------------------------------------------------------------------ Ajout rapide
+PAGES["ajout"] = page("Ajout rapide", "/ajout", [
+    n("Tabs", variant="pills", queryParam="onglet", tabs="Nouveau lead|UserPlus, Nouveau RDV|CalendarPlus, Opportunité de bien|KeyRound, Note|StickyNote",
+      tab1=[form([
+          fld("nom", "Nom du client", "text", True),
+          fld("telephone", "Téléphone", "text", False, help="Format marocain accepté : 06…, +212…"),
+          fld("transaction", "Projet", "radio", True, options="Achat, Location", width="half"),
+          fld("typeBien", "Type de bien", "select", False, options="Appartement, Studio, Villa, Bureau, Local commercial, Terrain, Autre", width="half"),
+          fld("budget", "Budget", "money", False, unit="DH", width="half"),
+          fld("quartier", "Quartier(s)", "text", False, width="half"),
+          fld("canal", "Canal d’entrée", "select", False, options="WhatsApp, Meta Ads, Agent / recommandation, Site web, Téléphone, Autre"),
+      ], "Créer le lead", {"type": "callApi", "method": "POST", "url": R + "/leads", "bodyFrom": "payload.values",
+                           "onSuccess": {"type": "sequence", "actions": [{"type": "showToast", "message": "Lead créé", "variant": "success"},
+                                                                         {"type": "navigate", "to": "/opportunites-clients?vue=toutes"}]}},
+          title="Nouveau lead", )],
+      tab2=[form([
+          fld("clientId", "Opportunité client", "select", True, optionsEndpoint=R + "/opportunites-clients", valueKey="id", labelKey="nom"),
+          fld("date", "Date", "date", True, width="half"),
+          fld("heure", "Heure", "time", True, width="half", help="Heure de Casablanca"),
+          fld("nature", "Type", "select", False, options="Visite, Appel, Rendez-vous agence, Signature", defaultValue="Visite", width="half"),
+          fld("dureeMin", "Durée", "select", False, options="30:30 min, 60:1 h, 90:1 h 30, 120:2 h", defaultValue="60", width="half"),
+          fld("note", "Note", "textarea", False),
+      ], "Planifier", call("POST", R + "/rdv", None, "Rendez-vous enregistré", body_from="payload.values"), title="Nouveau rendez-vous", state="state.rdv"),
+          text("Créneaux libres ce jour-là (calculés sur votre agenda réel)", "caption", tone="muted"),
+          coll(R + "/creneaux?jour={{state.rdv.date}}", [badge("{{item.label}}", "neutral")], layout="grid", columns=6, gap="xs",
+               emptyText="Aucun créneau libre entre 9 h et 20 h ce jour-là.")],
+      tab3=[form([
+          fld("nom", "Nom du bien", "text", True, help="Ex. Appartement 3 ch. Gauthier"),
+          fld("transaction", "Transaction", "radio", True, options="Vente, Location", width="half"),
+          fld("type", "Type", "select", False, options="appartement:Appartement, studio:Studio, villa:Villa, bureau:Bureau, local commerciale:Local commercial, magasin:Magasin, terrain:Terrain", width="half"),
+          fld("prix", "Prix souhaité", "money", False, unit="DH", width="half"),
+          fld("quartier", "Quartier", "text", False, width="half"),
+          fld("gestionnaire", "Gestionnaire", "text", False, width="half"),
+          fld("gestionnaireTel", "Téléphone du gestionnaire", "text", False, width="half"),
+      ], "Créer l’opportunité de bien", call("POST", R + "/opportunites-biens", None, "Opportunité de bien créée", body_from="payload.values"),
+          title="Nouvelle opportunité de bien")],
+      tab4=[form([
+          fld("clientId", "Opportunité client", "select", True, optionsEndpoint=R + "/opportunites-clients", valueKey="id", labelKey="nom"),
+          fld("texte", "Note", "textarea", True),
+      ], "Ajouter la note", call("POST", R + "/notes", None, "Note ajoutée", body_from="payload.values"), title="Note sur un dossier"),
+          n("Alert", tone="neutral", icon="Mic", title="Note vocale : bientôt", text="L’enregistrement et la transcription ne sont pas encore vérifiés de bout en bout ; ils seront activés plus tard.")]),
+], subtitle="Lead, rendez-vous, opportunité de bien ou note")
+
+# ------------------------------------------------------------------ Équipe (admin)
+CHARGE_CARD = surf([
+    row([row([n("IconTile", icon="", text="{{item.nom}}", tone="primary", look="soft", size="sm", shape="circle"), text("{{item.nom}}", "h3")], gap="sm"),
+         badge("{{item.retards}} en retard", "danger", visibility=vis("gt", "item.retards", "0"))], justify="between"),
+    n("Grid", [
+        n("Stat", label="Clients actifs", value="{{item.clientsActifs}}", variant="plain"),
+        n("Stat", label="Mandats en cours", value="{{item.mandatsEnCours}}", variant="plain"),
+        n("Stat", label="Biens en stock", value="{{item.biensEnStock}}", variant="plain"),
+        n("Stat", label="RDV 7 jours", value="{{item.rdvSemaine}}", variant="plain"),
+    ], columns="4", mobileColumns="2", gap="sm"),
+], paddingX="md", paddingY="md", gap="sm")
+
+LEAD_CARD = surf([
+    row([stack([text("{{item.nom}}", "h3"), text("{{item.transaction}} · {{item.budgetLabel}} · {{item.quartier | default:quartier non précisé}}", "caption", tone="muted")], gap="2xs"),
+         badge("{{item.broker | default:Non affecté}}", "warning")], justify="between", align="start"),
+    row([btn("Imane", call("PATCH", R + "/attribution", {"type": "client", "id": "{{item.id}}", "broker": "Imane"}, "Attribué à Imane"), "soft", "UserRound", "sm"),
+         btn("Salma", call("PATCH", R + "/attribution", {"type": "client", "id": "{{item.id}}", "broker": "Salma"}, "Attribué à Salma"), "soft", "UserRound", "sm"),
+         btn("Majid", call("PATCH", R + "/attribution", {"type": "client", "id": "{{item.id}}", "broker": "Majid"}, "Attribué à Majid"), "ghost", "UserRound", "sm"),
+         btn("Ouvrir", nav("{{item.lien}}"), "link", "", "sm")], wrap=True),
+], paddingX="md", paddingY="md", gap="sm")
+
+OB_ATTR = surf([
+    row([stack([text("{{item.nom}}", "h3"), text("{{item.prixLabel}} · {{item.localisation}}", "caption", tone="muted")], gap="2xs"),
+         badge("Sans responsable", "warning")], justify="between", align="start"),
+    row([btn("Imane", call("PATCH", R + "/attribution", {"type": "bien", "id": "{{item.id}}", "broker": "Imane"}, "Attribué à Imane"), "soft", "UserRound", "sm"),
+         btn("Salma", call("PATCH", R + "/attribution", {"type": "bien", "id": "{{item.id}}", "broker": "Salma"}, "Attribué à Salma"), "soft", "UserRound", "sm"),
+         btn("Majid", call("PATCH", R + "/attribution", {"type": "bien", "id": "{{item.id}}", "broker": "Majid"}, "Attribué à Majid"), "ghost", "UserRound", "sm")], wrap=True),
+], paddingX="md", paddingY="md", gap="sm")
+
+PAGES["equipe"] = page("Équipe", "/equipe", [
+    stack([text("Charge de l’équipe", "h2"),
+           coll(R + "/equipe", [CHARGE_CARD], layout="grid", columns=2, emptyText="Accès réservé à l’administrateur.")], gap="md"),
+    n("Grid", [
+        stack([text("Leads à attribuer", "h2"),
+               coll(R + "/equipe?vue=leads", [LEAD_CARD], emptyText="Tous les leads ont un broker.")], gap="md"),
+        stack([text("Opportunités de biens sans responsable", "h2"),
+               coll(R + "/opportunites-biens?vue=sans-responsable", [OB_ATTR], limit=10, loadMore=True,
+                    emptyText="Toutes les opportunités de biens ont un responsable.")], gap="md"),
+    ], columns="2", gap="xl"),
+], subtitle="Réservé à l’administrateur : attribution et charge par broker")
 
 
 def write_all(outdir):

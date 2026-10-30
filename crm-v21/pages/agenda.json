@@ -301,6 +301,7 @@
         "defaultView": "week",
         "hours": "8-21",
         "weekStart": "monday",
+        "emptyText": "Aucun rendez-vous sur cette période.",
         "visibility": {
          "op": "truthy",
          "path": "screen.desktop",

@@ -1,0 +1,679 @@
+{
+ "title": "Ajout rapide",
+ "path": "/ajout",
+ "page": {
+  "root": {
+   "props": {
+    "theme": "easyspace",
+    "language": "fr",
+    "themeTokens": {
+     "--background": "#F4F1EA",
+     "--foreground": "#122631",
+     "--card": "#FFFFFF",
+     "--card-foreground": "#122631",
+     "--popover": "#FFFFFF",
+     "--popover-foreground": "#122631",
+     "--primary": "#122631",
+     "--primary-foreground": "#FFFFFF",
+     "--muted": "#ECE7DC",
+     "--muted-foreground": "#566D76",
+     "--accent": "#F1E8D8",
+     "--accent-foreground": "#122631",
+     "--border": "#D8E0E3",
+     "--input": "#D8E0E3",
+     "--ring": "#C7A976",
+     "--radius": "12px",
+     "--brand-band": "#122631",
+     "--brand-band-foreground": "#FFFFFF",
+     "--brand-band-solid": "#122631",
+     "--success": "#1F7A4D",
+     "--warning": "#9A6700",
+     "--danger": "#B42318",
+     "--info": "#2F6F86",
+     "--chart-1": "#122631",
+     "--chart-2": "#C7A976",
+     "--chart-3": "#6F8E98",
+     "--chart-4": "#1F7A4D",
+     "--chart-5": "#B4532B",
+     "--sans": "Manrope, Inter, system-ui, sans-serif",
+     "--heading": "Manrope, Inter, system-ui, sans-serif",
+     "--shadow-soft": "0 1px 2px rgba(18,38,49,0.06)",
+     "--shadow-elegant": "0 6px 20px rgba(18,38,49,0.10)"
+    }
+   }
+  },
+  "content": [
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "bottom",
+     "radius": "none",
+     "shadow": "none",
+     "paddingX": "xl",
+     "paddingY": "md",
+     "hideInPrint": true,
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "justify": "between",
+           "direction": "row",
+           "align": "center",
+           "gap": "sm",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "IconTile",
+                "props": {
+                 "icon": "",
+                 "text": "Easy Space",
+                 "tone": "primary",
+                 "look": "solid",
+                 "size": "sm",
+                 "shape": "rounded"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Easy Space CRM",
+                 "variant": "h3"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Nouveau",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/ajout"
+                 },
+                 "variant": "primary",
+                 "icon": "Plus",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "screen.desktop",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "UserMenu",
+                "props": {
+                 "showName": true,
+                 "themeChoice": true,
+                 "logoutLabel": "Se déconnecter",
+                 "items": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Record",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/session",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "emptyText": "",
+           "visibility": {
+            "op": "truthy",
+            "path": "screen.desktop",
+            "value": ""
+           },
+           "content": [
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               },
+               {
+                "label": "Équipe",
+                "path": "/equipe",
+                "icon": "UsersRound"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "truthy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Stack",
+    "props": {
+     "padding": "xl",
+     "gap": "xl",
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "xs",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Ajout rapide",
+                 "variant": "h1"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Text",
+          "props": {
+           "text": "Lead, rendez-vous, opportunité de bien ou note",
+           "variant": "body",
+           "tone": "muted"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Tabs",
+       "props": {
+        "variant": "pills",
+        "queryParam": "onglet",
+        "tabs": "Nouveau lead|UserPlus, Nouveau RDV|CalendarPlus, Opportunité de bien|KeyRound, Note|StickyNote",
+        "tab1": [
+         {
+          "type": "Form",
+          "props": {
+           "fields": [
+            {
+             "name": "nom",
+             "label": "Nom du client",
+             "type": "text",
+             "required": true
+            },
+            {
+             "name": "telephone",
+             "label": "Téléphone",
+             "type": "text",
+             "required": false,
+             "help": "Format marocain accepté : 06…, +212…"
+            },
+            {
+             "name": "transaction",
+             "label": "Projet",
+             "type": "radio",
+             "required": true,
+             "options": "Achat, Location",
+             "width": "half"
+            },
+            {
+             "name": "typeBien",
+             "label": "Type de bien",
+             "type": "select",
+             "required": false,
+             "options": "Appartement, Studio, Villa, Bureau, Local commercial, Terrain, Autre",
+             "width": "half"
+            },
+            {
+             "name": "budget",
+             "label": "Budget",
+             "type": "money",
+             "required": false,
+             "unit": "DH",
+             "width": "half"
+            },
+            {
+             "name": "quartier",
+             "label": "Quartier(s)",
+             "type": "text",
+             "required": false,
+             "width": "half"
+            },
+            {
+             "name": "canal",
+             "label": "Canal d’entrée",
+             "type": "select",
+             "required": false,
+             "options": "WhatsApp, Meta Ads, Agent / recommandation, Site web, Téléphone, Autre"
+            }
+           ],
+           "submitLabel": "Créer le lead",
+           "submitAction": {
+            "type": "callApi",
+            "method": "POST",
+            "url": "/run/easyspace_schema/crm21/leads",
+            "bodyFrom": "payload.values",
+            "onSuccess": {
+             "type": "sequence",
+             "actions": [
+              {
+               "type": "showToast",
+               "message": "Lead créé",
+               "variant": "success"
+              },
+              {
+               "type": "navigate",
+               "to": "/opportunites-clients?vue=toutes"
+              }
+             ]
+            }
+           },
+           "title": "Nouveau lead"
+          }
+         }
+        ],
+        "tab2": [
+         {
+          "type": "Form",
+          "props": {
+           "fields": [
+            {
+             "name": "clientId",
+             "label": "Opportunité client",
+             "type": "select",
+             "required": true,
+             "optionsEndpoint": "/run/easyspace_schema/crm21/opportunites-clients",
+             "valueKey": "id",
+             "labelKey": "nom"
+            },
+            {
+             "name": "date",
+             "label": "Date",
+             "type": "date",
+             "required": true,
+             "width": "half"
+            },
+            {
+             "name": "heure",
+             "label": "Heure",
+             "type": "time",
+             "required": true,
+             "width": "half",
+             "help": "Heure de Casablanca"
+            },
+            {
+             "name": "nature",
+             "label": "Type",
+             "type": "select",
+             "required": false,
+             "options": "Visite, Appel, Rendez-vous agence, Signature",
+             "defaultValue": "Visite",
+             "width": "half"
+            },
+            {
+             "name": "dureeMin",
+             "label": "Durée",
+             "type": "select",
+             "required": false,
+             "options": "30:30 min, 60:1 h, 90:1 h 30, 120:2 h",
+             "defaultValue": "60",
+             "width": "half"
+            },
+            {
+             "name": "note",
+             "label": "Note",
+             "type": "textarea",
+             "required": false
+            }
+           ],
+           "submitLabel": "Planifier",
+           "submitAction": {
+            "type": "callApi",
+            "method": "POST",
+            "url": "/run/easyspace_schema/crm21/rdv",
+            "onSuccess": {
+             "type": "sequence",
+             "actions": [
+              {
+               "type": "refreshData"
+              },
+              {
+               "type": "showToast",
+               "message": "Rendez-vous enregistré",
+               "variant": "success"
+              }
+             ]
+            },
+            "bodyFrom": "payload.values"
+           },
+           "title": "Nouveau rendez-vous",
+           "statePath": "state.rdv"
+          }
+         },
+         {
+          "type": "Text",
+          "props": {
+           "text": "Créneaux libres ce jour-là (calculés sur votre agenda réel)",
+           "variant": "caption",
+           "tone": "muted"
+          }
+         },
+         {
+          "type": "Collection",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/creneaux?jour={{state.rdv.date}}",
+           "layout": "grid",
+           "columns": 6,
+           "gap": "xs",
+           "emptyText": "Aucun créneau libre entre 9 h et 20 h ce jour-là.",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "item": [
+            {
+             "type": "Badge",
+             "props": {
+              "label": "{{item.label}}",
+              "tone": "neutral"
+             }
+            }
+           ]
+          }
+         }
+        ],
+        "tab3": [
+         {
+          "type": "Form",
+          "props": {
+           "fields": [
+            {
+             "name": "nom",
+             "label": "Nom du bien",
+             "type": "text",
+             "required": true,
+             "help": "Ex. Appartement 3 ch. Gauthier"
+            },
+            {
+             "name": "transaction",
+             "label": "Transaction",
+             "type": "radio",
+             "required": true,
+             "options": "Vente, Location",
+             "width": "half"
+            },
+            {
+             "name": "type",
+             "label": "Type",
+             "type": "select",
+             "required": false,
+             "options": "appartement:Appartement, studio:Studio, villa:Villa, bureau:Bureau, local commerciale:Local commercial, magasin:Magasin, terrain:Terrain",
+             "width": "half"
+            },
+            {
+             "name": "prix",
+             "label": "Prix souhaité",
+             "type": "money",
+             "required": false,
+             "unit": "DH",
+             "width": "half"
+            },
+            {
+             "name": "quartier",
+             "label": "Quartier",
+             "type": "text",
+             "required": false,
+             "width": "half"
+            },
+            {
+             "name": "gestionnaire",
+             "label": "Gestionnaire",
+             "type": "text",
+             "required": false,
+             "width": "half"
+            },
+            {
+             "name": "gestionnaireTel",
+             "label": "Téléphone du gestionnaire",
+             "type": "text",
+             "required": false,
+             "width": "half"
+            }
+           ],
+           "submitLabel": "Créer l’opportunité de bien",
+           "submitAction": {
+            "type": "callApi",
+            "method": "POST",
+            "url": "/run/easyspace_schema/crm21/opportunites-biens",
+            "onSuccess": {
+             "type": "sequence",
+             "actions": [
+              {
+               "type": "refreshData"
+              },
+              {
+               "type": "showToast",
+               "message": "Opportunité de bien créée",
+               "variant": "success"
+              }
+             ]
+            },
+            "bodyFrom": "payload.values"
+           },
+           "title": "Nouvelle opportunité de bien"
+          }
+         }
+        ],
+        "tab4": [
+         {
+          "type": "Form",
+          "props": {
+           "fields": [
+            {
+             "name": "clientId",
+             "label": "Opportunité client",
+             "type": "select",
+             "required": true,
+             "optionsEndpoint": "/run/easyspace_schema/crm21/opportunites-clients",
+             "valueKey": "id",
+             "labelKey": "nom"
+            },
+            {
+             "name": "texte",
+             "label": "Note",
+             "type": "textarea",
+             "required": true
+            }
+           ],
+           "submitLabel": "Ajouter la note",
+           "submitAction": {
+            "type": "callApi",
+            "method": "POST",
+            "url": "/run/easyspace_schema/crm21/notes",
+            "onSuccess": {
+             "type": "sequence",
+             "actions": [
+              {
+               "type": "refreshData"
+              },
+              {
+               "type": "showToast",
+               "message": "Note ajoutée",
+               "variant": "success"
+              }
+             ]
+            },
+            "bodyFrom": "payload.values"
+           },
+           "title": "Note sur un dossier"
+          }
+         },
+         {
+          "type": "Alert",
+          "props": {
+           "tone": "neutral",
+           "icon": "Mic",
+           "title": "Note vocale : bientôt",
+           "text": "L’enregistrement et la transcription ne sont pas encore vérifiés de bout en bout ; ils seront activés plus tard."
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "none",
+     "radius": "none",
+     "paddingX": "none",
+     "paddingY": "none",
+     "visibility": {
+      "op": "truthy",
+      "path": "screen.phone",
+      "value": ""
+     },
+     "content": [
+      {
+       "type": "Navigation",
+       "props": {
+        "items": [
+         {
+          "label": "Accueil",
+          "path": "/",
+          "icon": "House"
+         },
+         {
+          "label": "Clients",
+          "path": "/opportunites-clients",
+          "icon": "Users"
+         },
+         {
+          "label": "Ajouter",
+          "path": "/ajout",
+          "icon": "CirclePlus"
+         },
+         {
+          "label": "Biens",
+          "path": "/biens",
+          "icon": "Building2"
+         },
+         {
+          "label": "Agenda",
+          "path": "/agenda",
+          "icon": "CalendarDays"
+         }
+        ],
+        "variant": "dock"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

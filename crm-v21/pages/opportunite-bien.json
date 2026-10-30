@@ -1,0 +1,714 @@
+{
+ "title": "Opportunité de bien",
+ "path": "/opportunite-bien",
+ "page": {
+  "root": {
+   "props": {
+    "theme": "easyspace",
+    "language": "fr",
+    "themeTokens": {
+     "--background": "#F4F1EA",
+     "--foreground": "#122631",
+     "--card": "#FFFFFF",
+     "--card-foreground": "#122631",
+     "--popover": "#FFFFFF",
+     "--popover-foreground": "#122631",
+     "--primary": "#122631",
+     "--primary-foreground": "#FFFFFF",
+     "--muted": "#ECE7DC",
+     "--muted-foreground": "#566D76",
+     "--accent": "#F1E8D8",
+     "--accent-foreground": "#122631",
+     "--border": "#D8E0E3",
+     "--input": "#D8E0E3",
+     "--ring": "#C7A976",
+     "--radius": "12px",
+     "--brand-band": "#122631",
+     "--brand-band-foreground": "#FFFFFF",
+     "--brand-band-solid": "#122631",
+     "--success": "#1F7A4D",
+     "--warning": "#9A6700",
+     "--danger": "#B42318",
+     "--info": "#2F6F86",
+     "--chart-1": "#122631",
+     "--chart-2": "#C7A976",
+     "--chart-3": "#6F8E98",
+     "--chart-4": "#1F7A4D",
+     "--chart-5": "#B4532B",
+     "--sans": "Manrope, Inter, system-ui, sans-serif",
+     "--heading": "Manrope, Inter, system-ui, sans-serif",
+     "--shadow-soft": "0 1px 2px rgba(18,38,49,0.06)",
+     "--shadow-elegant": "0 6px 20px rgba(18,38,49,0.10)"
+    }
+   }
+  },
+  "content": [
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "bottom",
+     "radius": "none",
+     "shadow": "none",
+     "paddingX": "xl",
+     "paddingY": "md",
+     "hideInPrint": true,
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "justify": "between",
+           "direction": "row",
+           "align": "center",
+           "gap": "sm",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "IconTile",
+                "props": {
+                 "icon": "",
+                 "text": "Easy Space",
+                 "tone": "primary",
+                 "look": "solid",
+                 "size": "sm",
+                 "shape": "rounded"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Easy Space CRM",
+                 "variant": "h3"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Nouveau",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/ajout"
+                 },
+                 "variant": "primary",
+                 "icon": "Plus",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "screen.desktop",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "UserMenu",
+                "props": {
+                 "showName": true,
+                 "themeChoice": true,
+                 "logoutLabel": "Se déconnecter",
+                 "items": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Record",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/session",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "emptyText": "",
+           "visibility": {
+            "op": "truthy",
+            "path": "screen.desktop",
+            "value": ""
+           },
+           "content": [
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               },
+               {
+                "label": "Équipe",
+                "path": "/equipe",
+                "icon": "UsersRound"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "truthy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Stack",
+    "props": {
+     "padding": "xl",
+     "gap": "xl",
+     "content": [
+      {
+       "type": "Breadcrumbs",
+       "props": {
+        "items": [
+         {
+          "label": "Opportunités de biens",
+          "path": "/opportunites-biens"
+         },
+         {
+          "label": "Fiche",
+          "path": ""
+         }
+        ]
+       }
+      },
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "xs",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Retour",
+                 "action": {
+                  "type": "goBack"
+                 },
+                 "variant": "ghost",
+                 "icon": "ArrowLeft",
+                 "size": "sm",
+                 "iconOnly": true
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Opportunité de bien",
+                 "variant": "h1"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Record",
+       "props": {
+        "endpointUrl": "/run/easyspace_schema/crm21/opportunite-bien?id={{query.id}}",
+        "source": "endpoint",
+        "itemsPath": "items",
+        "emptyText": "Opportunité de bien introuvable.",
+        "content": [
+         {
+          "type": "Surface",
+          "props": {
+           "shadow": "sm",
+           "paddingX": "xl",
+           "paddingY": "xl",
+           "background": "card",
+           "radius": "lg",
+           "gap": "md",
+           "border": "all",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "justify": "between",
+              "align": "start",
+              "wrap": true,
+              "direction": "row",
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Stack",
+                "props": {
+                 "gap": "2xs",
+                 "content": [
+                  {
+                   "type": "Text",
+                   "props": {
+                    "text": "{{record.nom}}",
+                    "variant": "h2"
+                   }
+                  },
+                  {
+                   "type": "Text",
+                   "props": {
+                    "text": "{{record.prixLabel}} · {{record.transaction}} · {{record.localisation}}",
+                    "variant": "body",
+                    "tone": "muted"
+                   }
+                  }
+                 ]
+                }
+               },
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "{{record.resultat}}",
+                 "tone": "info"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Text",
+             "props": {
+              "text": "{{record.responsableLabel}}",
+              "variant": "body"
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "wrap": true,
+              "direction": "row",
+              "align": "center",
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Appeler le gestionnaire",
+                 "action": {
+                  "type": "navigate",
+                  "to": "{{record.gestionnaireTelUrl}}"
+                 },
+                 "variant": "primary",
+                 "icon": "Phone",
+                 "size": "md",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "record.gestionnaireTelUrl",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Modifier le suivi",
+                 "action": {
+                  "type": "setVariable",
+                  "path": "state.suiviOuvert",
+                  "value": true
+                 },
+                 "variant": "soft",
+                 "icon": "Pencil",
+                 "size": "md",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "record.modifiable",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Activer le bien",
+                 "action": {
+                  "type": "confirm",
+                  "title": "Activer le bien dans le catalogue ?",
+                  "message": "Le bien lié passera « Actif » et sera visible de tous les brokers.",
+                  "confirmLabel": "Activer",
+                  "onConfirm": {
+                   "type": "callApi",
+                   "method": "POST",
+                   "url": "/run/easyspace_schema/crm21/activation-bien",
+                   "onSuccess": {
+                    "type": "sequence",
+                    "actions": [
+                     {
+                      "type": "refreshData"
+                     },
+                     {
+                      "type": "showToast",
+                      "message": "Bien activé",
+                      "variant": "success"
+                     }
+                    ]
+                   },
+                   "body": {
+                    "id": "{{query.id}}"
+                   }
+                  }
+                 },
+                 "variant": "outline",
+                 "icon": "CircleCheck",
+                 "size": "md",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "record.activable",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Voir le bien lié",
+                 "action": {
+                  "type": "navigate",
+                  "to": "{{record.lienBien}}"
+                 },
+                 "variant": "ghost",
+                 "icon": "Building2",
+                 "size": "md",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "record.lienBien",
+                  "value": ""
+                 }
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Alert",
+             "props": {
+              "tone": "info",
+              "icon": "Lock",
+              "title": "Lecture seule",
+              "text": "Seul le responsable ou l’administrateur peut modifier ce suivi. L’attribution se fait depuis la vue Équipe.",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.modifiable",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Text",
+             "props": {
+              "text": "{{record.activationLabel}}",
+              "variant": "caption",
+              "tone": "subtle"
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Grid",
+          "props": {
+           "columns": "2",
+           "gap": "lg",
+           "content": [
+            {
+             "type": "Details",
+             "props": {
+              "rows": [
+               {
+                "label": "Gestionnaire",
+                "value": "{{record.gestionnaire | default:—}}"
+               },
+               {
+                "label": "Interlocuteur",
+                "value": "{{record.gestionnaireStatut}}",
+                "tone": "info"
+               },
+               {
+                "label": "Responsable",
+                "value": "{{record.responsable}}"
+               }
+              ]
+             }
+            },
+            {
+             "type": "Details",
+             "props": {
+              "rows": [
+               {
+                "label": "Prochaine action",
+                "value": "{{record.prochaineAction | default:—}}"
+               },
+               {
+                "label": "Échéance",
+                "value": "{{record.echeanceLabel}}"
+               },
+               {
+                "label": "Priorité",
+                "value": "{{record.priorite | default:Normale}}"
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Markdown",
+          "props": {
+           "text": "{{record.notes}}",
+           "visibility": {
+            "op": "truthy",
+            "path": "record.notes",
+            "value": ""
+           }
+          }
+         },
+         {
+          "type": "Modal",
+          "props": {
+           "title": "Suivi de l’opportunité de bien",
+           "description": "Toute modification est tracée dans le journal.",
+           "statePath": "state.suiviOuvert",
+           "size": "md",
+           "content": [
+            {
+             "type": "Form",
+             "props": {
+              "fields": [
+               {
+                "name": "prochaineAction",
+                "label": "Prochaine action",
+                "type": "text",
+                "required": false,
+                "defaultValue": "{{record.prochaineAction}}"
+               },
+               {
+                "name": "echeanceDate",
+                "label": "Échéance",
+                "type": "date",
+                "required": false,
+                "width": "half"
+               },
+               {
+                "name": "echeanceHeure",
+                "label": "Heure",
+                "type": "time",
+                "required": false,
+                "width": "half"
+               },
+               {
+                "name": "priorite",
+                "label": "Priorité",
+                "type": "radio",
+                "required": false,
+                "options": "Normale, Haute, Urgente"
+               },
+               {
+                "name": "resultat",
+                "label": "Résultat",
+                "type": "select",
+                "required": false,
+                "options": "À qualifier, En cours, Disponible pour affectation, Gagnée — commercialisation autorisée, Perdue"
+               },
+               {
+                "name": "notes",
+                "label": "Note de suivi",
+                "type": "textarea",
+                "required": false
+               }
+              ],
+              "submitLabel": "Enregistrer le suivi",
+              "submitAction": {
+               "type": "callApi",
+               "method": "PATCH",
+               "url": "/run/easyspace_schema/crm21/opportunites-biens",
+               "onSuccess": {
+                "type": "sequence",
+                "actions": [
+                 {
+                  "type": "setVariable",
+                  "path": "state.suiviOuvert",
+                  "value": false
+                 },
+                 {
+                  "type": "refreshData"
+                 },
+                 {
+                  "type": "showToast",
+                  "message": "Suivi mis à jour",
+                  "variant": "success"
+                 }
+                ]
+               },
+               "body": {
+                "id": "{{query.id}}"
+               },
+               "bodyFrom": "payload.values"
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "none",
+     "radius": "none",
+     "paddingX": "none",
+     "paddingY": "none",
+     "visibility": {
+      "op": "truthy",
+      "path": "screen.phone",
+      "value": ""
+     },
+     "content": [
+      {
+       "type": "Navigation",
+       "props": {
+        "items": [
+         {
+          "label": "Accueil",
+          "path": "/",
+          "icon": "House"
+         },
+         {
+          "label": "Clients",
+          "path": "/opportunites-clients",
+          "icon": "Users"
+         },
+         {
+          "label": "Ajouter",
+          "path": "/ajout",
+          "icon": "CirclePlus"
+         },
+         {
+          "label": "Biens",
+          "path": "/biens",
+          "icon": "Building2"
+         },
+         {
+          "label": "Agenda",
+          "path": "/agenda",
+          "icon": "CalendarDays"
+         }
+        ],
+        "variant": "dock"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

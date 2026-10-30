@@ -245,6 +245,21 @@
      "gap": "xl",
      "content": [
       {
+       "type": "Breadcrumbs",
+       "props": {
+        "items": [
+         {
+          "label": "Opportunités clients",
+          "path": "/opportunites-clients"
+         },
+         {
+          "label": "Fiche",
+          "path": ""
+         }
+        ]
+       }
+      },
+      {
        "type": "Stack",
        "props": {
         "gap": "xs",
@@ -636,6 +651,7 @@
                    "type": "Stack",
                    "props": {
                     "align": "start",
+                    "justify": "between",
                     "direction": "row",
                     "gap": "sm",
                     "content": [
@@ -654,7 +670,6 @@
                       "type": "Stack",
                       "props": {
                        "gap": "2xs",
-                       "grow": true,
                        "content": [
                         {
                          "type": "Text",
@@ -876,7 +891,6 @@
                       "type": "Stack",
                       "props": {
                        "gap": "2xs",
-                       "grow": true,
                        "content": [
                         {
                          "type": "Text",

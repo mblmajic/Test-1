@@ -1,0 +1,882 @@
+{
+ "title": "Équipe",
+ "path": "/equipe",
+ "page": {
+  "root": {
+   "props": {
+    "theme": "easyspace",
+    "language": "fr",
+    "themeTokens": {
+     "--background": "#F4F1EA",
+     "--foreground": "#122631",
+     "--card": "#FFFFFF",
+     "--card-foreground": "#122631",
+     "--popover": "#FFFFFF",
+     "--popover-foreground": "#122631",
+     "--primary": "#122631",
+     "--primary-foreground": "#FFFFFF",
+     "--muted": "#ECE7DC",
+     "--muted-foreground": "#566D76",
+     "--accent": "#F1E8D8",
+     "--accent-foreground": "#122631",
+     "--border": "#D8E0E3",
+     "--input": "#D8E0E3",
+     "--ring": "#C7A976",
+     "--radius": "12px",
+     "--brand-band": "#122631",
+     "--brand-band-foreground": "#FFFFFF",
+     "--brand-band-solid": "#122631",
+     "--success": "#1F7A4D",
+     "--warning": "#9A6700",
+     "--danger": "#B42318",
+     "--info": "#2F6F86",
+     "--chart-1": "#122631",
+     "--chart-2": "#C7A976",
+     "--chart-3": "#6F8E98",
+     "--chart-4": "#1F7A4D",
+     "--chart-5": "#B4532B",
+     "--sans": "Manrope, Inter, system-ui, sans-serif",
+     "--heading": "Manrope, Inter, system-ui, sans-serif",
+     "--shadow-soft": "0 1px 2px rgba(18,38,49,0.06)",
+     "--shadow-elegant": "0 6px 20px rgba(18,38,49,0.10)"
+    }
+   }
+  },
+  "content": [
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "bottom",
+     "radius": "none",
+     "shadow": "none",
+     "paddingX": "xl",
+     "paddingY": "md",
+     "hideInPrint": true,
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "justify": "between",
+           "direction": "row",
+           "align": "center",
+           "gap": "sm",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "IconTile",
+                "props": {
+                 "icon": "",
+                 "text": "Easy Space",
+                 "tone": "primary",
+                 "look": "solid",
+                 "size": "sm",
+                 "shape": "rounded"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Easy Space CRM",
+                 "variant": "h3"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Nouveau",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/ajout"
+                 },
+                 "variant": "primary",
+                 "icon": "Plus",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "screen.desktop",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "UserMenu",
+                "props": {
+                 "showName": true,
+                 "themeChoice": true,
+                 "logoutLabel": "Se déconnecter",
+                 "items": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Record",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/session",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "emptyText": "",
+           "visibility": {
+            "op": "truthy",
+            "path": "screen.desktop",
+            "value": ""
+           },
+           "content": [
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               },
+               {
+                "label": "Équipe",
+                "path": "/equipe",
+                "icon": "UsersRound"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "truthy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Stack",
+    "props": {
+     "padding": "xl",
+     "gap": "xl",
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "xs",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Équipe",
+                 "variant": "h1"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Text",
+          "props": {
+           "text": "Réservé à l’administrateur : attribution et charge par broker",
+           "variant": "body",
+           "tone": "muted"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Text",
+          "props": {
+           "text": "Charge de l’équipe",
+           "variant": "h2"
+          }
+         },
+         {
+          "type": "Collection",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/equipe",
+           "layout": "grid",
+           "columns": 2,
+           "emptyText": "Accès réservé à l’administrateur.",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "gap": "sm",
+           "item": [
+            {
+             "type": "Surface",
+             "props": {
+              "paddingX": "md",
+              "paddingY": "md",
+              "gap": "sm",
+              "background": "card",
+              "radius": "lg",
+              "border": "all",
+              "content": [
+               {
+                "type": "Stack",
+                "props": {
+                 "justify": "between",
+                 "direction": "row",
+                 "align": "center",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "gap": "sm",
+                    "direction": "row",
+                    "align": "center",
+                    "content": [
+                     {
+                      "type": "IconTile",
+                      "props": {
+                       "icon": "",
+                       "text": "{{item.nom}}",
+                       "tone": "primary",
+                       "look": "soft",
+                       "size": "sm",
+                       "shape": "circle"
+                      }
+                     },
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.nom}}",
+                       "variant": "h3"
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Badge",
+                   "props": {
+                    "label": "{{item.retards}} en retard",
+                    "tone": "danger",
+                    "visibility": {
+                     "op": "gt",
+                     "path": "item.retards",
+                     "value": "0"
+                    }
+                   }
+                  }
+                 ]
+                }
+               },
+               {
+                "type": "Grid",
+                "props": {
+                 "columns": "4",
+                 "mobileColumns": "2",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Stat",
+                   "props": {
+                    "label": "Clients actifs",
+                    "value": "{{item.clientsActifs}}",
+                    "variant": "plain"
+                   }
+                  },
+                  {
+                   "type": "Stat",
+                   "props": {
+                    "label": "Mandats en cours",
+                    "value": "{{item.mandatsEnCours}}",
+                    "variant": "plain"
+                   }
+                  },
+                  {
+                   "type": "Stat",
+                   "props": {
+                    "label": "Biens en stock",
+                    "value": "{{item.biensEnStock}}",
+                    "variant": "plain"
+                   }
+                  },
+                  {
+                   "type": "Stat",
+                   "props": {
+                    "label": "RDV 7 jours",
+                    "value": "{{item.rdvSemaine}}",
+                    "variant": "plain"
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Grid",
+       "props": {
+        "columns": "2",
+        "gap": "xl",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "md",
+           "content": [
+            {
+             "type": "Text",
+             "props": {
+              "text": "Leads à attribuer",
+              "variant": "h2"
+             }
+            },
+            {
+             "type": "Collection",
+             "props": {
+              "endpointUrl": "/run/easyspace_schema/crm21/equipe?vue=leads",
+              "emptyText": "Tous les leads ont un broker.",
+              "source": "endpoint",
+              "itemsPath": "items",
+              "layout": "stack",
+              "gap": "sm",
+              "item": [
+               {
+                "type": "Surface",
+                "props": {
+                 "paddingX": "md",
+                 "paddingY": "md",
+                 "gap": "sm",
+                 "background": "card",
+                 "radius": "lg",
+                 "border": "all",
+                 "content": [
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "justify": "between",
+                    "align": "start",
+                    "direction": "row",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Stack",
+                      "props": {
+                       "gap": "2xs",
+                       "content": [
+                        {
+                         "type": "Text",
+                         "props": {
+                          "text": "{{item.nom}}",
+                          "variant": "h3"
+                         }
+                        },
+                        {
+                         "type": "Text",
+                         "props": {
+                          "text": "{{item.transaction}} · {{item.budgetLabel}} · {{item.quartier | default:quartier non précisé}}",
+                          "variant": "caption",
+                          "tone": "muted"
+                         }
+                        }
+                       ]
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.broker | default:Non affecté}}",
+                       "tone": "warning"
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "wrap": true,
+                    "direction": "row",
+                    "align": "center",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Imane",
+                       "action": {
+                        "type": "callApi",
+                        "method": "PATCH",
+                        "url": "/run/easyspace_schema/crm21/attribution",
+                        "onSuccess": {
+                         "type": "sequence",
+                         "actions": [
+                          {
+                           "type": "refreshData"
+                          },
+                          {
+                           "type": "showToast",
+                           "message": "Attribué à Imane",
+                           "variant": "success"
+                          }
+                         ]
+                        },
+                        "body": {
+                         "type": "client",
+                         "id": "{{item.id}}",
+                         "broker": "Imane"
+                        }
+                       },
+                       "variant": "soft",
+                       "icon": "UserRound",
+                       "size": "sm"
+                      }
+                     },
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Salma",
+                       "action": {
+                        "type": "callApi",
+                        "method": "PATCH",
+                        "url": "/run/easyspace_schema/crm21/attribution",
+                        "onSuccess": {
+                         "type": "sequence",
+                         "actions": [
+                          {
+                           "type": "refreshData"
+                          },
+                          {
+                           "type": "showToast",
+                           "message": "Attribué à Salma",
+                           "variant": "success"
+                          }
+                         ]
+                        },
+                        "body": {
+                         "type": "client",
+                         "id": "{{item.id}}",
+                         "broker": "Salma"
+                        }
+                       },
+                       "variant": "soft",
+                       "icon": "UserRound",
+                       "size": "sm"
+                      }
+                     },
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Majid",
+                       "action": {
+                        "type": "callApi",
+                        "method": "PATCH",
+                        "url": "/run/easyspace_schema/crm21/attribution",
+                        "onSuccess": {
+                         "type": "sequence",
+                         "actions": [
+                          {
+                           "type": "refreshData"
+                          },
+                          {
+                           "type": "showToast",
+                           "message": "Attribué à Majid",
+                           "variant": "success"
+                          }
+                         ]
+                        },
+                        "body": {
+                         "type": "client",
+                         "id": "{{item.id}}",
+                         "broker": "Majid"
+                        }
+                       },
+                       "variant": "ghost",
+                       "icon": "UserRound",
+                       "size": "sm"
+                      }
+                     },
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Ouvrir",
+                       "action": {
+                        "type": "navigate",
+                        "to": "{{item.lien}}"
+                       },
+                       "variant": "link",
+                       "icon": "",
+                       "size": "sm"
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "md",
+           "content": [
+            {
+             "type": "Text",
+             "props": {
+              "text": "Opportunités de biens sans responsable",
+              "variant": "h2"
+             }
+            },
+            {
+             "type": "Collection",
+             "props": {
+              "endpointUrl": "/run/easyspace_schema/crm21/opportunites-biens?vue=sans-responsable",
+              "limit": 10,
+              "loadMore": true,
+              "emptyText": "Toutes les opportunités de biens ont un responsable.",
+              "source": "endpoint",
+              "itemsPath": "items",
+              "layout": "stack",
+              "gap": "sm",
+              "item": [
+               {
+                "type": "Surface",
+                "props": {
+                 "paddingX": "md",
+                 "paddingY": "md",
+                 "gap": "sm",
+                 "background": "card",
+                 "radius": "lg",
+                 "border": "all",
+                 "content": [
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "justify": "between",
+                    "align": "start",
+                    "direction": "row",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Stack",
+                      "props": {
+                       "gap": "2xs",
+                       "content": [
+                        {
+                         "type": "Text",
+                         "props": {
+                          "text": "{{item.nom}}",
+                          "variant": "h3"
+                         }
+                        },
+                        {
+                         "type": "Text",
+                         "props": {
+                          "text": "{{item.prixLabel}} · {{item.localisation}}",
+                          "variant": "caption",
+                          "tone": "muted"
+                         }
+                        }
+                       ]
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "Sans responsable",
+                       "tone": "warning"
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "wrap": true,
+                    "direction": "row",
+                    "align": "center",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Imane",
+                       "action": {
+                        "type": "callApi",
+                        "method": "PATCH",
+                        "url": "/run/easyspace_schema/crm21/attribution",
+                        "onSuccess": {
+                         "type": "sequence",
+                         "actions": [
+                          {
+                           "type": "refreshData"
+                          },
+                          {
+                           "type": "showToast",
+                           "message": "Attribué à Imane",
+                           "variant": "success"
+                          }
+                         ]
+                        },
+                        "body": {
+                         "type": "bien",
+                         "id": "{{item.id}}",
+                         "broker": "Imane"
+                        }
+                       },
+                       "variant": "soft",
+                       "icon": "UserRound",
+                       "size": "sm"
+                      }
+                     },
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Salma",
+                       "action": {
+                        "type": "callApi",
+                        "method": "PATCH",
+                        "url": "/run/easyspace_schema/crm21/attribution",
+                        "onSuccess": {
+                         "type": "sequence",
+                         "actions": [
+                          {
+                           "type": "refreshData"
+                          },
+                          {
+                           "type": "showToast",
+                           "message": "Attribué à Salma",
+                           "variant": "success"
+                          }
+                         ]
+                        },
+                        "body": {
+                         "type": "bien",
+                         "id": "{{item.id}}",
+                         "broker": "Salma"
+                        }
+                       },
+                       "variant": "soft",
+                       "icon": "UserRound",
+                       "size": "sm"
+                      }
+                     },
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Majid",
+                       "action": {
+                        "type": "callApi",
+                        "method": "PATCH",
+                        "url": "/run/easyspace_schema/crm21/attribution",
+                        "onSuccess": {
+                         "type": "sequence",
+                         "actions": [
+                          {
+                           "type": "refreshData"
+                          },
+                          {
+                           "type": "showToast",
+                           "message": "Attribué à Majid",
+                           "variant": "success"
+                          }
+                         ]
+                        },
+                        "body": {
+                         "type": "bien",
+                         "id": "{{item.id}}",
+                         "broker": "Majid"
+                        }
+                       },
+                       "variant": "ghost",
+                       "icon": "UserRound",
+                       "size": "sm"
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "none",
+     "radius": "none",
+     "paddingX": "none",
+     "paddingY": "none",
+     "visibility": {
+      "op": "truthy",
+      "path": "screen.phone",
+      "value": ""
+     },
+     "content": [
+      {
+       "type": "Navigation",
+       "props": {
+        "items": [
+         {
+          "label": "Accueil",
+          "path": "/",
+          "icon": "House"
+         },
+         {
+          "label": "Clients",
+          "path": "/opportunites-clients",
+          "icon": "Users"
+         },
+         {
+          "label": "Ajouter",
+          "path": "/ajout",
+          "icon": "CirclePlus"
+         },
+         {
+          "label": "Biens",
+          "path": "/biens",
+          "icon": "Building2"
+         },
+         {
+          "label": "Agenda",
+          "path": "/agenda",
+          "icon": "CalendarDays"
+         }
+        ],
+        "variant": "dock"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

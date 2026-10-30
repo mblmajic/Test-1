@@ -245,6 +245,21 @@
      "gap": "xl",
      "content": [
       {
+       "type": "Breadcrumbs",
+       "props": {
+        "items": [
+         {
+          "label": "Catalogue des biens",
+          "path": "/biens"
+         },
+         {
+          "label": "Fiche",
+          "path": ""
+         }
+        ]
+       }
+      },
+      {
        "type": "Stack",
        "props": {
         "gap": "xs",
