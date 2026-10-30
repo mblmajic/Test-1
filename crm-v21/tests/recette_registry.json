@@ -1,1 +1,47 @@
-{"prefix":"[RECETTE V21]","entries":[]}
+{
+ "prefix": "[RECETTE V21]",
+ "entries": [
+  {
+   "table": "m5357c4d6f54f2868",
+   "table_title": "CRM21 Verrous",
+   "id": 1,
+   "libelle": "[RECETTE V21] affectation:oppbien:99999901",
+   "date": "2026-10-30T19:33:55+01:00",
+   "motif": "test verrou id explicite (id ignoré)",
+   "nettoye": false
+  }
+ ],
+ "tables_creees": [
+  {
+   "id": "m5357c4d6f54f2868",
+   "title": "CRM21 Verrous",
+   "date": "2026-10-30"
+  },
+  {
+   "id": "m3070c01f4ae9eb21",
+   "title": "CRM21 Membres",
+   "date": "2026-10-30",
+   "lignes_reelles": [
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "id": "m417041728cf6ca7e",
+   "title": "CRM21 Périodes horaires",
+   "date": "2026-10-30",
+   "lignes_reelles": [
+    1
+   ]
+  }
+ ],
+ "endpoints_brouillon_test": [
+  {
+   "id": "3f09fb6d-22ff-4299-b347-8bd46bb55043",
+   "path": "POST /crm21/test-verrou",
+   "motif": "essai id explicite — refusé (Id read-only), aucune ligne créée",
+   "a_supprimer": true
+  }
+ ]
+}
