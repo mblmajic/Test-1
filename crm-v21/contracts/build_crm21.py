@@ -79,6 +79,8 @@ def ds(key, op, params, name=None, run_if=None, on_error=None):
 
 
 def tr(key, expr, name=None, run_if=None):
+    # JSONata : une suite d'instructions « ; » doit être entourée de parenthèses
+    expr = "(\n" + expr.strip() + "\n)"
     s = {"key": key, "name": name or key, "type": "transform", "config": {"expression": expr}}
     if run_if:
         s["runIf"] = run_if
@@ -336,7 +338,7 @@ OWN_OC = [
 EP.append(endpoint("CRM21 — Fiche opportunité client", "GET", "/crm21/opportunite-client", IDENT + [PER] + OWN_OC + [
     lr("contact", T["contacts"], ["id", "libelle", "src_chepoppm9ctk3tm", "src_c2j3fuou3o8taqa"],
        [flt("id", "eq", "{{ $string(steps.rows.rows[0]." + OC["contact"] + ") }}")], limit=1, name="Contact principal",
-       run_if="$exists(steps.rows.rows[0]." + OC["contact"] + ") and $string(steps.rows.rows[0]." + OC["contact"] + ") != ''"),
+       run_if="$type(steps.rows.rows[0]." + OC["contact"] + ") in ['number', 'string'] and $string(steps.rows.rows[0]." + OC["contact"] + ") != ''"),
     tr("out", H + OC_MAP + r"""
 $r := $$.steps.rows.rows[0]; $c := $$.steps.contact.rows[0]; $x := $oc($r);
 {'items': [$merge([$x, {

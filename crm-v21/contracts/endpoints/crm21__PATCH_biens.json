@@ -89,7 +89,7 @@
     "name": "Identité",
     "type": "transform",
     "config": {
-     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+     "expression": "(\n($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})\n)"
     }
    },
    {
@@ -126,7 +126,7 @@
     "name": "Identifiant d'opération",
     "type": "transform",
     "config": {
-     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+     "expression": "(\n{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}\n)"
     }
    },
    {
@@ -215,7 +215,7 @@
     "name": "Champs autorisés",
     "type": "transform",
     "config": {
-     "expression": "\n$B := $$.input.body; $r := $$.steps.bien.rows[0];\n$v := $merge([\n  $B.confirmerDispo = true or $B.confirmerDispo = 'true' ? {'date_confirmation_dispo': $substring($now(), 0, 10), 'src_ckik8lj9kqev9ho': 'Actif'} : {},\n  $exists($B.dispo) ? {'src_ckik8lj9kqev9ho': $B.dispo} : {},\n  $exists($B.prochaineAction) ? {'crm_prochaine_action': $B.prochaineAction} : {},\n  $exists($B.notes) and $B.notes != '' ? {'crm_notes_suivi': $trim(($exists($r.crm_notes_suivi) and $type($r.crm_notes_suivi) != 'null' ? $string($r.crm_notes_suivi) : '') & '\\n[' & $substring($now(), 0, 10) & '] ' & $B.notes)} : {}\n]);\n{'values': $v, 'n': $count($keys($v))}\n"
+     "expression": "(\n$B := $$.input.body; $r := $$.steps.bien.rows[0];\n$v := $merge([\n  $B.confirmerDispo = true or $B.confirmerDispo = 'true' ? {'date_confirmation_dispo': $substring($now(), 0, 10), 'src_ckik8lj9kqev9ho': 'Actif'} : {},\n  $exists($B.dispo) ? {'src_ckik8lj9kqev9ho': $B.dispo} : {},\n  $exists($B.prochaineAction) ? {'crm_prochaine_action': $B.prochaineAction} : {},\n  $exists($B.notes) and $B.notes != '' ? {'crm_notes_suivi': $trim(($exists($r.crm_notes_suivi) and $type($r.crm_notes_suivi) != 'null' ? $string($r.crm_notes_suivi) : '') & '\\n[' & $substring($now(), 0, 10) & '] ' & $B.notes)} : {}\n]);\n{'values': $v, 'n': $count($keys($v))}\n)"
     }
    },
    {

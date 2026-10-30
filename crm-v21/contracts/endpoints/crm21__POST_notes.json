@@ -77,7 +77,7 @@
     "name": "Identité",
     "type": "transform",
     "config": {
-     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+     "expression": "(\n($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})\n)"
     }
    },
    {
@@ -96,7 +96,7 @@
     "name": "Identifiant d'opération",
     "type": "transform",
     "config": {
-     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+     "expression": "(\n{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}\n)"
     }
    },
    {

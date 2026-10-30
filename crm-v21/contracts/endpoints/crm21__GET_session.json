@@ -58,7 +58,7 @@
     "name": "Identité",
     "type": "transform",
     "config": {
-     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+     "expression": "(\n($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})\n)"
     }
    },
    {
@@ -77,7 +77,7 @@
     "name": "out",
     "type": "transform",
     "config": {
-     "expression": "($i := steps.ident; $p := $split($i.nom & ' ', ' ')[0]; {'items':[{'email':$i.email,'nom':$i.nom,'prenom':$p,'role':$i.role,'admin':$i.admin,'broker':$i.broker,'initiales':$uppercase($substring($i.nom,0,1)),'salutation':'Bonjour ' & $p}]})"
+     "expression": "(\n($i := steps.ident; $p := $split($i.nom & ' ', ' ')[0]; {'items':[{'email':$i.email,'nom':$i.nom,'prenom':$p,'role':$i.role,'admin':$i.admin,'broker':$i.broker,'initiales':$uppercase($substring($i.nom,0,1)),'salutation':'Bonjour ' & $p}]})\n)"
     }
    }
   ],

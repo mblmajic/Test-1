@@ -107,7 +107,7 @@
     "name": "Identité",
     "type": "transform",
     "config": {
-     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+     "expression": "(\n($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})\n)"
     }
    },
    {
@@ -144,7 +144,7 @@
     "name": "Identifiant d'opération",
     "type": "transform",
     "config": {
-     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+     "expression": "(\n{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}\n)"
     }
    },
    {
@@ -345,7 +345,7 @@
     "name": "Fuseau Africa/Casablanca",
     "type": "transform",
     "config": {
-     "expression": "\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$d := $iso($$.input.body.debut); $dur := $s($$.input.body.dureeMin) != '' ? $number($string($$.input.body.dureeMin)) : 60;\n$finMs := $ms($d) + $dur * 60000; $fo := $off($finMs);\n{'debut': $d, 'debutMs': $ms($d), 'finMs': $finMs, 'fin': $fromMillis($finMs, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]', $fo = 0 ? '+0000' : '+0100') & ($fo = 0 ? '+00:00' : '+01:00')}\n"
+     "expression": "(\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$d := $iso($$.input.body.debut); $dur := $s($$.input.body.dureeMin) != '' ? $number($string($$.input.body.dureeMin)) : 60;\n$finMs := $ms($d) + $dur * 60000; $fo := $off($finMs);\n{'debut': $d, 'debutMs': $ms($d), 'finMs': $finMs, 'fin': $fromMillis($finMs, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]', $fo = 0 ? '+0000' : '+0100') & ($fo = 0 ? '+00:00' : '+01:00')}\n)"
     }
    },
    {
@@ -402,7 +402,7 @@
     "name": "Contrôle",
     "type": "transform",
     "config": {
-     "expression": "\n$ms := function($iso){ ($x := $replace($string($iso), /\\.[0-9]+/, ''); $x != '' and $x != 'null' ? $toMillis($x) : null) };\n$c := $$.steps.agenda.rows[$string(src_cwtdcarxql2laii) != 'Annulé' and $string(crm_etat_visite) != 'Annulée' and\n  $ms(src_cybzjmjoj4zlch0) < $$.steps.t.finMs and ($exists(crm_fin) and $string(crm_fin) != 'null' ? $ms(crm_fin) : $ms(src_cybzjmjoj4zlch0) + 3600000) > $$.steps.t.debutMs];\n{'conflit': $count($c) > 0, 'avec': $string($c[0].libelle)}\n"
+     "expression": "(\n$ms := function($iso){ ($x := $replace($string($iso), /\\.[0-9]+/, ''); $x != '' and $x != 'null' ? $toMillis($x) : null) };\n$c := $$.steps.agenda.rows[$string(src_cwtdcarxql2laii) != 'Annulé' and $string(crm_etat_visite) != 'Annulée' and\n  $ms(src_cybzjmjoj4zlch0) < $$.steps.t.finMs and ($exists(crm_fin) and $string(crm_fin) != 'null' ? $ms(crm_fin) : $ms(src_cybzjmjoj4zlch0) + 3600000) > $$.steps.t.debutMs];\n{'conflit': $count($c) > 0, 'avec': $string($c[0].libelle)}\n)"
     }
    },
    {

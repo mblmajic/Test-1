@@ -125,7 +125,7 @@
     "name": "Identité",
     "type": "transform",
     "config": {
-     "expression": "($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})"
+     "expression": "(\n($m := steps.moi.rows[0]; $act := $string($m.actif) = 'true'; $r := $string($m.role); $bk := $exists($m.broker) and $type($m.broker) != 'null' ? $string($m.broker) : ''; {'email': $lowercase($string(auth.claims.email)), 'nom': $act ? $string($m.nom) : '', 'role': $act ? $r : '', 'admin': $act and $r = 'Admin', 'broker': $act ? $bk : '', 'ok': $act and ($r = 'Admin' or ($r = 'Broker' and $bk != ''))})\n)"
     }
    },
    {
@@ -162,7 +162,7 @@
     "name": "Identifiant d'opération",
     "type": "transform",
     "config": {
-     "expression": "{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}"
+     "expression": "(\n{'id': $exists(input.body.cle) and $string(input.body.cle) != '' ? 'v21-' & $string(input.body.cle) : 'v21-' & $string($millis()) & '-' & $substring($string(auth.claims.sub), 0, 8), 'date': $now()}\n)"
     }
    },
    {
@@ -335,7 +335,7 @@
     "name": "Champs autorisés",
     "type": "transform",
     "config": {
-     "expression": "\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$B := $$.input.body; $r := $$.steps.oc.rows[0];\n$MAP := {\"etape\": \"src_ch80mhxt9wmgffa\", \"prochaineAction\": \"src_cwm9erw27y2a5ax\", \"detailAction\": \"src_caw1n932cne75bt\", \"priorite\": \"src_cp1ak79dze4j7zb\", \"quartier\": \"src_crid8q8n1p0n7qe\", \"typeBien\": \"src_cqx1ht4dg6mt0gl\", \"transaction\": \"src_cc9t923zypqax4s\"};\n$base := $merge([$keys($MAP)[$exists($lookup($B, $))].{$lookup($MAP, $): $lookup($B, $)}]);\n$tx := $exists($B.transaction) ? $B.transaction : $string($r.src_cc9t923zypqax4s);\n$bud := $exists($B.budget) ? ($B.budget = '' ? {} : ($tx = 'Location' ? {'src_c0qcaxijrq4e44n': $number($string($B.budget))} : {'src_c8ty9timbln0feq': $number($string($B.budget))})) : {};\n$ech := $exists($B.echeance) ? {'src_csdkjyu1i3h2rpd': $B.echeance = '' ? null : $iso($B.echeance)} : {};\n$bk := $exists($B.broker) ? {'src_c2ljvedgo8rjnjz': $B.broker} : {};\n$v := $merge([$base, $bud, $ech, $bk]);\n{'values': $v, 'avant': $merge([$keys($v).{$: $lookup($r, $)}]), 'n': $count($keys($v))}\n"
+     "expression": "(\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$B := $$.input.body; $r := $$.steps.oc.rows[0];\n$MAP := {\"etape\": \"src_ch80mhxt9wmgffa\", \"prochaineAction\": \"src_cwm9erw27y2a5ax\", \"detailAction\": \"src_caw1n932cne75bt\", \"priorite\": \"src_cp1ak79dze4j7zb\", \"quartier\": \"src_crid8q8n1p0n7qe\", \"typeBien\": \"src_cqx1ht4dg6mt0gl\", \"transaction\": \"src_cc9t923zypqax4s\"};\n$base := $merge([$keys($MAP)[$exists($lookup($B, $))].{$lookup($MAP, $): $lookup($B, $)}]);\n$tx := $exists($B.transaction) ? $B.transaction : $string($r.src_cc9t923zypqax4s);\n$bud := $exists($B.budget) ? ($B.budget = '' ? {} : ($tx = 'Location' ? {'src_c0qcaxijrq4e44n': $number($string($B.budget))} : {'src_c8ty9timbln0feq': $number($string($B.budget))})) : {};\n$ech := $exists($B.echeance) ? {'src_csdkjyu1i3h2rpd': $B.echeance = '' ? null : $iso($B.echeance)} : {};\n$bk := $exists($B.broker) ? {'src_c2ljvedgo8rjnjz': $B.broker} : {};\n$v := $merge([$base, $bud, $ech, $bk]);\n{'values': $v, 'avant': $merge([$keys($v).{$: $lookup($r, $)}]), 'n': $count($keys($v))}\n)"
     }
    },
    {
