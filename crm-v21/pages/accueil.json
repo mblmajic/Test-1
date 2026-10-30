@@ -1,0 +1,1127 @@
+{
+ "title": "Bonjour",
+ "path": "/",
+ "page": {
+  "root": {
+   "props": {
+    "theme": "easyspace",
+    "language": "fr",
+    "themeTokens": {
+     "--background": "#F4F1EA",
+     "--foreground": "#122631",
+     "--card": "#FFFFFF",
+     "--card-foreground": "#122631",
+     "--popover": "#FFFFFF",
+     "--popover-foreground": "#122631",
+     "--primary": "#122631",
+     "--primary-foreground": "#FFFFFF",
+     "--muted": "#ECE7DC",
+     "--muted-foreground": "#566D76",
+     "--accent": "#F1E8D8",
+     "--accent-foreground": "#122631",
+     "--border": "#D8E0E3",
+     "--input": "#D8E0E3",
+     "--ring": "#C7A976",
+     "--radius": "12px",
+     "--brand-band": "#122631",
+     "--brand-band-foreground": "#FFFFFF",
+     "--brand-band-solid": "#122631",
+     "--success": "#1F7A4D",
+     "--warning": "#9A6700",
+     "--danger": "#B42318",
+     "--info": "#2F6F86",
+     "--chart-1": "#122631",
+     "--chart-2": "#C7A976",
+     "--chart-3": "#6F8E98",
+     "--chart-4": "#1F7A4D",
+     "--chart-5": "#B4532B",
+     "--sans": "Manrope, Inter, system-ui, sans-serif",
+     "--heading": "Manrope, Inter, system-ui, sans-serif",
+     "--shadow-soft": "0 1px 2px rgba(18,38,49,0.06)",
+     "--shadow-elegant": "0 6px 20px rgba(18,38,49,0.10)"
+    }
+   }
+  },
+  "content": [
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "bottom",
+     "radius": "none",
+     "shadow": "none",
+     "paddingX": "xl",
+     "paddingY": "md",
+     "hideInPrint": true,
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "justify": "between",
+           "direction": "row",
+           "align": "center",
+           "gap": "sm",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "IconTile",
+                "props": {
+                 "icon": "",
+                 "text": "Easy Space",
+                 "tone": "primary",
+                 "look": "solid",
+                 "size": "sm",
+                 "shape": "rounded"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Easy Space CRM",
+                 "variant": "h3"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Nouveau",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/ajout"
+                 },
+                 "variant": "primary",
+                 "icon": "Plus",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "screen.desktop",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "UserMenu",
+                "props": {
+                 "showName": true,
+                 "themeChoice": true,
+                 "logoutLabel": "Se déconnecter",
+                 "items": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Record",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/session",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "emptyText": "",
+           "visibility": {
+            "op": "truthy",
+            "path": "screen.desktop",
+            "value": ""
+           },
+           "content": [
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               },
+               {
+                "label": "Équipe",
+                "path": "/equipe",
+                "icon": "UsersRound"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "truthy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Stack",
+    "props": {
+     "padding": "xl",
+     "gap": "xl",
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "xs",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Bonjour",
+                 "variant": "h1"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Text",
+          "props": {
+           "text": "Votre journée en un coup d’œil",
+           "variant": "body",
+           "tone": "muted"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Record",
+       "props": {
+        "endpointUrl": "/run/easyspace_schema/crm21/accueil",
+        "source": "endpoint",
+        "itemsPath": "items",
+        "emptyText": "",
+        "content": [
+         {
+          "type": "Surface",
+          "props": {
+           "background": "brand",
+           "border": "none",
+           "shadow": "md",
+           "paddingX": "xl",
+           "paddingY": "xl",
+           "radius": "lg",
+           "gap": "md",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "justify": "between",
+              "wrap": true,
+              "direction": "row",
+              "align": "center",
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "Prochain rendez-vous",
+                 "tone": "neutral",
+                 "icon": "CalendarClock"
+                }
+               },
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "{{record.rdvAujourdhui}} aujourd’hui",
+                 "tone": "warning",
+                 "visibility": {
+                  "op": "gt",
+                  "path": "record.rdvAujourdhui",
+                  "value": "0"
+                 }
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Text",
+             "props": {
+              "text": "{{record.prochainRdv}}",
+              "variant": "h2"
+             }
+            },
+            {
+             "type": "Text",
+             "props": {
+              "text": "{{record.prochainRdvQuand}}",
+              "variant": "body"
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "wrap": true,
+              "direction": "row",
+              "align": "center",
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Ouvrir le dossier",
+                 "action": {
+                  "type": "navigate",
+                  "to": "{{record.prochainRdvLien}}"
+                 },
+                 "variant": "outline",
+                 "icon": "FolderOpen",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "record.aUnRdv",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Voir l’agenda",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/agenda"
+                 },
+                 "variant": "ghost",
+                 "icon": "CalendarDays",
+                 "size": "sm"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Grid",
+          "props": {
+           "columns": "4",
+           "mobileColumns": "2",
+           "gap": "md",
+           "content": [
+            {
+             "type": "Stat",
+             "props": {
+              "label": "Actions du jour",
+              "value": "{{record.actionsJour}}",
+              "detail": "échéance aujourd’hui ou passée",
+              "tone": "primary",
+              "icon": "ListChecks",
+              "variant": "tile"
+             }
+            },
+            {
+             "type": "Stat",
+             "props": {
+              "label": "En retard",
+              "value": "{{record.retards}}",
+              "detail": "échéance dépassée",
+              "tone": "danger",
+              "icon": "AlarmClock",
+              "variant": "tile"
+             }
+            },
+            {
+             "type": "Stat",
+             "props": {
+              "label": "Comptes rendus à faire",
+              "value": "{{record.crAFaire}}",
+              "detail": "RDV passés sans retour",
+              "tone": "warning",
+              "icon": "NotebookPen",
+              "variant": "tile"
+             }
+            },
+            {
+             "type": "Stat",
+             "props": {
+              "label": "RDV cette semaine",
+              "value": "{{record.rdvSemaine}}",
+              "detail": "7 prochains jours",
+              "tone": "info",
+              "icon": "CalendarRange",
+              "variant": "tile"
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "xs",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Text",
+             "props": {
+              "text": "Comment ces chiffres sont calculés",
+              "variant": "caption",
+              "tone": "subtle"
+             }
+            },
+            {
+             "type": "InfoTip",
+             "props": {
+              "text": "{{record.regles}}"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Text",
+          "props": {
+           "text": "Actions du jour",
+           "variant": "h2"
+          }
+         },
+         {
+          "type": "Collection",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/opportunites-clients?vue=actions&limite=6",
+           "layout": "grid",
+           "columns": 2,
+           "emptyText": "Aucune action à échéance aujourd’hui. Consultez vos opportunités clients pour planifier la suite.",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "gap": "sm",
+           "item": [
+            {
+             "type": "Surface",
+             "props": {
+              "interactive": true,
+              "paddingX": "md",
+              "paddingY": "md",
+              "gap": "sm",
+              "background": "card",
+              "radius": "lg",
+              "border": "all",
+              "content": [
+               {
+                "type": "Stack",
+                "props": {
+                 "justify": "between",
+                 "align": "start",
+                 "direction": "row",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "gap": "sm",
+                    "direction": "row",
+                    "align": "center",
+                    "content": [
+                     {
+                      "type": "IconTile",
+                      "props": {
+                       "icon": "",
+                       "text": "{{item.nom}}",
+                       "tone": "primary",
+                       "look": "soft",
+                       "size": "sm",
+                       "shape": "circle"
+                      }
+                     },
+                     {
+                      "type": "Stack",
+                      "props": {
+                       "gap": "2xs",
+                       "content": [
+                        {
+                         "type": "Text",
+                         "props": {
+                          "text": "{{item.nom}}",
+                          "variant": "h3"
+                         }
+                        },
+                        {
+                         "type": "Text",
+                         "props": {
+                          "text": "{{item.prochaineAction | default:Pas d’action prévue}}",
+                          "variant": "caption",
+                          "tone": "muted"
+                         }
+                        }
+                       ]
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Badge",
+                   "props": {
+                    "label": "{{item.etape}}",
+                    "tone": "info"
+                   }
+                  }
+                 ]
+                }
+               },
+               {
+                "type": "Stack",
+                "props": {
+                 "wrap": true,
+                 "direction": "row",
+                 "align": "center",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Badge",
+                   "props": {
+                    "label": "En retard",
+                    "tone": "danger",
+                    "icon": "AlarmClock",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.enRetard",
+                     "value": ""
+                    }
+                   }
+                  },
+                  {
+                   "type": "Badge",
+                   "props": {
+                    "label": "Aujourd’hui",
+                    "tone": "warning",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.aujourdhui",
+                     "value": ""
+                    }
+                   }
+                  },
+                  {
+                   "type": "Text",
+                   "props": {
+                    "text": "{{item.echeanceLabel}}",
+                    "variant": "caption",
+                    "tone": "muted"
+                   }
+                  },
+                  {
+                   "type": "Text",
+                   "props": {
+                    "text": "{{item.budgetLabel}}",
+                    "variant": "caption",
+                    "tone": "muted"
+                   }
+                  }
+                 ]
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "{{item.aCompleter}}",
+                 "variant": "caption",
+                 "tone": "subtle",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "item.aCompleter",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Stack",
+                "props": {
+                 "wrap": true,
+                 "direction": "row",
+                 "align": "center",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Ouvrir",
+                    "action": {
+                     "type": "navigate",
+                     "to": "{{item.lien}}"
+                    },
+                    "variant": "primary",
+                    "icon": "FolderOpen",
+                    "size": "sm"
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Appeler",
+                    "action": {
+                     "type": "navigate",
+                     "to": "{{item.telUrl}}"
+                    },
+                    "variant": "outline",
+                    "icon": "Phone",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.telUrl",
+                     "value": ""
+                    }
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "WhatsApp",
+                    "action": {
+                     "type": "navigate",
+                     "to": "{{item.waUrl}}"
+                    },
+                    "variant": "ghost",
+                    "icon": "MessageCircle",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.waUrl",
+                     "value": ""
+                    }
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Button",
+          "props": {
+           "label": "Toutes mes opportunités clients",
+           "action": {
+            "type": "navigate",
+            "to": "/opportunites-clients"
+           },
+           "variant": "link",
+           "icon": "",
+           "size": "sm"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Grid",
+       "props": {
+        "columns": "2",
+        "gap": "xl",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "md",
+           "content": [
+            {
+             "type": "Text",
+             "props": {
+              "text": "Prochains rendez-vous",
+              "variant": "h2"
+             }
+            },
+            {
+             "type": "Collection",
+             "props": {
+              "endpointUrl": "/run/easyspace_schema/crm21/activites?vue=a-venir&limite=5",
+              "emptyText": "Aucun rendez-vous à venir. Planifiez une visite depuis une opportunité client.",
+              "source": "endpoint",
+              "itemsPath": "items",
+              "layout": "stack",
+              "gap": "sm",
+              "item": [
+               {
+                "type": "Surface",
+                "props": {
+                 "paddingX": "md",
+                 "paddingY": "sm",
+                 "gap": "xs",
+                 "background": "card",
+                 "radius": "lg",
+                 "border": "all",
+                 "content": [
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "justify": "between",
+                    "align": "start",
+                    "direction": "row",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Stack",
+                      "props": {
+                       "gap": "2xs",
+                       "content": [
+                        {
+                         "type": "Text",
+                         "props": {
+                          "text": "{{item.quand}}",
+                          "variant": "caption",
+                          "tone": "muted"
+                         }
+                        },
+                        {
+                         "type": "Text",
+                         "props": {
+                          "text": "{{item.titre}}",
+                          "variant": "h3"
+                         }
+                        }
+                       ]
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "neutral"
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "direction": "row",
+                    "align": "center",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Dossier",
+                       "action": {
+                        "type": "navigate",
+                        "to": "{{item.lienClient}}"
+                       },
+                       "variant": "outline",
+                       "icon": "FolderOpen",
+                       "size": "sm",
+                       "visibility": {
+                        "op": "truthy",
+                        "path": "item.lienClient",
+                        "value": ""
+                       }
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "md",
+           "content": [
+            {
+             "type": "Text",
+             "props": {
+              "text": "Dossiers chauds",
+              "variant": "h2"
+             }
+            },
+            {
+             "type": "Collection",
+             "props": {
+              "endpointUrl": "/run/easyspace_schema/crm21/opportunites-clients?vue=chauds&limite=5",
+              "emptyText": "Aucun dossier en négociation ou prioritaire pour le moment.",
+              "source": "endpoint",
+              "itemsPath": "items",
+              "layout": "stack",
+              "gap": "sm",
+              "item": [
+               {
+                "type": "Surface",
+                "props": {
+                 "interactive": true,
+                 "paddingX": "md",
+                 "paddingY": "md",
+                 "gap": "sm",
+                 "background": "card",
+                 "radius": "lg",
+                 "border": "all",
+                 "content": [
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "justify": "between",
+                    "align": "start",
+                    "direction": "row",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Stack",
+                      "props": {
+                       "gap": "sm",
+                       "direction": "row",
+                       "align": "center",
+                       "content": [
+                        {
+                         "type": "IconTile",
+                         "props": {
+                          "icon": "",
+                          "text": "{{item.nom}}",
+                          "tone": "primary",
+                          "look": "soft",
+                          "size": "sm",
+                          "shape": "circle"
+                         }
+                        },
+                        {
+                         "type": "Stack",
+                         "props": {
+                          "gap": "2xs",
+                          "content": [
+                           {
+                            "type": "Text",
+                            "props": {
+                             "text": "{{item.nom}}",
+                             "variant": "h3"
+                            }
+                           },
+                           {
+                            "type": "Text",
+                            "props": {
+                             "text": "{{item.prochaineAction | default:Pas d’action prévue}}",
+                             "variant": "caption",
+                             "tone": "muted"
+                            }
+                           }
+                          ]
+                         }
+                        }
+                       ]
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.etape}}",
+                       "tone": "info"
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "wrap": true,
+                    "direction": "row",
+                    "align": "center",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "En retard",
+                       "tone": "danger",
+                       "icon": "AlarmClock",
+                       "visibility": {
+                        "op": "truthy",
+                        "path": "item.enRetard",
+                        "value": ""
+                       }
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "Aujourd’hui",
+                       "tone": "warning",
+                       "visibility": {
+                        "op": "truthy",
+                        "path": "item.aujourdhui",
+                        "value": ""
+                       }
+                      }
+                     },
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.echeanceLabel}}",
+                       "variant": "caption",
+                       "tone": "muted"
+                      }
+                     },
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.budgetLabel}}",
+                       "variant": "caption",
+                       "tone": "muted"
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Text",
+                   "props": {
+                    "text": "{{item.aCompleter}}",
+                    "variant": "caption",
+                    "tone": "subtle",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.aCompleter",
+                     "value": ""
+                    }
+                   }
+                  },
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "wrap": true,
+                    "direction": "row",
+                    "align": "center",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Ouvrir",
+                       "action": {
+                        "type": "navigate",
+                        "to": "{{item.lien}}"
+                       },
+                       "variant": "primary",
+                       "icon": "FolderOpen",
+                       "size": "sm"
+                      }
+                     },
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "Appeler",
+                       "action": {
+                        "type": "navigate",
+                        "to": "{{item.telUrl}}"
+                       },
+                       "variant": "outline",
+                       "icon": "Phone",
+                       "size": "sm",
+                       "visibility": {
+                        "op": "truthy",
+                        "path": "item.telUrl",
+                        "value": ""
+                       }
+                      }
+                     },
+                     {
+                      "type": "Button",
+                      "props": {
+                       "label": "WhatsApp",
+                       "action": {
+                        "type": "navigate",
+                        "to": "{{item.waUrl}}"
+                       },
+                       "variant": "ghost",
+                       "icon": "MessageCircle",
+                       "size": "sm",
+                       "visibility": {
+                        "op": "truthy",
+                        "path": "item.waUrl",
+                        "value": ""
+                       }
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "none",
+     "radius": "none",
+     "paddingX": "none",
+     "paddingY": "none",
+     "visibility": {
+      "op": "truthy",
+      "path": "screen.phone",
+      "value": ""
+     },
+     "content": [
+      {
+       "type": "Navigation",
+       "props": {
+        "items": [
+         {
+          "label": "Accueil",
+          "path": "/",
+          "icon": "House"
+         },
+         {
+          "label": "Clients",
+          "path": "/opportunites-clients",
+          "icon": "Users"
+         },
+         {
+          "label": "Ajouter",
+          "path": "/ajout",
+          "icon": "CirclePlus"
+         },
+         {
+          "label": "Biens",
+          "path": "/biens",
+          "icon": "Building2"
+         },
+         {
+          "label": "Agenda",
+          "path": "/agenda",
+          "icon": "CalendarDays"
+         }
+        ],
+        "variant": "dock"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

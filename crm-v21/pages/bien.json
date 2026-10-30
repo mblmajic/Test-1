@@ -1,0 +1,665 @@
+{
+ "title": "Fiche bien",
+ "path": "/bien",
+ "page": {
+  "root": {
+   "props": {
+    "theme": "easyspace",
+    "language": "fr",
+    "themeTokens": {
+     "--background": "#F4F1EA",
+     "--foreground": "#122631",
+     "--card": "#FFFFFF",
+     "--card-foreground": "#122631",
+     "--popover": "#FFFFFF",
+     "--popover-foreground": "#122631",
+     "--primary": "#122631",
+     "--primary-foreground": "#FFFFFF",
+     "--muted": "#ECE7DC",
+     "--muted-foreground": "#566D76",
+     "--accent": "#F1E8D8",
+     "--accent-foreground": "#122631",
+     "--border": "#D8E0E3",
+     "--input": "#D8E0E3",
+     "--ring": "#C7A976",
+     "--radius": "12px",
+     "--brand-band": "#122631",
+     "--brand-band-foreground": "#FFFFFF",
+     "--brand-band-solid": "#122631",
+     "--success": "#1F7A4D",
+     "--warning": "#9A6700",
+     "--danger": "#B42318",
+     "--info": "#2F6F86",
+     "--chart-1": "#122631",
+     "--chart-2": "#C7A976",
+     "--chart-3": "#6F8E98",
+     "--chart-4": "#1F7A4D",
+     "--chart-5": "#B4532B",
+     "--sans": "Manrope, Inter, system-ui, sans-serif",
+     "--heading": "Manrope, Inter, system-ui, sans-serif",
+     "--shadow-soft": "0 1px 2px rgba(18,38,49,0.06)",
+     "--shadow-elegant": "0 6px 20px rgba(18,38,49,0.10)"
+    }
+   }
+  },
+  "content": [
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "bottom",
+     "radius": "none",
+     "shadow": "none",
+     "paddingX": "xl",
+     "paddingY": "md",
+     "hideInPrint": true,
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "justify": "between",
+           "direction": "row",
+           "align": "center",
+           "gap": "sm",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "IconTile",
+                "props": {
+                 "icon": "",
+                 "text": "Easy Space",
+                 "tone": "primary",
+                 "look": "solid",
+                 "size": "sm",
+                 "shape": "rounded"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Easy Space CRM",
+                 "variant": "h3"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Nouveau",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/ajout"
+                 },
+                 "variant": "primary",
+                 "icon": "Plus",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "screen.desktop",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "UserMenu",
+                "props": {
+                 "showName": true,
+                 "themeChoice": true,
+                 "logoutLabel": "Se déconnecter",
+                 "items": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Record",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/session",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "emptyText": "",
+           "visibility": {
+            "op": "truthy",
+            "path": "screen.desktop",
+            "value": ""
+           },
+           "content": [
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               },
+               {
+                "label": "Équipe",
+                "path": "/equipe",
+                "icon": "UsersRound"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "truthy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Stack",
+    "props": {
+     "padding": "xl",
+     "gap": "xl",
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "xs",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Retour",
+                 "action": {
+                  "type": "goBack"
+                 },
+                 "variant": "ghost",
+                 "icon": "ArrowLeft",
+                 "size": "sm",
+                 "iconOnly": true
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Fiche bien",
+                 "variant": "h1"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Record",
+       "props": {
+        "endpointUrl": "/run/easyspace_schema/crm21/bien?id={{query.id}}",
+        "source": "endpoint",
+        "itemsPath": "items",
+        "emptyText": "Bien introuvable.",
+        "content": [
+         {
+          "type": "Grid",
+          "props": {
+           "columns": "3:2",
+           "gap": "xl",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "md",
+              "content": [
+               {
+                "type": "Image",
+                "props": {
+                 "src": "{{record.photo}}",
+                 "alt": "Photo du bien {{record.nom}}",
+                 "ratio": "wide",
+                 "fit": "cover",
+                 "radius": "lg",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "record.aPhoto",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Surface",
+                "props": {
+                 "background": "muted",
+                 "radius": "lg",
+                 "visibility": {
+                  "op": "falsy",
+                  "path": "record.aPhoto",
+                  "value": ""
+                 },
+                 "content": [
+                  {
+                   "type": "EmptyState",
+                   "props": {
+                    "icon": "ImageOff",
+                    "title": "Photo indisponible",
+                    "text": "Le lien de la photo n’est pas accessible. Demandez une photo au gestionnaire.",
+                    "framed": false
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Stack",
+                "props": {
+                 "wrap": true,
+                 "direction": "row",
+                 "align": "center",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Badge",
+                   "props": {
+                    "label": "{{record.dispo}}",
+                    "tone": "success",
+                    "visibility": {
+                     "op": "eq",
+                     "path": "record.dispo",
+                     "value": "Actif"
+                    }
+                   }
+                  },
+                  {
+                   "type": "Badge",
+                   "props": {
+                    "label": "{{record.dispo}}",
+                    "tone": "warning",
+                    "visibility": {
+                     "op": "neq",
+                     "path": "record.dispo",
+                     "value": "Actif"
+                    }
+                   }
+                  },
+                  {
+                   "type": "Badge",
+                   "props": {
+                    "label": "{{record.transaction}}",
+                    "tone": "neutral"
+                   }
+                  },
+                  {
+                   "type": "Badge",
+                   "props": {
+                    "label": "Mon bien",
+                    "tone": "primary",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "record.mien",
+                     "value": ""
+                    }
+                   }
+                  }
+                 ]
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "{{record.nom}}",
+                 "variant": "h2"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "{{record.prixLabel}}",
+                 "variant": "h3"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "{{record.surfaceLabel}} · {{record.chambres | default:—}} ch. · {{record.localisation}}",
+                 "variant": "body",
+                 "tone": "muted"
+                }
+               },
+               {
+                "type": "Stack",
+                "props": {
+                 "wrap": true,
+                 "direction": "row",
+                 "align": "center",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Proposer à un client",
+                    "action": {
+                     "type": "setVariable",
+                     "path": "state.proposerOuvert",
+                     "value": true
+                    },
+                    "variant": "primary",
+                    "icon": "Send",
+                    "size": "md"
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Appeler le gestionnaire",
+                    "action": {
+                     "type": "navigate",
+                     "to": "{{record.gestionnaireTelUrl}}"
+                    },
+                    "variant": "outline",
+                    "icon": "Phone",
+                    "size": "md",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "record.gestionnaireTelUrl",
+                     "value": ""
+                    }
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Grid",
+          "props": {
+           "columns": "2",
+           "gap": "lg",
+           "content": [
+            {
+             "type": "Details",
+             "props": {
+              "rows": [
+               {
+                "label": "Gestionnaire",
+                "value": "{{record.gestionnaire | default:—}}"
+               },
+               {
+                "label": "Interlocuteur",
+                "value": "{{record.gestionnaireStatut}}",
+                "tone": "info"
+               },
+               {
+                "label": "Provenance",
+                "value": "{{record.provenance | default:—}}"
+               },
+               {
+                "label": "Responsable",
+                "value": "{{record.responsable | default:—}}"
+               }
+              ]
+             }
+            },
+            {
+             "type": "Details",
+             "props": {
+              "rows": [
+               {
+                "label": "Disponibilité",
+                "value": "{{record.dispoConfirmee}}"
+               },
+               {
+                "label": "Clients",
+                "value": "{{record.interessesLabel}}"
+               },
+               {
+                "label": "Prochaine action",
+                "value": "{{record.prochaineAction | default:—}}"
+               },
+               {
+                "label": "Échéance",
+                "value": "{{record.echeanceLabel | default:—}}"
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Markdown",
+          "props": {
+           "text": "{{record.resume}}",
+           "visibility": {
+            "op": "truthy",
+            "path": "record.resume",
+            "value": ""
+           }
+          }
+         },
+         {
+          "type": "Modal",
+          "props": {
+           "title": "Proposer ce bien",
+           "description": "Seules vos opportunités clients sont listées.",
+           "statePath": "state.proposerOuvert",
+           "size": "md",
+           "content": [
+            {
+             "type": "Form",
+             "props": {
+              "fields": [
+               {
+                "name": "clientId",
+                "label": "Opportunité client",
+                "type": "select",
+                "required": true,
+                "optionsEndpoint": "/run/easyspace_schema/crm21/opportunites-clients",
+                "valueKey": "id",
+                "labelKey": "nom"
+               }
+              ],
+              "submitLabel": "Proposer ce bien",
+              "submitAction": {
+               "type": "callApi",
+               "method": "POST",
+               "url": "/run/easyspace_schema/crm21/propositions",
+               "onSuccess": {
+                "type": "sequence",
+                "actions": [
+                 {
+                  "type": "setVariable",
+                  "path": "state.proposerOuvert",
+                  "value": false
+                 },
+                 {
+                  "type": "refreshData"
+                 },
+                 {
+                  "type": "showToast",
+                  "message": "Bien proposé",
+                  "variant": "success"
+                 }
+                ]
+               },
+               "body": {
+                "bienId": "{{query.id}}"
+               },
+               "bodyFrom": "payload.values"
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "none",
+     "radius": "none",
+     "paddingX": "none",
+     "paddingY": "none",
+     "visibility": {
+      "op": "truthy",
+      "path": "screen.phone",
+      "value": ""
+     },
+     "content": [
+      {
+       "type": "Navigation",
+       "props": {
+        "items": [
+         {
+          "label": "Accueil",
+          "path": "/",
+          "icon": "House"
+         },
+         {
+          "label": "Clients",
+          "path": "/opportunites-clients",
+          "icon": "Users"
+         },
+         {
+          "label": "Ajouter",
+          "path": "/ajout",
+          "icon": "CirclePlus"
+         },
+         {
+          "label": "Biens",
+          "path": "/biens",
+          "icon": "Building2"
+         },
+         {
+          "label": "Agenda",
+          "path": "/agenda",
+          "icon": "CalendarDays"
+         }
+        ],
+        "variant": "dock"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

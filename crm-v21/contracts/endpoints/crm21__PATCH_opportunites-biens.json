@@ -31,6 +31,18 @@
      "description": ""
     },
     {
+     "name": "echeanceDate",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "echeanceHeure",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
      "name": "priorite",
      "type": "string",
      "required": false,
@@ -136,6 +148,14 @@
     }
    },
    {
+    "key": "norm",
+    "name": "Date et heure",
+    "type": "transform",
+    "config": {
+     "expression": "(\n{'debut': $exists(input.body.date) and input.body.date != '' ? input.body.date & 'T' & ($exists(input.body.heure) and input.body.heure != '' ? $substring(input.body.heure, 0, 5) : '09:00') : (input.body.debut ? $substring($string(input.body.debut), 0, 16) : ''), 'echeance': $exists(input.body.echeanceDate) ? (input.body.echeanceDate = '' ? '' : input.body.echeanceDate & 'T' & ($exists(input.body.echeanceHeure) and input.body.echeanceHeure != '' ? $substring(input.body.echeanceHeure, 0, 5) : '09:00')) : input.body.echeance}\n)"
+    }
+   },
+   {
     "key": "gid",
     "name": "gid",
     "type": "respond",
@@ -177,7 +197,7 @@
      "headers": [],
      "body": "{'error':'Échéance invalide (AAAA-MM-JJTHH:MM).'}"
     },
-    "runIf": "$exists(input.body.echeance) and input.body.echeance != '' and $not($contains($string(input.body.echeance), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"
+    "runIf": "$exists(steps.norm.echeance) and steps.norm.echeance != '' and $not($contains($string(steps.norm.echeance), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"
    },
    {
     "key": "glen",
@@ -261,7 +281,7 @@
     "name": "Champs autorisés",
     "type": "transform",
     "config": {
-     "expression": "(\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$B := $$.input.body; $r := $$.steps.ob.rows[0];\n$v := $merge([\n  $exists($B.prochaineAction) ? {'crm_prochaine_action': $B.prochaineAction} : {},\n  $exists($B.priorite) ? {'crm_priorite': $B.priorite} : {},\n  $exists($B.resultat) ? {'resultat_commercial': $B.resultat} : {},\n  $exists($B.echeance) ? {'crm_echeance': $B.echeance = '' ? null : $iso($B.echeance)} : {},\n  $exists($B.notes) and $B.notes != '' ? {'crm_notes_suivi': $trim($s($r.crm_notes_suivi) & '\\n[' & $substring($now(), 0, 10) & ' — ' & $$.steps.ident.nom & '] ' & $B.notes)} : {}\n]);\n{'values': $v, 'n': $count($keys($v))}\n)"
+     "expression": "(\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' and $x != 'null' ? $toMillis($x) : null) };\n$isn := function($t){ $type($t) = 'number' };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$B := $$.input.body; $r := $$.steps.ob.rows[0];\n$v := $merge([\n  $exists($B.prochaineAction) ? {'crm_prochaine_action': $B.prochaineAction} : {},\n  $exists($B.priorite) ? {'crm_priorite': $B.priorite} : {},\n  $exists($B.resultat) ? {'resultat_commercial': $B.resultat} : {},\n  $exists($$.steps.norm.echeance) ? {'crm_echeance': $$.steps.norm.echeance = '' ? null : $iso($$.steps.norm.echeance)} : {},\n  $exists($B.notes) and $B.notes != '' ? {'crm_notes_suivi': $trim($s($r.crm_notes_suivi) & '\\n[' & $substring($now(), 0, 10) & ' — ' & $$.steps.ident.nom & '] ' & $B.notes)} : {}\n]);\n{'values': $v, 'n': $count($keys($v))}\n)"
     }
    },
    {

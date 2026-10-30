@@ -1,0 +1,575 @@
+{
+ "title": "Catalogue des biens",
+ "path": "/biens",
+ "page": {
+  "root": {
+   "props": {
+    "theme": "easyspace",
+    "language": "fr",
+    "themeTokens": {
+     "--background": "#F4F1EA",
+     "--foreground": "#122631",
+     "--card": "#FFFFFF",
+     "--card-foreground": "#122631",
+     "--popover": "#FFFFFF",
+     "--popover-foreground": "#122631",
+     "--primary": "#122631",
+     "--primary-foreground": "#FFFFFF",
+     "--muted": "#ECE7DC",
+     "--muted-foreground": "#566D76",
+     "--accent": "#F1E8D8",
+     "--accent-foreground": "#122631",
+     "--border": "#D8E0E3",
+     "--input": "#D8E0E3",
+     "--ring": "#C7A976",
+     "--radius": "12px",
+     "--brand-band": "#122631",
+     "--brand-band-foreground": "#FFFFFF",
+     "--brand-band-solid": "#122631",
+     "--success": "#1F7A4D",
+     "--warning": "#9A6700",
+     "--danger": "#B42318",
+     "--info": "#2F6F86",
+     "--chart-1": "#122631",
+     "--chart-2": "#C7A976",
+     "--chart-3": "#6F8E98",
+     "--chart-4": "#1F7A4D",
+     "--chart-5": "#B4532B",
+     "--sans": "Manrope, Inter, system-ui, sans-serif",
+     "--heading": "Manrope, Inter, system-ui, sans-serif",
+     "--shadow-soft": "0 1px 2px rgba(18,38,49,0.06)",
+     "--shadow-elegant": "0 6px 20px rgba(18,38,49,0.10)"
+    }
+   }
+  },
+  "content": [
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "bottom",
+     "radius": "none",
+     "shadow": "none",
+     "paddingX": "xl",
+     "paddingY": "md",
+     "hideInPrint": true,
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "justify": "between",
+           "direction": "row",
+           "align": "center",
+           "gap": "sm",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "IconTile",
+                "props": {
+                 "icon": "",
+                 "text": "Easy Space",
+                 "tone": "primary",
+                 "look": "solid",
+                 "size": "sm",
+                 "shape": "rounded"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Easy Space CRM",
+                 "variant": "h3"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Nouveau",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/ajout"
+                 },
+                 "variant": "primary",
+                 "icon": "Plus",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "screen.desktop",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "UserMenu",
+                "props": {
+                 "showName": true,
+                 "themeChoice": true,
+                 "logoutLabel": "Se déconnecter",
+                 "items": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Record",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/session",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "emptyText": "",
+           "visibility": {
+            "op": "truthy",
+            "path": "screen.desktop",
+            "value": ""
+           },
+           "content": [
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               },
+               {
+                "label": "Équipe",
+                "path": "/equipe",
+                "icon": "UsersRound"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "truthy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Stack",
+    "props": {
+     "padding": "xl",
+     "gap": "xl",
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "xs",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Catalogue des biens",
+                 "variant": "h1"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Text",
+          "props": {
+           "text": "Biens disponibles, partagés entre brokers",
+           "variant": "body",
+           "tone": "muted"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Stack",
+       "props": {
+        "wrap": true,
+        "direction": "row",
+        "align": "center",
+        "gap": "sm",
+        "content": [
+         {
+          "type": "Segmented",
+          "props": {
+           "options": ":Tous les biens, 1:Mes biens",
+           "statePath": "state.mes",
+           "defaultValue": "",
+           "size": "sm"
+          }
+         },
+         {
+          "type": "Segmented",
+          "props": {
+           "options": ":Toutes, Vente, Location",
+           "statePath": "state.tx",
+           "defaultValue": "",
+           "size": "sm"
+          }
+         },
+         {
+          "type": "Select",
+          "props": {
+           "options": "appartement:Appartement, studio:Studio, villa:Villa, bureau:Bureau, local commerciale:Local commercial, magasin:Magasin, terrain:Terrain",
+           "allLabel": "Tous types",
+           "statePath": "state.type",
+           "width": "sm"
+          }
+         },
+         {
+          "type": "TextInput",
+          "props": {
+           "type": "search",
+           "placeholder": "Quartier, nom",
+           "statePath": "state.q",
+           "width": "md",
+           "icon": "Search"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Collection",
+       "props": {
+        "endpointUrl": "/run/easyspace_schema/crm21/biens?mes={{state.mes}}&transaction={{state.tx}}&type={{state.type}}&q={{state.q}}&dispo=Actif",
+        "layout": "grid",
+        "columns": 3,
+        "limit": 24,
+        "loadMore": true,
+        "emptyText": "Aucun bien disponible avec ces filtres. Élargissez la recherche.",
+        "source": "endpoint",
+        "itemsPath": "items",
+        "gap": "sm",
+        "item": [
+         {
+          "type": "Surface",
+          "props": {
+           "interactive": true,
+           "paddingX": "md",
+           "paddingY": "md",
+           "gap": "sm",
+           "background": "card",
+           "radius": "lg",
+           "border": "all",
+           "content": [
+            {
+             "type": "Image",
+             "props": {
+              "src": "{{item.photo}}",
+              "alt": "Photo du bien {{item.nom}}",
+              "ratio": "video",
+              "fit": "cover",
+              "radius": "md",
+              "visibility": {
+               "op": "truthy",
+               "path": "item.aPhoto",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Surface",
+             "props": {
+              "background": "muted",
+              "radius": "md",
+              "paddingY": "2xl",
+              "visibility": {
+               "op": "falsy",
+               "path": "item.aPhoto",
+               "value": ""
+              },
+              "content": [
+               {
+                "type": "Stack",
+                "props": {
+                 "justify": "center",
+                 "direction": "row",
+                 "align": "center",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "IconTile",
+                   "props": {
+                    "icon": "Building2",
+                    "tone": "neutral",
+                    "look": "soft",
+                    "size": "lg"
+                   }
+                  },
+                  {
+                   "type": "Text",
+                   "props": {
+                    "text": "Photo indisponible",
+                    "variant": "caption",
+                    "tone": "muted"
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "wrap": true,
+              "direction": "row",
+              "align": "center",
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "{{item.dispo}}",
+                 "tone": "success",
+                 "visibility": {
+                  "op": "eq",
+                  "path": "item.dispo",
+                  "value": "Actif"
+                 }
+                }
+               },
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "{{item.dispo}}",
+                 "tone": "neutral",
+                 "visibility": {
+                  "op": "eq",
+                  "path": "item.dispo",
+                  "value": "Inactif"
+                 }
+                }
+               },
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "{{item.dispo}}",
+                 "tone": "warning",
+                 "visibility": {
+                  "op": "eq",
+                  "path": "item.dispo",
+                  "value": "À confirmer"
+                 }
+                }
+               },
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "{{item.transaction}}",
+                 "tone": "neutral"
+                }
+               },
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "Mon bien",
+                 "tone": "primary",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "item.mien",
+                  "value": ""
+                 }
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Text",
+             "props": {
+              "text": "{{item.nom}}",
+              "variant": "h3"
+             }
+            },
+            {
+             "type": "Text",
+             "props": {
+              "text": "{{item.prixLabel}} · {{item.surfaceLabel}} · {{item.localisation}}",
+              "variant": "caption",
+              "tone": "muted"
+             }
+            },
+            {
+             "type": "Button",
+             "props": {
+              "label": "Voir la fiche",
+              "action": {
+               "type": "navigate",
+               "to": "{{item.lien}}"
+              },
+              "variant": "outline",
+              "icon": "",
+              "size": "sm"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "none",
+     "radius": "none",
+     "paddingX": "none",
+     "paddingY": "none",
+     "visibility": {
+      "op": "truthy",
+      "path": "screen.phone",
+      "value": ""
+     },
+     "content": [
+      {
+       "type": "Navigation",
+       "props": {
+        "items": [
+         {
+          "label": "Accueil",
+          "path": "/",
+          "icon": "House"
+         },
+         {
+          "label": "Clients",
+          "path": "/opportunites-clients",
+          "icon": "Users"
+         },
+         {
+          "label": "Ajouter",
+          "path": "/ajout",
+          "icon": "CirclePlus"
+         },
+         {
+          "label": "Biens",
+          "path": "/biens",
+          "icon": "Building2"
+         },
+         {
+          "label": "Agenda",
+          "path": "/agenda",
+          "icon": "CalendarDays"
+         }
+        ],
+        "variant": "dock"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

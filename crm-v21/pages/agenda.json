@@ -1,0 +1,876 @@
+{
+ "title": "Agenda",
+ "path": "/agenda",
+ "page": {
+  "root": {
+   "props": {
+    "theme": "easyspace",
+    "language": "fr",
+    "themeTokens": {
+     "--background": "#F4F1EA",
+     "--foreground": "#122631",
+     "--card": "#FFFFFF",
+     "--card-foreground": "#122631",
+     "--popover": "#FFFFFF",
+     "--popover-foreground": "#122631",
+     "--primary": "#122631",
+     "--primary-foreground": "#FFFFFF",
+     "--muted": "#ECE7DC",
+     "--muted-foreground": "#566D76",
+     "--accent": "#F1E8D8",
+     "--accent-foreground": "#122631",
+     "--border": "#D8E0E3",
+     "--input": "#D8E0E3",
+     "--ring": "#C7A976",
+     "--radius": "12px",
+     "--brand-band": "#122631",
+     "--brand-band-foreground": "#FFFFFF",
+     "--brand-band-solid": "#122631",
+     "--success": "#1F7A4D",
+     "--warning": "#9A6700",
+     "--danger": "#B42318",
+     "--info": "#2F6F86",
+     "--chart-1": "#122631",
+     "--chart-2": "#C7A976",
+     "--chart-3": "#6F8E98",
+     "--chart-4": "#1F7A4D",
+     "--chart-5": "#B4532B",
+     "--sans": "Manrope, Inter, system-ui, sans-serif",
+     "--heading": "Manrope, Inter, system-ui, sans-serif",
+     "--shadow-soft": "0 1px 2px rgba(18,38,49,0.06)",
+     "--shadow-elegant": "0 6px 20px rgba(18,38,49,0.10)"
+    }
+   }
+  },
+  "content": [
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "bottom",
+     "radius": "none",
+     "shadow": "none",
+     "paddingX": "xl",
+     "paddingY": "md",
+     "hideInPrint": true,
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "justify": "between",
+           "direction": "row",
+           "align": "center",
+           "gap": "sm",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "IconTile",
+                "props": {
+                 "icon": "",
+                 "text": "Easy Space",
+                 "tone": "primary",
+                 "look": "solid",
+                 "size": "sm",
+                 "shape": "rounded"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Easy Space CRM",
+                 "variant": "h3"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Nouveau",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/ajout"
+                 },
+                 "variant": "primary",
+                 "icon": "Plus",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "screen.desktop",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "UserMenu",
+                "props": {
+                 "showName": true,
+                 "themeChoice": true,
+                 "logoutLabel": "Se déconnecter",
+                 "items": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Record",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/session",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "emptyText": "",
+           "visibility": {
+            "op": "truthy",
+            "path": "screen.desktop",
+            "value": ""
+           },
+           "content": [
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               },
+               {
+                "label": "Équipe",
+                "path": "/equipe",
+                "icon": "UsersRound"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "truthy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Stack",
+    "props": {
+     "padding": "xl",
+     "gap": "xl",
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "xs",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Agenda",
+                 "variant": "h1"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Text",
+          "props": {
+           "text": "Heures de Casablanca",
+           "variant": "body",
+           "tone": "muted"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Calendar",
+       "props": {
+        "source": "endpoint",
+        "endpointUrl": "/run/easyspace_schema/crm21/activites",
+        "itemsPath": "items",
+        "dateKey": "debut",
+        "titleKey": "titre",
+        "statusKey": "statut",
+        "badgeTones": "À confirmer:warning, Confirmé:info, Effectué:success, Annulé:danger",
+        "views": "month, week, day",
+        "defaultView": "week",
+        "hours": "8-21",
+        "weekStart": "monday",
+        "visibility": {
+         "op": "truthy",
+         "path": "screen.desktop",
+         "value": ""
+        }
+       }
+      },
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Text",
+          "props": {
+           "text": "À venir",
+           "variant": "h2"
+          }
+         },
+         {
+          "type": "Collection",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/activites?vue=a-venir",
+           "emptyText": "Aucun rendez-vous à venir. Planifiez-en un depuis une opportunité client.",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "layout": "stack",
+           "gap": "sm",
+           "item": [
+            {
+             "type": "Surface",
+             "props": {
+              "paddingX": "md",
+              "paddingY": "sm",
+              "gap": "xs",
+              "background": "card",
+              "radius": "lg",
+              "border": "all",
+              "content": [
+               {
+                "type": "Stack",
+                "props": {
+                 "justify": "between",
+                 "align": "start",
+                 "direction": "row",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "gap": "2xs",
+                    "content": [
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.jourLabel}} · {{item.heure}}",
+                       "variant": "caption",
+                       "tone": "muted"
+                      }
+                     },
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.titre}}",
+                       "variant": "h3"
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "direction": "row",
+                    "align": "center",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "success",
+                       "visibility": {
+                        "op": "eq",
+                        "path": "item.statut",
+                        "value": "Effectué"
+                       }
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "danger",
+                       "visibility": {
+                        "op": "eq",
+                        "path": "item.statut",
+                        "value": "Annulé"
+                       }
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "info",
+                       "visibility": {
+                        "op": "eq",
+                        "path": "item.statut",
+                        "value": "Confirmé"
+                       }
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "warning",
+                       "visibility": {
+                        "op": "eq",
+                        "path": "item.statut",
+                        "value": "À confirmer"
+                       }
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               },
+               {
+                "type": "Stack",
+                "props": {
+                 "wrap": true,
+                 "direction": "row",
+                 "align": "center",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Dossier",
+                    "action": {
+                     "type": "navigate",
+                     "to": "{{item.lienClient}}"
+                    },
+                    "variant": "outline",
+                    "icon": "FolderOpen",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.lienClient",
+                     "value": ""
+                    }
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Confirmer",
+                    "action": {
+                     "type": "callApi",
+                     "method": "PATCH",
+                     "url": "/run/easyspace_schema/crm21/rdv",
+                     "onSuccess": {
+                      "type": "sequence",
+                      "actions": [
+                       {
+                        "type": "refreshData"
+                       },
+                       {
+                        "type": "showToast",
+                        "message": "Rendez-vous confirmé",
+                        "variant": "success"
+                       }
+                      ]
+                     },
+                     "body": {
+                      "id": "{{item.id}}",
+                      "action": "confirmer"
+                     }
+                    },
+                    "variant": "soft",
+                    "icon": "Check",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "eq",
+                     "path": "item.statut",
+                     "value": "À confirmer"
+                    }
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Compte rendu",
+                    "action": {
+                     "type": "navigate",
+                     "to": "{{item.lienClient}}"
+                    },
+                    "variant": "soft",
+                    "icon": "NotebookPen",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.aFaireCR",
+                     "value": ""
+                    }
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Annuler",
+                    "action": {
+                     "type": "confirm",
+                     "title": "Annuler ce rendez-vous ?",
+                     "message": "Le client n’est pas prévenu automatiquement.",
+                     "inputLabel": "Motif",
+                     "inputRequired": false,
+                     "variant": "danger",
+                     "confirmLabel": "Annuler le RDV",
+                     "onConfirm": {
+                      "type": "callApi",
+                      "method": "PATCH",
+                      "url": "/run/easyspace_schema/crm21/rdv",
+                      "body": {
+                       "id": "{{item.id}}",
+                       "action": "annuler",
+                       "motif": {
+                        "type": "runtime",
+                        "path": "payload.input"
+                       }
+                      },
+                      "onSuccess": {
+                       "type": "refreshData"
+                      }
+                     }
+                    },
+                    "variant": "ghost",
+                    "icon": "X",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.aVenir",
+                     "value": ""
+                    }
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Text",
+          "props": {
+           "text": "Comptes rendus à faire",
+           "variant": "h2"
+          }
+         },
+         {
+          "type": "Collection",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/activites?vue=cr&limite=10",
+           "emptyText": "Tous les rendez-vous passés ont leur compte rendu.",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "layout": "stack",
+           "gap": "sm",
+           "item": [
+            {
+             "type": "Surface",
+             "props": {
+              "paddingX": "md",
+              "paddingY": "sm",
+              "gap": "xs",
+              "background": "card",
+              "radius": "lg",
+              "border": "all",
+              "content": [
+               {
+                "type": "Stack",
+                "props": {
+                 "justify": "between",
+                 "align": "start",
+                 "direction": "row",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "gap": "2xs",
+                    "content": [
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.jourLabel}} · {{item.heure}}",
+                       "variant": "caption",
+                       "tone": "muted"
+                      }
+                     },
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.titre}}",
+                       "variant": "h3"
+                      }
+                     }
+                    ]
+                   }
+                  },
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "direction": "row",
+                    "align": "center",
+                    "gap": "sm",
+                    "content": [
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "success",
+                       "visibility": {
+                        "op": "eq",
+                        "path": "item.statut",
+                        "value": "Effectué"
+                       }
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "danger",
+                       "visibility": {
+                        "op": "eq",
+                        "path": "item.statut",
+                        "value": "Annulé"
+                       }
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "info",
+                       "visibility": {
+                        "op": "eq",
+                        "path": "item.statut",
+                        "value": "Confirmé"
+                       }
+                      }
+                     },
+                     {
+                      "type": "Badge",
+                      "props": {
+                       "label": "{{item.statut}}",
+                       "tone": "warning",
+                       "visibility": {
+                        "op": "eq",
+                        "path": "item.statut",
+                        "value": "À confirmer"
+                       }
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               },
+               {
+                "type": "Stack",
+                "props": {
+                 "wrap": true,
+                 "direction": "row",
+                 "align": "center",
+                 "gap": "sm",
+                 "content": [
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Dossier",
+                    "action": {
+                     "type": "navigate",
+                     "to": "{{item.lienClient}}"
+                    },
+                    "variant": "outline",
+                    "icon": "FolderOpen",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.lienClient",
+                     "value": ""
+                    }
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Confirmer",
+                    "action": {
+                     "type": "callApi",
+                     "method": "PATCH",
+                     "url": "/run/easyspace_schema/crm21/rdv",
+                     "onSuccess": {
+                      "type": "sequence",
+                      "actions": [
+                       {
+                        "type": "refreshData"
+                       },
+                       {
+                        "type": "showToast",
+                        "message": "Rendez-vous confirmé",
+                        "variant": "success"
+                       }
+                      ]
+                     },
+                     "body": {
+                      "id": "{{item.id}}",
+                      "action": "confirmer"
+                     }
+                    },
+                    "variant": "soft",
+                    "icon": "Check",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "eq",
+                     "path": "item.statut",
+                     "value": "À confirmer"
+                    }
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Compte rendu",
+                    "action": {
+                     "type": "navigate",
+                     "to": "{{item.lienClient}}"
+                    },
+                    "variant": "soft",
+                    "icon": "NotebookPen",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.aFaireCR",
+                     "value": ""
+                    }
+                   }
+                  },
+                  {
+                   "type": "Button",
+                   "props": {
+                    "label": "Annuler",
+                    "action": {
+                     "type": "confirm",
+                     "title": "Annuler ce rendez-vous ?",
+                     "message": "Le client n’est pas prévenu automatiquement.",
+                     "inputLabel": "Motif",
+                     "inputRequired": false,
+                     "variant": "danger",
+                     "confirmLabel": "Annuler le RDV",
+                     "onConfirm": {
+                      "type": "callApi",
+                      "method": "PATCH",
+                      "url": "/run/easyspace_schema/crm21/rdv",
+                      "body": {
+                       "id": "{{item.id}}",
+                       "action": "annuler",
+                       "motif": {
+                        "type": "runtime",
+                        "path": "payload.input"
+                       }
+                      },
+                      "onSuccess": {
+                       "type": "refreshData"
+                      }
+                     }
+                    },
+                    "variant": "ghost",
+                    "icon": "X",
+                    "size": "sm",
+                    "visibility": {
+                     "op": "truthy",
+                     "path": "item.aVenir",
+                     "value": ""
+                    }
+                   }
+                  }
+                 ]
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "none",
+     "radius": "none",
+     "paddingX": "none",
+     "paddingY": "none",
+     "visibility": {
+      "op": "truthy",
+      "path": "screen.phone",
+      "value": ""
+     },
+     "content": [
+      {
+       "type": "Navigation",
+       "props": {
+        "items": [
+         {
+          "label": "Accueil",
+          "path": "/",
+          "icon": "House"
+         },
+         {
+          "label": "Clients",
+          "path": "/opportunites-clients",
+          "icon": "Users"
+         },
+         {
+          "label": "Ajouter",
+          "path": "/ajout",
+          "icon": "CirclePlus"
+         },
+         {
+          "label": "Biens",
+          "path": "/biens",
+          "icon": "Building2"
+         },
+         {
+          "label": "Agenda",
+          "path": "/agenda",
+          "icon": "CalendarDays"
+         }
+        ],
+        "variant": "dock"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

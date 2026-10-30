@@ -1,0 +1,615 @@
+{
+ "title": "Opportunités clients",
+ "path": "/opportunites-clients",
+ "page": {
+  "root": {
+   "props": {
+    "theme": "easyspace",
+    "language": "fr",
+    "themeTokens": {
+     "--background": "#F4F1EA",
+     "--foreground": "#122631",
+     "--card": "#FFFFFF",
+     "--card-foreground": "#122631",
+     "--popover": "#FFFFFF",
+     "--popover-foreground": "#122631",
+     "--primary": "#122631",
+     "--primary-foreground": "#FFFFFF",
+     "--muted": "#ECE7DC",
+     "--muted-foreground": "#566D76",
+     "--accent": "#F1E8D8",
+     "--accent-foreground": "#122631",
+     "--border": "#D8E0E3",
+     "--input": "#D8E0E3",
+     "--ring": "#C7A976",
+     "--radius": "12px",
+     "--brand-band": "#122631",
+     "--brand-band-foreground": "#FFFFFF",
+     "--brand-band-solid": "#122631",
+     "--success": "#1F7A4D",
+     "--warning": "#9A6700",
+     "--danger": "#B42318",
+     "--info": "#2F6F86",
+     "--chart-1": "#122631",
+     "--chart-2": "#C7A976",
+     "--chart-3": "#6F8E98",
+     "--chart-4": "#1F7A4D",
+     "--chart-5": "#B4532B",
+     "--sans": "Manrope, Inter, system-ui, sans-serif",
+     "--heading": "Manrope, Inter, system-ui, sans-serif",
+     "--shadow-soft": "0 1px 2px rgba(18,38,49,0.06)",
+     "--shadow-elegant": "0 6px 20px rgba(18,38,49,0.10)"
+    }
+   }
+  },
+  "content": [
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "bottom",
+     "radius": "none",
+     "shadow": "none",
+     "paddingX": "xl",
+     "paddingY": "md",
+     "hideInPrint": true,
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "md",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "justify": "between",
+           "direction": "row",
+           "align": "center",
+           "gap": "sm",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "IconTile",
+                "props": {
+                 "icon": "",
+                 "text": "Easy Space",
+                 "tone": "primary",
+                 "look": "solid",
+                 "size": "sm",
+                 "shape": "rounded"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Easy Space CRM",
+                 "variant": "h3"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Nouveau",
+                 "action": {
+                  "type": "navigate",
+                  "to": "/ajout"
+                 },
+                 "variant": "primary",
+                 "icon": "Plus",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "screen.desktop",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "UserMenu",
+                "props": {
+                 "showName": true,
+                 "themeChoice": true,
+                 "logoutLabel": "Se déconnecter",
+                 "items": []
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Record",
+          "props": {
+           "endpointUrl": "/run/easyspace_schema/crm21/session",
+           "source": "endpoint",
+           "itemsPath": "items",
+           "emptyText": "",
+           "visibility": {
+            "op": "truthy",
+            "path": "screen.desktop",
+            "value": ""
+           },
+           "content": [
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "falsy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Navigation",
+             "props": {
+              "items": [
+               {
+                "label": "Accueil",
+                "path": "/",
+                "icon": "House"
+               },
+               {
+                "label": "Opportunités clients",
+                "path": "/opportunites-clients",
+                "icon": "Users"
+               },
+               {
+                "label": "Opportunités de biens",
+                "path": "/opportunites-biens",
+                "icon": "KeyRound"
+               },
+               {
+                "label": "Biens",
+                "path": "/biens",
+                "icon": "Building2"
+               },
+               {
+                "label": "Agenda",
+                "path": "/agenda",
+                "icon": "CalendarDays"
+               },
+               {
+                "label": "Équipe",
+                "path": "/equipe",
+                "icon": "UsersRound"
+               }
+              ],
+              "variant": "underline",
+              "visibility": {
+               "op": "truthy",
+               "path": "record.admin",
+               "value": ""
+              }
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Stack",
+    "props": {
+     "padding": "xl",
+     "gap": "xl",
+     "content": [
+      {
+       "type": "Stack",
+       "props": {
+        "gap": "xs",
+        "content": [
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "gap": "sm",
+              "direction": "row",
+              "align": "center",
+              "content": [
+               {
+                "type": "Text",
+                "props": {
+                 "text": "Opportunités clients",
+                 "variant": "h1"
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         },
+         {
+          "type": "Text",
+          "props": {
+           "text": "Votre portefeuille, trié par échéance",
+           "variant": "body",
+           "tone": "muted"
+          }
+         },
+         {
+          "type": "Stack",
+          "props": {
+           "gap": "sm",
+           "wrap": true,
+           "direction": "row",
+           "align": "center",
+           "content": [
+            {
+             "type": "Button",
+             "props": {
+              "label": "Nouveau lead",
+              "action": {
+               "type": "navigate",
+               "to": "/ajout?onglet=1"
+              },
+              "variant": "primary",
+              "icon": "UserPlus",
+              "size": "sm"
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Stack",
+       "props": {
+        "justify": "between",
+        "wrap": true,
+        "direction": "row",
+        "align": "center",
+        "gap": "sm",
+        "content": [
+         {
+          "type": "Segmented",
+          "props": {
+           "options": "actifs:En cours, actions:À faire, retard:En retard, a-completer:À compléter, toutes:Toutes",
+           "statePath": "state.vue",
+           "defaultValue": "actifs",
+           "size": "sm"
+          }
+         },
+         {
+          "type": "TextInput",
+          "props": {
+           "type": "search",
+           "placeholder": "Nom, quartier, téléphone",
+           "statePath": "state.q",
+           "width": "md",
+           "icon": "Search"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "type": "Collection",
+       "props": {
+        "endpointUrl": "/run/easyspace_schema/crm21/opportunites-clients?vue={{state.vue}}&q={{state.q}}",
+        "layout": "grid",
+        "columns": 2,
+        "emptyText": "Aucune opportunité client dans cette vue. Changez de filtre ou ajoutez un lead.",
+        "source": "endpoint",
+        "itemsPath": "items",
+        "gap": "sm",
+        "item": [
+         {
+          "type": "Surface",
+          "props": {
+           "interactive": true,
+           "paddingX": "md",
+           "paddingY": "md",
+           "gap": "sm",
+           "background": "card",
+           "radius": "lg",
+           "border": "all",
+           "content": [
+            {
+             "type": "Stack",
+             "props": {
+              "justify": "between",
+              "align": "start",
+              "direction": "row",
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Stack",
+                "props": {
+                 "gap": "sm",
+                 "direction": "row",
+                 "align": "center",
+                 "content": [
+                  {
+                   "type": "IconTile",
+                   "props": {
+                    "icon": "",
+                    "text": "{{item.nom}}",
+                    "tone": "primary",
+                    "look": "soft",
+                    "size": "sm",
+                    "shape": "circle"
+                   }
+                  },
+                  {
+                   "type": "Stack",
+                   "props": {
+                    "gap": "2xs",
+                    "content": [
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.nom}}",
+                       "variant": "h3"
+                      }
+                     },
+                     {
+                      "type": "Text",
+                      "props": {
+                       "text": "{{item.prochaineAction | default:Pas d’action prévue}}",
+                       "variant": "caption",
+                       "tone": "muted"
+                      }
+                     }
+                    ]
+                   }
+                  }
+                 ]
+                }
+               },
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "{{item.etape}}",
+                 "tone": "info"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "wrap": true,
+              "direction": "row",
+              "align": "center",
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "En retard",
+                 "tone": "danger",
+                 "icon": "AlarmClock",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "item.enRetard",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Badge",
+                "props": {
+                 "label": "Aujourd’hui",
+                 "tone": "warning",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "item.aujourdhui",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "{{item.echeanceLabel}}",
+                 "variant": "caption",
+                 "tone": "muted"
+                }
+               },
+               {
+                "type": "Text",
+                "props": {
+                 "text": "{{item.budgetLabel}}",
+                 "variant": "caption",
+                 "tone": "muted"
+                }
+               }
+              ]
+             }
+            },
+            {
+             "type": "Text",
+             "props": {
+              "text": "{{item.aCompleter}}",
+              "variant": "caption",
+              "tone": "subtle",
+              "visibility": {
+               "op": "truthy",
+               "path": "item.aCompleter",
+               "value": ""
+              }
+             }
+            },
+            {
+             "type": "Stack",
+             "props": {
+              "wrap": true,
+              "direction": "row",
+              "align": "center",
+              "gap": "sm",
+              "content": [
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Ouvrir",
+                 "action": {
+                  "type": "navigate",
+                  "to": "{{item.lien}}"
+                 },
+                 "variant": "primary",
+                 "icon": "FolderOpen",
+                 "size": "sm"
+                }
+               },
+               {
+                "type": "Button",
+                "props": {
+                 "label": "Appeler",
+                 "action": {
+                  "type": "navigate",
+                  "to": "{{item.telUrl}}"
+                 },
+                 "variant": "outline",
+                 "icon": "Phone",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "item.telUrl",
+                  "value": ""
+                 }
+                }
+               },
+               {
+                "type": "Button",
+                "props": {
+                 "label": "WhatsApp",
+                 "action": {
+                  "type": "navigate",
+                  "to": "{{item.waUrl}}"
+                 },
+                 "variant": "ghost",
+                 "icon": "MessageCircle",
+                 "size": "sm",
+                 "visibility": {
+                  "op": "truthy",
+                  "path": "item.waUrl",
+                  "value": ""
+                 }
+                }
+               }
+              ]
+             }
+            }
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "type": "Surface",
+    "props": {
+     "background": "card",
+     "border": "none",
+     "radius": "none",
+     "paddingX": "none",
+     "paddingY": "none",
+     "visibility": {
+      "op": "truthy",
+      "path": "screen.phone",
+      "value": ""
+     },
+     "content": [
+      {
+       "type": "Navigation",
+       "props": {
+        "items": [
+         {
+          "label": "Accueil",
+          "path": "/",
+          "icon": "House"
+         },
+         {
+          "label": "Clients",
+          "path": "/opportunites-clients",
+          "icon": "Users"
+         },
+         {
+          "label": "Ajouter",
+          "path": "/ajout",
+          "icon": "CirclePlus"
+         },
+         {
+          "label": "Biens",
+          "path": "/biens",
+          "icon": "Building2"
+         },
+         {
+          "label": "Agenda",
+          "path": "/agenda",
+          "icon": "CalendarDays"
+         }
+        ],
+        "variant": "dock"
+       }
+      }
+     ]
+    }
+   }
+  ]
+ }
+}

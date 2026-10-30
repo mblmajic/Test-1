@@ -129,14 +129,15 @@ MINE = "{{ steps.ident.admin ? '' : steps.ident.broker }}"
 
 # Helpers JSONata partagés (début de chaque transform de mise en forme)
 H = r"""
-$s := function($v){ ($exists($v) and $type($v) != 'null') ? $replace($string($v), '"', '') : '' };
+$s := function($v){ ($exists($v) and $type($v) != 'null') ? $trim($replace($string($v), '"', '')) : '' };
 $n := function($v){ ($x := $s($v); $x != '' and $x != 'null' ? $number($x) : null) };
 $b := function($v){ $s($v) = 'true' };
-$ms := function($iso){ ($x := $replace($s($iso), /\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };
+$ms := function($iso){ ($x := $replace($s($iso), /\.[0-9]+/, ''); $x != '' and $x != 'null' ? $toMillis($x) : null) };
+$isn := function($t){ $type($t) = 'number' };
 $per := $$.steps.per.rows;
-$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $n($p.decalage_min) : 60) };
+$off := function($t){ $isn($t) ? ($p := $per[$isn($ms(debut_utc)) and $isn($ms(fin_utc)) and $ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $n($p.decalage_min) : 60) : 60 };
 $tzp := function($t){ $off($t) = 0 ? '+0000' : '+0100' };
-$loc := function($iso, $pic){ ($t := $ms($iso); $exists($t) ? $fromMillis($t, $pic, $tzp($t)) : '') };
+$loc := function($iso, $pic){ ($t := $ms($iso); $isn($t) ? $fromMillis($t, $pic, $tzp($t)) : '') };
 $nowms := $millis();
 $today := $fromMillis($nowms, '[Y0001]-[M01]-[D01]', $tzp($nowms));
 $tomorrow := $fromMillis($nowms + 86400000, '[Y0001]-[M01]-[D01]', $tzp($nowms + 86400000));
@@ -196,8 +197,8 @@ $act := function($r){ (
     'debut': $loc($d, '[Y0001]-[M01]-[D01]T[H01]:[m01]'), 'ts': $ms($d), 'jour': $jour($d), 'heure': $heure($d),
     'fin': $heure($r.crm_fin), 'jourLabel': $labelJour($d), 'quand': $labelDate($d),
     'statut': $etat = 'Annulée' or $st = 'Annulé' ? 'Annulé' : ($fini ? 'Effectué' : ($etat = 'Confirmée' ? 'Confirmé' : 'À confirmer')),
-    'statutTone': $actTone($st, $etat), 'aVenir': $not($fini) and $ms($d) >= $nowms,
-    'aFaireCR': $not($etat = 'Annulée' or $st = 'Annulé') and $ms($d) < $nowms and $s($r.crm_appreciation) = '',
+    'statutTone': $actTone($st, $etat), 'aVenir': $not($fini) and $isn($ms($d)) and $ms($d) >= $nowms,
+    'aFaireCR': $not($etat = 'Annulée' or $st = 'Annulé') and $isn($ms($d)) and $ms($d) < $nowms and $s($r.crm_appreciation) = '',
     'broker': $s($r.crm_broker), 'clientId': $n($r.opportunit_s_clients_id), 'bienId': $n($r.biens_id),
     'lienClient': $s($r.opportunit_s_clients_id) != '' ? '/opportunite-client?id=' & $s($r.opportunit_s_clients_id) : '',
     'appreciation': $s($r.crm_appreciation), 'objections': $s($r.crm_objections), 'prochaineEtape': $s($r.crm_prochaine_etape),
@@ -207,7 +208,11 @@ $act := function($r){ (
 """ % AC
 
 BI_MAP = r"""
-$photo := function($att){ ($a := $type($att) = 'string' ? ($contains($att, '[') ? $eval($att) : []) : $att; $u := [$a.(url ? url : (signedUrl ? signedUrl : path))][0]; $s($u) != '' and $contains($s($u), 'http') ? $s($u) : '' };
+$photo := function($att){ (
+  $a := $type($att) = 'string' ? ($contains($att, '[') ? $eval($att) : []) : ($type($att) = 'null' ? [] : $att);
+  $u := [$a.($exists(url) ? url : ($exists(signedUrl) ? signedUrl : path))][0];
+  $contains($s($u), 'http') ? $s($u) : ''
+) };
 $dispoTone := function($d){ $d = 'Actif' ? 'success' : ($d = 'Inactif' ? 'neutral' : 'warning') };
 $verif := function($etat){ $etat = 'Validé' ? 'Vérifié' : 'À confirmer' };
 $bien := function($r){ (
@@ -229,7 +234,7 @@ $bien := function($r){ (
     'gestionnaireTone': $s($r.tat_de_migration_gestionnaire) = 'Validé' ? 'success' : 'warning',
     'provenance': $s($r.%(typegest)s), 'statutBrief': $s($r.statut_brief),
     'dispoConfirmee': $conf = '' ? 'Jamais confirmée' : 'Confirmée le ' & $substring($conf, 0, 10),
-    'aActualiser': $d = 'Actif' and ($conf = '' or $ms($conf) < $nowms - 30 * 86400000 or $contains($s($r.statut_brief), '🔴') or $contains($s($r.statut_brief), '🟠') or $contains($s($r.statut_brief), '🟡')),
+    'aActualiser': $d = 'Actif' and ($conf = '' or ($isn($ms($conf)) and $ms($conf) < $nowms - 30 * 86400000) or $contains($s($r.statut_brief), '🔴') or $contains($s($r.statut_brief), '🟠') or $contains($s($r.statut_brief), '🟡')),
     'prochaineAction': $s($r.crm_prochaine_action), 'echeanceLabel': $labelDate($r.crm_echeance),
     'resume': $s($r.%(resume)s), 'initiales': $uppercase($substring($s($r.%(type)s), 0, 2))
   }
@@ -422,12 +427,12 @@ EP.append(endpoint("CRM21 — Historique du dossier", "GET", "/crm21/historique"
     lr("acts", T["act"], AC_COLS, [flt("opportunit_s_clients_id", "eq", "{{ input.query.clientId }}")], limit=200),
     tr("out", H + ACT_MAP + r"""
 $ev := [$$.steps.events.rows[($voirRecette or $not(test_crm1 = true)) and $not(type_evenement in ['Refus hors responsable']) and resultat != 'À reprendre'].{
-  'id': 'e' & $s(id), 'ts': $ms(date_evenement), 'quand': $labelDate(date_evenement), 'titre': $s(type_evenement),
+  'id': 'e' & $s(id), 'ts': $isn($ms(date_evenement)) ? $ms(date_evenement) : 0, 'quand': $labelDate(date_evenement), 'titre': $s(type_evenement),
   'texte': $s(resume), 'auteur': $s(broker), 'icone': type_evenement = 'Note' ? 'sticky-note' : 'history'}];
 $ac := [$$.steps.acts.rows.$act($)[$voirRecette or $not(test)].{
   'id': 'a' & $string(id), 'ts': ts, 'quand': quand,
   'titre': nature & ' — ' & statut, 'texte': appreciation, 'auteur': broker, 'icone': 'calendar'}];
-{'items': [$sort($append($ev, $ac), function($a, $b){ $a.ts < $b.ts })]}
+{'items': [($append($ev, $ac).$merge([$, {'ts': $type(ts) = 'number' ? ts : 0}]))^(>ts)]}
 """, "Mise en forme")],
     query=[q("clientId"), q("recette")], description="Historique : journal (hors refus) + activités, du plus récent au plus ancien."))
 
@@ -678,18 +683,23 @@ RECETTE_OC = "$contains(" + OCNAME + ", '[RECETTE V21]')"
 # local 'YYYY-MM-DDTHH:mm' → ISO avec décalage Casablanca
 TOISO = r"""
 $s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };
-$ms := function($iso){ ($x := $replace($s($iso), /\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };
+$ms := function($iso){ ($x := $replace($s($iso), /\.[0-9]+/, ''); $x != '' and $x != 'null' ? $toMillis($x) : null) };
+$isn := function($t){ $type($t) = 'number' };
 $per := $$.steps.per.rows;
 $off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };
 $iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };
 """
 
+
+NORM = tr("norm", "{'debut': $exists(input.body.date) and input.body.date != '' ? input.body.date & 'T' & ($exists(input.body.heure) and input.body.heure != '' ? $substring(input.body.heure, 0, 5) : '09:00') : (input.body.debut ? $substring($string(input.body.debut), 0, 16) : ''), "
+          "'echeance': $exists(input.body.echeanceDate) ? (input.body.echeanceDate = '' ? '' : input.body.echeanceDate & 'T' & ($exists(input.body.echeanceHeure) and input.body.echeanceHeure != '' ? $substring(input.body.echeanceHeure, 0, 5) : '09:00')) : input.body.echeance}", "Date et heure")
+
 NATURES = "['Visite', 'Appel', 'Rendez-vous agence', 'Signature']"
 
 # W1. Créer un RDV
-EP.append(endpoint("CRM21 — Créer un rendez-vous", "POST", "/crm21/rdv", IDENT + [PER, OP] + [
+EP.append(endpoint("CRM21 — Créer un rendez-vous", "POST", "/crm21/rdv", IDENT + [PER, OP, NORM] + [
     respond("gdeb", 400, "{'error':'Date et heure obligatoires (AAAA-MM-JJTHH:MM).'}",
-            "$not($contains($string(input.body.debut), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"),
+            "$not($contains(steps.norm.debut, /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"),
     respond("gdur", 400, "{'error':'Durée entre 15 et 480 minutes.'}",
             "$exists(input.body.dureeMin) and $string(input.body.dureeMin) != '' and ($number($string(input.body.dureeMin)) < 15 or $number($string(input.body.dureeMin)) > 480)"),
     respond("gnat", 400, "{'error':'Type de rendez-vous inconnu.'}",
@@ -704,7 +714,7 @@ EP.append(endpoint("CRM21 — Créer un rendez-vous", "POST", "/crm21/rdv", IDEN
     respond("dejafait", 200, "{'items':[{'id': steps.deja.rows[0].id, 'message':'Rendez-vous déjà enregistré.', 'reprise': true}]}",
             "$count(steps.deja.rows) > 0", "Idempotence"),
     tr("t", TOISO + r"""
-$d := $iso($$.input.body.debut); $dur := $s($$.input.body.dureeMin) != '' ? $number($string($$.input.body.dureeMin)) : 60;
+$d := $iso($$.steps.norm.debut); $dur := $s($$.input.body.dureeMin) != '' ? $number($string($$.input.body.dureeMin)) : 60;
 $finMs := $ms($d) + $dur * 60000; $fo := $off($finMs);
 {'debut': $d, 'debutMs': $ms($d), 'finMs': $finMs, 'fin': $fromMillis($finMs, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]', $fo = 0 ? '+0000' : '+0100') & ($fo = 0 ? '+00:00' : '+01:00')}
 """, "Fuseau Africa/Casablanca"),
@@ -732,12 +742,12 @@ $c := $$.steps.agenda.rows[$string(src_cwtdcarxql2laii) != 'Annulé' and $string
         "'crm_cle_creation': steps.op.id, 'crm_est_test': " + RECETTE_OC + "}"}, "Création du RDV"),
     journal("j", "client", "input.body.clientId", "RDV planifié", "'RDV ' & steps.t.debut", "{'rdv': steps.write.id, 'debut': steps.t.debut, 'fin': steps.t.fin}", RECETTE_OC),
     respond("done", 201, "{'items':[{'id': steps.write.id, 'debut': steps.t.debut, 'fin': steps.t.fin, 'message':'Rendez-vous enregistré.'}]}"),
-], body=[b("clientId", "any", True), b("debut", "string", True, "heure locale AAAA-MM-JJTHH:MM"), b("dureeMin", "any"),
+], body=[b("clientId", "any", True), b("debut", "string", False, "heure locale AAAA-MM-JJTHH:MM"), b("date"), b("heure"), b("dureeMin", "any"),
          b("nature"), b("bienId", "any"), b("note"), b("cle", "string", False, "clé d'idempotence"), b("forcer", "any")],
     description="RDV rattaché au dossier et à son broker ; heure locale convertie côté serveur ; refus si chevauchement ; idempotent par clé."))
 
 # W2. Modifier un RDV : compte rendu, confirmation, annulation, déplacement
-EP.append(endpoint("CRM21 — Suivi d'un rendez-vous", "PATCH", "/crm21/rdv", IDENT + [PER, OP] + [
+EP.append(endpoint("CRM21 — Suivi d'un rendez-vous", "PATCH", "/crm21/rdv", IDENT + [PER, OP, NORM] + [
     respond("gid", 400, "{'error':'Rendez-vous manquant.'}", "$not($contains($string(input.body.id), /^[1-9][0-9]{0,9}$/))"),
     respond("gact", 400, "{'error':'Action inconnue.'}", "$not(input.body.action in ['compte-rendu', 'confirmer', 'annuler', 'deplacer'])"),
     respond("gcr", 400, "{'error':'Le compte rendu doit contenir l’appréciation du client.'}",
@@ -745,7 +755,7 @@ EP.append(endpoint("CRM21 — Suivi d'un rendez-vous", "PATCH", "/crm21/rdv", ID
     respond("glen", 400, "{'error':'Texte trop long (4000 caractères max).'}",
             "$length($string(input.body.appreciation)) > 4000 or $length($string(input.body.objections)) > 4000 or $length($string(input.body.prochaineEtape)) > 4000"),
     respond("gdeb", 400, "{'error':'Nouvelle date obligatoire (AAAA-MM-JJTHH:MM).'}",
-            "input.body.action = 'deplacer' and $not($contains($string(input.body.debut), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"),
+            "input.body.action = 'deplacer' and $not($contains(steps.norm.debut, /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"),
     lr("rdv", T["act"], AC_COLS, [flt("id", "eq", "{{ $string(input.body.id) }}")], limit=1),
     respond("g404", 404, "{'error':'Rendez-vous introuvable.'}", "$count(steps.rdv.rows) = 0"),
     lr("oc", T["oc"], ["id", "libelle", OC["broker"]], [flt("id", "eq", "{{ $string(steps.rdv.rows[0].opportunit_s_clients_id) }}")],
@@ -754,7 +764,7 @@ EP.append(endpoint("CRM21 — Suivi d'un rendez-vous", "PATCH", "/crm21/rdv", ID
             "$not(steps.ident.admin or $string(steps.rdv.rows[0].crm_broker) = steps.ident.broker or $string(steps.oc.rows[0]." + OC["broker"] + ") = steps.ident.broker)"),
     tr("t", TOISO + r"""
 $a := $$.input.body.action; $r := $$.steps.rdv.rows[0];
-$d := $a = 'deplacer' ? $iso($$.input.body.debut) : null;
+$d := $a = 'deplacer' ? $iso($$.steps.norm.debut) : null;
 $dur := ($ms($r.crm_fin) and $ms($r.src_cybzjmjoj4zlch0)) ? $ms($r.crm_fin) - $ms($r.src_cybzjmjoj4zlch0) : 3600000;
 $finMs := $d ? $ms($d) + $dur : null;
 $stamp := $fromMillis($millis(), '[D01]/[M01]/[Y0001] [H01]:[m01]', $off($millis()) = 0 ? '+0000' : '+0100');
@@ -776,7 +786,7 @@ $a = 'compte-rendu' ? {'crm_appreciation': $$.input.body.appreciation, 'crm_obje
             "$keys(steps.t)", "steps.rdv.rows[0].crm_est_test = true"),
     respond("done", 200, "{'items':[{'id': $number($string(input.body.id)), 'action': input.body.action, 'message': input.body.action = 'compte-rendu' ? 'Compte rendu enregistré.' : (input.body.action = 'annuler' ? 'Rendez-vous annulé.' : (input.body.action = 'confirmer' ? 'Rendez-vous confirmé.' : 'Rendez-vous déplacé.'))}]}"),
 ], body=[b("id", "any", True), b("action", "string", True), b("appreciation"), b("objections"), b("prochaineEtape"),
-         b("motif"), b("debut")],
+         b("motif"), b("debut"), b("date"), b("heure")],
     description="Compte rendu, confirmation, annulation ou déplacement ; propriétaire contrôlé ; historique horodaté."))
 
 # W3. Proposer un bien
@@ -825,13 +835,13 @@ EP.append(endpoint("CRM21 — Retour sur une proposition", "PATCH", "/crm21/prop
 # W5. Modifier une opportunité client
 OC_EDIT = {"etape": OC["etape"], "prochaineAction": OC["action"], "detailAction": OC["detail"], "priorite": OC["prio"],
            "quartier": OC["quartier"], "typeBien": OC["type"], "transaction": OC["tx"]}
-EP.append(endpoint("CRM21 — Modifier une opportunité client", "PATCH", "/crm21/opportunites-clients", IDENT + [PER, OP] + [
+EP.append(endpoint("CRM21 — Modifier une opportunité client", "PATCH", "/crm21/opportunites-clients", IDENT + [PER, OP, NORM] + [
     respond("gid", 400, "{'error':'Dossier manquant.'}", "$not($contains($string(input.body.id), /^[1-9][0-9]{0,9}$/))"),
     respond("get", 400, "{'error':'Étape inconnue.'}", "$exists(input.body.etape) and $not(input.body.etape in " + json.dumps(FR_ETAPES, ensure_ascii=False) + ")"),
     respond("gpr", 400, "{'error':'Priorité inconnue.'}", "$exists(input.body.priorite) and $not(input.body.priorite in ['Urgente', 'Haute', 'Normale'])"),
     respond("gtx", 400, "{'error':'Transaction inconnue.'}", "$exists(input.body.transaction) and $not(input.body.transaction in ['Achat', 'Location'])"),
     respond("gech", 400, "{'error':'Échéance invalide (AAAA-MM-JJTHH:MM).'}",
-            "$exists(input.body.echeance) and input.body.echeance != '' and $not($contains($string(input.body.echeance), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"),
+            "$exists(steps.norm.echeance) and steps.norm.echeance != '' and $not($contains($string(steps.norm.echeance), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"),
     respond("gbud", 400, "{'error':'Budget invalide.'}", "$exists(input.body.budget) and input.body.budget != '' and ($type($number($string(input.body.budget))) != 'number' or $number($string(input.body.budget)) < 0 or $number($string(input.body.budget)) > 1000000000)"),
     respond("gbk", 403, "{'error':'Seul l’administrateur peut réattribuer un dossier.'}", "$exists(input.body.broker) and $not(steps.ident.admin)"),
     respond("gbk2", 400, "{'error':'Broker inconnu.'}", "$exists(input.body.broker) and $not(input.body.broker in ['Imane', 'Salma', 'Majid', 'Omar'])"),
@@ -845,7 +855,7 @@ $MAP := """ + json.dumps(OC_EDIT, ensure_ascii=False) + r""";
 $base := $merge([$keys($MAP)[$exists($lookup($B, $))].{$lookup($MAP, $): $lookup($B, $)}]);
 $tx := $exists($B.transaction) ? $B.transaction : $string($r.""" + OC["tx"] + r""");
 $bud := $exists($B.budget) ? ($B.budget = '' ? {} : ($tx = 'Location' ? {'""" + OC["bl"] + r"""': $number($string($B.budget))} : {'""" + OC["ba"] + r"""': $number($string($B.budget))})) : {};
-$ech := $exists($B.echeance) ? {'""" + OC["echeance"] + r"""': $B.echeance = '' ? null : $iso($B.echeance)} : {};
+$E := $$.steps.norm.echeance; $ech := $exists($E) ? {'""" + OC["echeance"] + r"""': $E = '' ? null : $iso($E)} : {};
 $bk := $exists($B.broker) ? {'""" + OC["broker"] + r"""': $B.broker} : {};
 $v := $merge([$base, $bud, $ech, $bk]);
 {'values': $v, 'avant': $merge([$keys($v).{$: $lookup($r, $)}]), 'n': $count($keys($v))}
@@ -855,7 +865,7 @@ $v := $merge([$base, $bud, $ech, $bk]);
     journal("j", "client", "input.body.id", "Modification du dossier", "$join($keys(steps.v.values), ', ')",
             "{'avant': steps.v.avant, 'apres': steps.v.values}", RECETTE_OC),
     respond("done", 200, "{'items':[{'id': $number($string(input.body.id)), 'message':'Dossier mis à jour.'}]}"),
-], body=[b("id", "any", True), b("etape"), b("prochaineAction"), b("echeance"), b("detailAction"), b("priorite"), b("budget", "any"),
+], body=[b("id", "any", True), b("etape"), b("prochaineAction"), b("echeance"), b("echeanceDate"), b("echeanceHeure"), b("detailAction"), b("priorite"), b("budget", "any"),
          b("quartier"), b("typeBien"), b("transaction"), b("broker")],
     description="Liste fermée de champs ; réattribution réservée à l'admin ; journal limité aux champs modifiés."))
 
@@ -939,13 +949,13 @@ EP.append(endpoint("CRM21 — Nouvelle opportunité de bien", "POST", "/crm21/op
     description="Créée avec le broker appelant comme responsable ; gestionnaire « À confirmer »."))
 
 # W9. Suivi d'une opportunité de bien (verrouillé hors responsable)
-EP.append(endpoint("CRM21 — Suivi opportunité de bien", "PATCH", "/crm21/opportunites-biens", IDENT + [PER, OP] + [
+EP.append(endpoint("CRM21 — Suivi opportunité de bien", "PATCH", "/crm21/opportunites-biens", IDENT + [PER, OP, NORM] + [
     respond("gid", 400, "{'error':'Opportunité manquante.'}", "$not($contains($string(input.body.id), /^[1-9][0-9]{0,9}$/))"),
     respond("gres", 400, "{'error':'Résultat inconnu.'}",
             "$exists(input.body.resultat) and $not(input.body.resultat in ['À qualifier', 'Disponible pour affectation', 'En cours', 'Gagnée — commercialisation autorisée', 'Perdue'])"),
     respond("gpr", 400, "{'error':'Priorité inconnue.'}", "$exists(input.body.priorite) and $not(input.body.priorite in ['Urgente', 'Haute', 'Normale'])"),
     respond("gech", 400, "{'error':'Échéance invalide (AAAA-MM-JJTHH:MM).'}",
-            "$exists(input.body.echeance) and input.body.echeance != '' and $not($contains($string(input.body.echeance), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"),
+            "$exists(steps.norm.echeance) and steps.norm.echeance != '' and $not($contains($string(steps.norm.echeance), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"),
     respond("glen", 400, "{'error':'Texte trop long.'}", "$length($string(input.body.notes)) > 4000 or $length($string(input.body.prochaineAction)) > 300"),
     lr("ob", T["ob"], ["id", "libelle", OB["resp"], "crm_notes_suivi", "crm_prochaine_action", "crm_echeance", "crm_priorite", "resultat_commercial"],
        [flt("id", "eq", "{{ $string(input.body.id) }}")], limit=1),
@@ -960,7 +970,7 @@ $v := $merge([
   $exists($B.prochaineAction) ? {'crm_prochaine_action': $B.prochaineAction} : {},
   $exists($B.priorite) ? {'crm_priorite': $B.priorite} : {},
   $exists($B.resultat) ? {'resultat_commercial': $B.resultat} : {},
-  $exists($B.echeance) ? {'crm_echeance': $B.echeance = '' ? null : $iso($B.echeance)} : {},
+  $exists($$.steps.norm.echeance) ? {'crm_echeance': $$.steps.norm.echeance = '' ? null : $iso($$.steps.norm.echeance)} : {},
   $exists($B.notes) and $B.notes != '' ? {'crm_notes_suivi': $trim($s($r.crm_notes_suivi) & '\n[' & $substring($now(), 0, 10) & ' — ' & $$.steps.ident.nom & '] ' & $B.notes)} : {}
 ]);
 {'values': $v, 'n': $count($keys($v))}
@@ -970,7 +980,7 @@ $v := $merge([
     journal("j", "opportunite-bien", "input.body.id", "Suivi opportunité de bien", "$join($keys(steps.v.values), ', ')", "steps.v.values",
             "$contains($string(steps.ob.rows[0].libelle), '[RECETTE V21]')"),
     respond("done", 200, "{'items':[{'id': $number($string(input.body.id)), 'message':'Suivi mis à jour.'}]}"),
-], body=[b("id", "any", True), b("prochaineAction"), b("echeance"), b("priorite"), b("resultat"), b("notes")],
+], body=[b("id", "any", True), b("prochaineAction"), b("echeance"), b("echeanceDate"), b("echeanceHeure"), b("priorite"), b("resultat"), b("notes")],
     description="Modification réservée au responsable ou à l'admin ; toute tentative refusée est tracée dans le journal."))
 
 # W10. Activation contrôlée du bien lié

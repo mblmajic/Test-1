@@ -21,8 +21,20 @@
     {
      "name": "debut",
      "type": "string",
-     "required": true,
+     "required": false,
      "description": "heure locale AAAA-MM-JJTHH:MM"
+    },
+    {
+     "name": "date",
+     "type": "string",
+     "required": false,
+     "description": ""
+    },
+    {
+     "name": "heure",
+     "type": "string",
+     "required": false,
+     "description": ""
     },
     {
      "name": "dureeMin",
@@ -148,6 +160,14 @@
     }
    },
    {
+    "key": "norm",
+    "name": "Date et heure",
+    "type": "transform",
+    "config": {
+     "expression": "(\n{'debut': $exists(input.body.date) and input.body.date != '' ? input.body.date & 'T' & ($exists(input.body.heure) and input.body.heure != '' ? $substring(input.body.heure, 0, 5) : '09:00') : (input.body.debut ? $substring($string(input.body.debut), 0, 16) : ''), 'echeance': $exists(input.body.echeanceDate) ? (input.body.echeanceDate = '' ? '' : input.body.echeanceDate & 'T' & ($exists(input.body.echeanceHeure) and input.body.echeanceHeure != '' ? $substring(input.body.echeanceHeure, 0, 5) : '09:00')) : input.body.echeance}\n)"
+    }
+   },
+   {
     "key": "gdeb",
     "name": "gdeb",
     "type": "respond",
@@ -156,7 +176,7 @@
      "headers": [],
      "body": "{'error':'Date et heure obligatoires (AAAA-MM-JJTHH:MM).'}"
     },
-    "runIf": "$not($contains($string(input.body.debut), /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"
+    "runIf": "$not($contains(steps.norm.debut, /^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}$/))"
    },
    {
     "key": "gdur",
@@ -345,7 +365,7 @@
     "name": "Fuseau Africa/Casablanca",
     "type": "transform",
     "config": {
-     "expression": "(\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' ? $toMillis($x) : null) };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$d := $iso($$.input.body.debut); $dur := $s($$.input.body.dureeMin) != '' ? $number($string($$.input.body.dureeMin)) : 60;\n$finMs := $ms($d) + $dur * 60000; $fo := $off($finMs);\n{'debut': $d, 'debutMs': $ms($d), 'finMs': $finMs, 'fin': $fromMillis($finMs, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]', $fo = 0 ? '+0000' : '+0100') & ($fo = 0 ? '+00:00' : '+01:00')}\n)"
+     "expression": "(\n$s := function($v){ ($exists($v) and $type($v) != 'null') ? $string($v) : '' };\n$ms := function($iso){ ($x := $replace($s($iso), /\\.[0-9]+/, ''); $x != '' and $x != 'null' ? $toMillis($x) : null) };\n$isn := function($t){ $type($t) = 'number' };\n$per := $$.steps.per.rows;\n$off := function($t){ ($p := $per[$ms(debut_utc) <= $t and $t < $ms(fin_utc)][0]; $exists($p) ? $number($string($p.decalage_min)) : 60) };\n$iso := function($local){ $s($local) = '' ? null : ($g := $toMillis($local & ':00+01:00'); $off($g) = 0 ? $local & ':00+00:00' : $local & ':00+01:00') };\n\n$d := $iso($$.steps.norm.debut); $dur := $s($$.input.body.dureeMin) != '' ? $number($string($$.input.body.dureeMin)) : 60;\n$finMs := $ms($d) + $dur * 60000; $fo := $off($finMs);\n{'debut': $d, 'debutMs': $ms($d), 'finMs': $finMs, 'fin': $fromMillis($finMs, '[Y0001]-[M01]-[D01]T[H01]:[m01]:[s01]', $fo = 0 ? '+0000' : '+0100') & ($fo = 0 ? '+00:00' : '+01:00')}\n)"
     }
    },
    {
